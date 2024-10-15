@@ -17,7 +17,6 @@ function App() {
           <Route path='/access-admin/login' element={<AdminLogin />} />
           <Route path="/access-admin/payment-list" element={<AdminLayout> <PaymentList /> </AdminLayout>} />
           <Route path="/access-admin/user-list" element={<AdminLayout> <UserList />  </AdminLayout>} />
-          <Route path="/access-admin/book-list" element={<AdminLayout> <BookingList />  </AdminLayout>} />
         </Routes>
       </Router>
     </>
