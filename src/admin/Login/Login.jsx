@@ -2,7 +2,7 @@ import React from 'react'
 import loginbanner from "../../asstes/loginbanner.jpg"
 import logo from "../../asstes/logo.png"
 import { Link } from 'react-router-dom'
-import { IoEye } from "react-icons/io5";
+import { IoEye } from "react-icons/io5"
 
 export default function Login() {
   return (
