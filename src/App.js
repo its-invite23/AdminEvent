@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AdminLayout from "./admin/Layout/AdminLayout.jsx"
+import AdminLogin from "./admin/Login/Login.jsx"
+import Dashboard from "./admin/Dashboard/Index.jsx"
+import PaymentList from "./admin/PaymentList/PaymentList.jsx"
+import UserList from "./admin/UserList/userList.jsx"
+import BookingList from "./admin/Bookingmanagement/BookingList.jsx"
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/access-admin" element={<AdminLayout>   <Dashboard />          </AdminLayout>} />
+          <Route path='/access-admin/login' element={<AdminLogin />} />
+          <Route path="/access-admin/payment-list" element={<AdminLayout> <PaymentList /> </AdminLayout>} />
+          <Route path="/access-admin/user-list" element={<AdminLayout> <UserList />  </AdminLayout>} />
+          <Route path="/access-admin/book-list" element={<AdminLayout> <BookingList />  </AdminLayout>} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
