@@ -5,6 +5,8 @@ import logo from '../compontents/SideBar'
 import { FaUsers } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 import Header from '../compontents/Header';
+import Package from '../Dashboard/Package';
+// import Enquiry from '../Dashboard/Enquiry';
 export default function Index() {
   return (
     <div className='w-full max-w-[100%]'>
@@ -42,10 +44,17 @@ export default function Index() {
           </div>
         </div>
 
-        <div className='w-full flex '>
-          <div className='w-[66.66%] flex bg-[#1B1B1B] p-[25px] rounded-[20px] '>
+        <div className='w-full flex gap-[15px]'>
+          <div className='w-[66.35%] flex bg-[#1B1B1B] p-[25px] rounded-[20px] '>
             <Chart />
           </div>
+          <div className='w-[33%] flex bg-[#1B1B1B] p-[25px] rounded-[20px] '>
+            <Package />
+          </div>
+        </div>
+
+        <div className='w-full'>
+          <Enquiry/>
         </div>
       </div>
     </div>
