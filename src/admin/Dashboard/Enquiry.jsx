@@ -5,9 +5,10 @@ import { IoClose } from "react-icons/io5";
 
 function Enquiry() {
     return (
-        <div className="w-full  bg-[#1B1B1B] p-[20px] rounded-[20px] mt-[15px]">
-            <h2 className="font-manrope text-[600] text-white text-[24px] mb-[15px]">Recent  Inquiries</h2>
-            <table className="w-full ">
+        <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
+            <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">Recent  Inquiries</h2>
+            <div className="overflow-auto">
+            <table className="w-full table-auto whitespace-nowrap">
                 <thead className="mb-[15px]">
                     <tr>
                         <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name</th>
@@ -51,11 +52,8 @@ function Enquiry() {
                         </div>
                     </td>
                 </tr>
-
-                
-
-                
             </table>
+            </div>
 
         </div>
     );

@@ -6,13 +6,15 @@ import { IoEye } from "react-icons/io5"
 
 export default function Login() {
   return (
-    <div className='bg-black lg:h-screen h-full'>
-      <div className="flex flex-wrap flex-col-reverse lg:flex-row  max-w-[1200px] m-auto p-6 h-full">
-        <div className="lg:w-2/4 w-full">
-          <img className='rounded-md w-full' src={loginbanner} alt="Login Banner "/>
+    <div className='bg-black lg:h-screen min-h-full h-full md:h-screen'>
+      <div className="flex items-center gap-[20px] md:gap-[20px] lg:gap-[50px] xl:gap-[80px] flex-wrap sm:flex-nowrap  
+      flex-col-reverse md:flex-row justify-center  max-w-[1300px] m-auto p-6 h-full">
+        
+        <div className="w-full md:w-[50%] lg:w-[45%] xl:w-[49%] max-w-[100%] lg-max-w-[700px] h-full">
+          <img className='rounded-md w-full h-full object-cover' src={loginbanner} alt="Login Banner "/>
         </div>
 
-        <div className='lg:w-2/4 w-full pl-0 lg:pl-10 xl:pl-16 pr-0 lx:pr-2 py-10'>
+        <div className='flex-col justify-center content-center1  md:pt-[80px] items-center w-full md:w-[50%] lg:w-[45%] xl:w-[49%] max-w-[100%] lg:max-w-[500px] h-full'>
           <div className='logo'>
             <img src={logo} alt="logo" />
           </div>

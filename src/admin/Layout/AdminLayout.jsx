@@ -39,7 +39,7 @@ export default function AdminLayout({ children }) {
     return () => controller.abort();
   }, []);
   return (
-    <div className='flex bg-black min-h-screen h-full gap-[20px] p-[25px] pl-[330px]'>
+    <div className='flex bg-black min-h-screen h-full gap-[20px] p-[10px] md:p-[25px] pl-[10px] md:pl-[15px] xl:pl-[330px]'>
 
       <SideBar/>
       <div className='w-full max-w-[100%]'>
