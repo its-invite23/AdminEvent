@@ -19,7 +19,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
     return (
         <div>
             <div
-                className={`${isOpen ? "h-[800px]  w-![320px]" :"h-full  w-[100%]"} max-w-[286px] bg-[#1B1B1B] rounded-[20px] px-[15px] py-[20px] fixed z-[9] top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
+                className={`${isOpen ? "h-[800px] z-[1] w-![320px] bg-[#1B1B1B]" :"h-full  w-[100%]"} max-w-[286px] bg-[#1B1B1B] rounded-[20px] px-[15px] py-[20px] fixed z-[9] top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
                     } xl:left-[15px] transition-all duration-300`}
             >
                 <div className="flex justify-between items-start mb-[40px]">

@@ -13,7 +13,7 @@ export default function Header() {
   };
   return (
 
-    <div className='sticky top-0 mb-[20px] flex items-center justify-between gap-[5px] md:gap-[20px]  w-full bg-[#1B1B1B] p-[10px] md:p-[20px]  rounded-[10px] md:rounded-[15px]'>
+    <div className='sticky z-[1] top-0 mb-[20px] flex items-center justify-between gap-[5px] md:gap-[20px]  w-full bg-[#1B1B1B] p-[10px] md:p-[20px]  rounded-[10px] md:rounded-[15px]'>
       <div className='flex items-center w-full gap-[5px] md:gap-[20px]'>
         <button
           onClick={toggleSidebar}

@@ -18,7 +18,7 @@ function Chart() {
     ];
 
     return (
-        <div className="w-full  flex flex-col bg-!gray-800">
+        <div className="w-full  flex flex-col bg-!gray-800 z-[0] relative">
             <h2 className="font-manrope font-[600] text-white text-left text-[18px] md:text-[24px] mb-[15px]">Payment Statics</h2>
             <ResponsiveContainer width="100%" height={300} >
                 <BarChart data={data} >

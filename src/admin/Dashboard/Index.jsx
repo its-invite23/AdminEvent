@@ -44,7 +44,7 @@ export default function Index() {
           </div>
         </div>
 
-        <div className='w-full flex flex-wrap xl:flex-nowrap gap-[15px]'>
+        <div className='w-full flex flex-wrap xl:flex-nowrap gap-[15px] relative z-[0]'>
           <div className='w-[100%] lg:w-[65.38%] xl:w-[66%] flex bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[5px] md:rounded-[10px] lg:rounded-[20px] '>
             <Chart />
           </div>

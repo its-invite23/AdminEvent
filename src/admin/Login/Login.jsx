@@ -1,10 +1,18 @@
 import React from 'react'
 import loginbanner from "../../asstes/loginbanner.jpg"
 import logo from "../../asstes/logo.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoEye } from "react-icons/io5"
 
 export default function Login() {
+
+
+   const navigate = useNavigate(); 
+
+  const handleLogin = () => {
+    navigate("/access-admin"); 
+  };
+
   return (
     <div className='bg-black lg:h-screen min-h-full h-full md:h-screen'>
       <div className="flex items-center gap-[20px] md:gap-[20px] lg:gap-[50px] xl:gap-[80px] flex-wrap sm:flex-nowrap  
@@ -36,7 +44,7 @@ export default function Login() {
               </Link>
           </div>
           <div className='mb-5 text-center'>
-            <button className='bg-[#FF5482] hover:bg-[#F7517E] bg-rose-500 px-5 py-4 min-w-52 text-white text-base text-center rounded-md'>
+            <button  onClick={handleLogin} className='bg-[#FF5482] hover:bg-[#F7517E] bg-rose-500 px-5 py-4 min-w-52 text-white text-base text-center rounded-md'>
               Login
             </button>
           </div>
