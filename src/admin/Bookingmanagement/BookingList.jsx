@@ -11,60 +11,72 @@ export default function BookingList() {
             <tr>
               <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
 
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Booking Id</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Event Type</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Client Name</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">No.of Attendees</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Location</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Booking Status</th>
-              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Actions</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px] text-center">Booking Id</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px] text-center">Event Type</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] text-center">Client Name</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] text-center">No.of Attendees</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] text-center">Location</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] text-center">Booking Status</th>
+              <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] text-center">Actions</th>
             </tr>
           </thead>
           <tr>
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">1</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">1</td>
 
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">JK345</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Casual party</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Jhon Dev</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">10</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Paris, 75th distric</td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              Pending
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">JK345</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Casual party</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Jhon Dev</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">10</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Paris, 75th distric</td>
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+            <button className='min-w-[110px] m-auto border border-[#B8A955] bg-[#B8A9551A] font-[manrope] font-[600] text-[16] text-[#B8A955] text-center px-[15px] py-[6px] rounded-[60px]'>
+            Pending</button>
+              
             </td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              <BsThreeDots size={24} />
-            </td>
-          </tr>
-
-          <tr>
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">1</td>
-
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">JK345</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Casual party</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Jhon Dev</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">10</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Paris, 75th distric</td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              Pending
-            </td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              <BsThreeDots size={24} />
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+              <button className='text-center'>
+                <BsThreeDots size={24} />
+              </button>
             </td>
           </tr>
 
           <tr>
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">1</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">1</td>
 
-            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[5px]  ">JK345</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Casual party</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Jhon Dev</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">10</td>
-            <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">Paris, 75th distric</td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              Pending
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">JK345</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Casual party</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Jhon Dev</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">10</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Paris, 75th distric</td>
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+            <button className='min-w-[110px] m-auto border border-[#B8A955] bg-[#B8A9551A] font-[manrope] font-[600] text-[16] text-[#B8A955] text-center px-[15px] py-[6px] rounded-[60px]'>
+            Pending</button>
+              
             </td>
-            <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[5px]  ">
-              <BsThreeDots size={24} />
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+              <button className='text-center'>
+                <BsThreeDots size={24} />
+              </button>
+            </td>
+          </tr>
+
+          <tr>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">1</td>
+
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">JK345</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Casual party</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Jhon Dev</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">10</td>
+            <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Paris, 75th distric</td>
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+            <button className='min-w-[110px] m-auto border border-[#B8A955] bg-[#B8A9551A] font-[manrope] font-[600] text-[16] text-[#B8A955] text-center px-[15px] py-[6px] rounded-[60px]'>
+            Pending</button>
+              
+            </td>
+            <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+              <button className='text-center'>
+                <BsThreeDots size={24} />
+              </button>
             </td>
           </tr>
 
