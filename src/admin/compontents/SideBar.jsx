@@ -19,7 +19,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
     return (
         <div>
             <div
-                className={`${isOpen ? "h-[800px]  w-![320px]" :"h-full  w-[100%]"} max-w-[286px] bg-[#1B1B1B] rounded-[20px] px-[15px] py-[20px] fixed z-[9] top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
+                className={`${isOpen ? "  w-![340px]" :"h-full  w-[100%]"} h-full border-r border-r-[#ccc] xl:border-none border-r-[#ccc] max-w-[286px] bg-[#1B1B1B] rounded-[0px] lg:rounded-[0] xl:rounded-[20px] px-[15px] py-[20px] fixed z-100 top-[0px] lg:top-[0] xl:top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
                     } xl:left-[15px] transition-all duration-300`}
             >
                 <div className="flex justify-between items-start mb-[40px]">
@@ -32,7 +32,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     </button>
                 </div>
 
-                <div className="h-screen">
+                <div className="h-full">
                     <ul>
                         <li className="flex mb-[5px]">
                             <Link
@@ -71,7 +71,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                                 <i
                                     onClick={toggleSidebar}
                                     className={`pr-[10px] ${isActive("/access-admin/booking") ? "text-pink-500" : "text-white"}`} >
-                                    <FaListAlt />
+                                    <FaListAlt  />
                                 </i>
                                 Booking Management
                             </Link>
@@ -106,11 +106,9 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                         </li>
                     </ul>
                     <div className="absolute bottom-[40px] left-[35px]">
-                        <Link to="/" className="flex items-center text-[15px] text-white" onClick={toggleSidebar}>
-                            <i
-                                onClick={toggleSidebar}
-                                className="text-[#EB3465] pr-[8px]">
-                                <IoLogOutSharp size={20} />
+                        <Link to="/" className="flex items-center text-[18px] text-white" onClick={toggleSidebar}>
+                            <i onClick={toggleSidebar} className="text-[#EB3465] pr-[8px]">
+                                <IoLogOutSharp size={25} />
                             </i>
                             Log out
                         </Link>
