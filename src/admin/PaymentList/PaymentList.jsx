@@ -1,8 +1,11 @@
 import React from 'react'
 import { BsThreeDots } from 'react-icons/bs'
+import Header from '../compontents/Header'
 
 export default function PaymentList() {
   return (
+    <div className='w-full max-w-[100%]'>
+      <Header title={"All Payment"} />
     <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
       <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">All Payments</h2>
       <div className="overflow-auto">
@@ -72,7 +75,7 @@ export default function PaymentList() {
             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Card </td>
             <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
             <button className='min-w-[110px] m-auto border border-[#EB3465] bg-[#EB34651A] font-[manrope] font-[600] text-[16] text-[#EB3465] text-center px-[15px] py-[6px] rounded-[60px]'>
-            Cancle</button>
+            Cancel</button>
             </td>
             <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
               23- Oct-2024
@@ -87,6 +90,7 @@ export default function PaymentList() {
         </table>
       </div>
 
+    </div>
     </div>
   )
 }

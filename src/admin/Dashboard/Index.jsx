@@ -10,6 +10,8 @@ import Package from '../Dashboard/Package';
 export default function Index() {
   return (
     <div className='w-full max-w-[100%]'>
+      <Header title={"Dashboard"} />
+    <div className='w-full max-w-[100%]'>
       
       <div className='w-full'>
         <div className='w-full flex flex-wrap md:flex-nowrap gap-[15px] mb-[20px]'>
@@ -57,6 +59,7 @@ export default function Index() {
           <Enquiry/>
         </div>
       </div>
+    </div>
     </div>
 
   )

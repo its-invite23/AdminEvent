@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
 
-export default function Header() {
+export default function Header({title}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -21,7 +21,7 @@ export default function Header() {
     >
       <HiOutlineMenu size={32} />
     </button>
-    <h2 className='text-white font-manrope font-[500] md:text-[25px] lg:text-[25px] xl:text-[32px] pr-[70px] hidden md:block'>Dashboard</h2>
+    <h2 className='text-white font-manrope font-[500] md:text-[25px] lg:text-[25px] xl:text-[32px] pr-[70px] hidden md:block'>{title? title  :"Dashboard"}</h2>
     <div className='relative w-full max-w-[370px]'>
       <IoMdSearch className='absolute top-[15px] left-[15px] text-white' />
       <input className='w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[40px] rounded-[50px] text-white text-[15px]' type="text" placeholder='Search.....' />

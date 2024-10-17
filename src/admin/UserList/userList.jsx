@@ -1,9 +1,12 @@
 import React from 'react'
 import { FaAngleDown } from "react-icons/fa6";
 import { IoFilterSharp } from "react-icons/io5";
+import Header from '../compontents/Header';
 
 export default function userList() {
   return (
+    <div className='w-full max-w-[100%]'>
+      <Header title={"All Users"} />
     <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
       <div className='flex items-center justify-between mb-[20px]'>
         <h2 className=" font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">All Users</h2>
@@ -67,6 +70,7 @@ export default function userList() {
         </table>
       </div>
 
+    </div>
     </div>
   )
 }
