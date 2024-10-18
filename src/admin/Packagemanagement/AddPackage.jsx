@@ -32,27 +32,27 @@ export default function AddPackage() {
             <form>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Name</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter package name" required />
+                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter package name" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Minium  Price</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter package name" required />
+                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter package name" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Maximum  Price</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter package name" required />
+                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter package name" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Price</label>
-                <input type="number" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter price" required />
+                <input type="number" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter price" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Categries</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter price" required />
+                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter price" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Image</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Enter price" required />
+                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter price" required />
               </div>
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>
