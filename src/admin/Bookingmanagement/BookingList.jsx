@@ -1,8 +1,11 @@
 import React from 'react'
 import { BsThreeDots } from "react-icons/bs";
+import Header from '../compontents/Header';
 
 export default function BookingList() {
   return (
+    <div className='w-full max-w-[100%]'>
+      <Header title={"All Booking"} />
     <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
       <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">All Bookings</h2>
       <div className="overflow-auto">
@@ -83,6 +86,7 @@ export default function BookingList() {
         </table>
       </div>
 
+    </div>
     </div>
   )
 }
