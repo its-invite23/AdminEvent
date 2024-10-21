@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsThreeDots } from 'react-icons/bs'
 import AddPackage from './AddPackage';
 import Header from '../compontents/Header';
+import Listing from '../../Api/Listing';
 
 export default function PackageList() {
+  const [listing, setLisitng] = useState("");
+  const [Loading, setLoading] = useState(false);
+  const users = () => {
+    setLoading(true);
+    const main = new Listing();
+    main
+      .packageGet()
+      .then((r) => {
+        setLoading(false);
+        setLisitng(r?.data?.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setLisitng([]);
+        console.log("error", err);
+      });
+  };
+
+  useEffect(() => {
+    users();
+  }, []);
+  console.log("listing",listing);
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"All Packages"} />

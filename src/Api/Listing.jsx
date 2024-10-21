@@ -9,9 +9,18 @@ class Listing extends Component {
     return Api.post("/user/login", data);
   }
 
-  async profile() {
-    return Api.get("/user/profile", );
+  async profile(page,limit) {
+    return Api.get(`/user/profile?page=${page}&limit=${limit}`);
   }
+  
+  async profileVerify() {
+    return Api.get(`/user//profile-token`);
+  }
+
+  async packageGet() {
+    return Api.get(`/package/package-get`);
+  }
+  
   render() {
     return (
       <div>
