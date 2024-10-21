@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 import { IoCloseSharp } from "react-icons/io5";
 
 export default function AddPackage() {
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -13,8 +13,8 @@ export default function AddPackage() {
     <div className="flex flex-col">
       <div className='flex items-center justify-between mb-[20px]'>
         <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">All Packages</h2>
-        <button 
-          onClick={toggleModal} 
+        <button
+          onClick={toggleModal}
           className='flex items-center gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'
         >
           <FaPlus /> Add Package
@@ -26,9 +26,9 @@ export default function AddPackage() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-[#1B1B1B] rounded-lg p-6 w-11/12 md:w-1/3">
             <div className='flex  flex-wrap justify-between'>
-            <h3 className="text-lg font-semibold mb-4 text-white">Add New Package</h3>
-              <IoCloseSharp size={24} className='cursor-pointer text-white'  onClick={toggleModal}/>
-              </div>
+              <h3 className="text-lg font-semibold mb-4 text-white">Add New Package</h3>
+              <IoCloseSharp size={24} className='cursor-pointer text-white' onClick={toggleModal} />
+            </div>
             <form>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Package Name</label>
