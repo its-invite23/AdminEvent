@@ -3,29 +3,32 @@ import toast from 'react-hot-toast';
 import Listing from '../../Api/Listing';
 import Header from "../compontents/Header"
 import SideBar from '../compontents/SideBar';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function AdminLayout({ children }) {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); 
   const [content, setContent] = useState([]);
-  const fetchData = () => {
-    const main = new Listing();
-    const response = main.profile();
-    response
-      .then((res) => {
-        if (res.data) {
-          setContent(res.data.data);
-        } else {
-        }
-      }).catch((error) => {
-        localStorage && localStorage.removeItem("token");
-        toast.error("Please log in first.");
-      });
-  }
 
-  useEffect(() => {
-    fetchData()
-  }, []);
+  const fetchData = async (signal) => {
+      setLoading(true);
+      try {
+          const main = new Listing(); 
+          const response = await main.profileVerify({ signal }); 
+          if (response.data) {
+              setContent(response.data.data);
+          }
+      } catch (error) {
+          localStorage && localStorage.removeItem("token");
+          toast.error("Please log in first.");
+          navigate("/");
+          
+      } finally {
+          setLoading(false);
+      }
+  }
 
 
   useEffect(() => {
