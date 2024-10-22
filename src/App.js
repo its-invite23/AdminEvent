@@ -19,7 +19,7 @@ function App() {
           <Route path="/access-admin" element={<AdminLayout>   <Dashboard />          </AdminLayout>} />
           <Route path='/' element={<AdminLogin />} />
           <Route path="/access-admin/payment" element={<AdminLayout> <PaymentList /> </AdminLayout>} />
-          <Route path="/access-admin/user" element={<UserList /> } />
+          <Route path="/access-admin/user" element={<AdminLayout><UserList /> </AdminLayout> } />
           <Route path="/access-admin/booking" element={<AdminLayout> <BookingList />  </AdminLayout>} />
           <Route path="/access-admin/package" element={<AdminLayout>   <PackageList />          </AdminLayout>} />
 
