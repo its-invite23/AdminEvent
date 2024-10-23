@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaAngleDown } from "react-icons/fa6";
 import Header from "../compontents/Header";
 import Filter from "./Filter";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
+import Delete from "../compontents/Delete";
 
 export default function UserList() {
   const [listing, setLisitng] = useState("");
@@ -33,12 +33,12 @@ export default function UserList() {
   const handleActiveStatues = (Id, status) => {
     setLoading(true);
     const main = new Listing();
-    const response = main.userupdatedstatus({ _id:  Id, user_status :status });
+    const response = main.userupdatedstatus({ _id: Id, user_status: status });
     response
       .then((res) => {
         if (res && res?.data?.status) {
           toast.success(res.data.message);
-        users(page);
+          users(page);
 
         } else {
           toast.error(res.data?.message || "Something went wrong.");
@@ -79,6 +79,9 @@ export default function UserList() {
                   Contact
                 </th>
                 <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                  Delete
+                </th>
+                <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                   Action
                 </th>
               </tr>
@@ -106,6 +109,9 @@ export default function UserList() {
                   </td>
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                     {item?.phone_number}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                    <Delete Id={item?._id} step={2} users={users} />
                   </td>
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                     <button

@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 import Listing from '../../Api/Listing';
 import toast from 'react-hot-toast';
 
-export default function Delete({ step, Id, PackageGet }) {
+export default function Delete({ step, Id, PackageGet, users }) {
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const toggleModal = () => {
@@ -27,7 +27,7 @@ export default function Delete({ step, Id, PackageGet }) {
             })
             .catch((error) => {
                 console.log("error", error);
-                toast.error(error?.response?.data?.message );
+                toast.error(error?.response?.data?.message);
                 setLoading(false);
             });
     };
@@ -44,12 +44,12 @@ export default function Delete({ step, Id, PackageGet }) {
                     toast.error(res.data?.message || "Something went wrong.");
                 }
                 setLoading(false);
-                PackageGet();
+                users();
                 toggleModal();
             })
             .catch((error) => {
                 console.log("error", error);
-                toast.error(error?.response?.data?.message );
+                toast.error(error?.response?.data?.message);
                 setLoading(false);
             });
     };
@@ -57,8 +57,8 @@ export default function Delete({ step, Id, PackageGet }) {
         e.preventDefault();
         if (step === 1) {
             handlePackageDelete(e);
-        }else if(step===2 ){
-handleUserDelete(e)
+        } else if (step === 2) {
+            handleUserDelete(e)
         } else {
             console.warn('Invalid step');
         }
