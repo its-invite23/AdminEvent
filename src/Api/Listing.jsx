@@ -13,6 +13,10 @@ class Listing extends Component {
     return Api.post("/user/delete", data);
   }
 
+  async Dashboard() {
+    return Api.get("/user/all");
+  }
+
   async userupdatedstatus(data) {
     return Api.post("/user/updated_status", data);
   }

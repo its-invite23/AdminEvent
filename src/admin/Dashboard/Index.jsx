@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Enquiry from './Enquiry'
 import Chart from './Chart'
 import logo from '../compontents/SideBar'
@@ -6,8 +6,31 @@ import { FaUsers } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 import Header from '../compontents/Header';
 import Package from '../Dashboard/Package';
+import Listing from '../../Api/Listing';
 // import Enquiry from '../Dashboard/Enquiry';
 export default function Index() {
+
+  const [listing, setLisitng] = useState("");
+  const [Loading, setLoading] = useState(false);
+  const users = () => {
+    setLoading(true);
+    const main = new Listing();
+    main
+      .Dashboard()
+      .then((r) => {
+        setLoading(false);
+        setLisitng(r?.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setLisitng([]);
+        console.log("error", err);
+      });
+  };
+
+  useEffect(() => {
+    users();
+  }, []);
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"Dashboard"} />
@@ -21,7 +44,7 @@ export default function Index() {
             </div>
             <div className='pl-[2px] lg:pl-[10px] xl:pl-[15px]'>
               <h3 className='font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px] '>Total Users</h3>
-              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>357</h2>
+              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.userCount}</h2>
             </div>
           </div>
 
@@ -31,7 +54,7 @@ export default function Index() {
             </div>
             <div className='pl-[2px] lg:pl-[10px] xl:pl-[15px]'>
               <h3 className='font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px]  '>Total booking</h3>
-              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>879</h2>
+              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.bookingCount}</h2>
             </div>
           </div>
 
@@ -41,7 +64,7 @@ export default function Index() {
             </div>
             <div className='pl-[2px] lg:pl-[10px] xl:pl-[15px]'>
               <h3 className='font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px]  '>Recent inquiries</h3>
-              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>456</h2>
+              <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.EnquiryCount              }</h2>
             </div>
           </div>
         </div>
@@ -51,7 +74,8 @@ export default function Index() {
             <Chart />
           </div>
           <div className='w-[100%] lg:w-[33%] xl:w-[33%] flex bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[5px] md:rounded-[10px] lg:rounded-[20px] '>
-            <Package />
+            <Package packages= {listing?.packages
+} />
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../asstes/logo.png"; // Ensure the path is correct
 import { MdDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -6,10 +6,7 @@ import { MdPayment } from "react-icons/md";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { FaListAlt } from "react-icons/fa";
 import { IoCloseSharp, IoLogOutSharp } from "react-icons/io5";
-import { IoAddCircleSharp } from "react-icons/io5";
-import { MdEdit } from "react-icons/md";
 function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
-    const { Id } = useParams();
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
 
@@ -91,35 +88,6 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                                 </i>
                                 Payment Management
                             </Link>
-                        </li>
-
-                        <li className="flex mb-[5px]">
-                            {Id ? (
-                                <Link
-                                    to={`/access-admin/access-package-edit/${Id}`}
-                                    className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive(`/access-admin/access-package-edit/${Id}`) ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
-                                >
-                                    <i
-                                        onClick={toggleSidebar}
-                                        className={`pr-[10px] ${isActive(`/access-admin/access-package-edit/${Id}`) ? "text-pink-500" : "text-white"}`}>
-                                        <MdEdit />
-                                    </i>
-                                    Edit Package
-                                </Link>
-                            ) : (
-                                <Link
-                                    to="/access-admin/package-add"
-                                    className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package-add") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
-                                >
-                                    <i
-                                        onClick={toggleSidebar}
-                                        className={`pr-[10px] ${isActive("/access-admin/package-add") ? "text-pink-500" : "text-white"}`}>
-                                        <IoAddCircleSharp />
-                                    </i>
-                                    Add Package
-                                </Link>
-                            )}
-
                         </li>
                         <li className="flex mb-[5px]">
                             <Link

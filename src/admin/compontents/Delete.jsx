@@ -66,15 +66,12 @@ export default function Delete({ step, Id, PackageGet, users }) {
 
     return (
         <div className="flex flex-col">
-            <div className='flex items-center justify-between mb-[20px]'>
                 <button
                     onClick={toggleModal}
-                    className='flex items-center gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'
+                    className=' gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'
                 >
                     <MdDelete size={24} className='text-red-600 hover:text-red-700' />
                 </button>
-            </div>
-
             {/* Modal */}
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

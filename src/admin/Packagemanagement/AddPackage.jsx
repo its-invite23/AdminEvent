@@ -26,7 +26,6 @@ export default function AddPackage() {
     const main = new Listing();
     try {
       const response = await main.packageGetId({ Id });
-      console.log(response?.data?.data)
       if (response && response.data) {
         setFormData({
           package_name: response?.data?.data.package_name || "",

@@ -135,11 +135,6 @@ export default function UserList() {
                   </tr>
                 ))
               )}
-              {
-
-
-
-              }
             </table>
           </div>
         )}
