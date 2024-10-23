@@ -112,7 +112,7 @@ export default function Login() {
                 type="submit"
                 className="bg-[#FF5482] hover:bg-[#F7517E] bg-rose-500 px-5 py-4 min-w-52 text-white text-base text-center rounded-md"
               >
-                Login
+                {loading ? "Loading..." :"Login"}
               </button>
             </div>
           </form>

@@ -3,6 +3,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import Header from "../compontents/Header";
 import Filter from "./Filter";
 import Listing from "../../Api/Listing";
+import toast from "react-hot-toast";
 
 export default function UserList() {
   const [listing, setLisitng] = useState("");
@@ -28,6 +29,28 @@ export default function UserList() {
   useEffect(() => {
     users(page);
   }, []);
+
+  const handleActiveStatues = (Id, status) => {
+    setLoading(true);
+    const main = new Listing();
+    const response = main.userupdatedstatus({ _id:  Id, user_status :status });
+    response
+      .then((res) => {
+        if (res && res?.data?.status) {
+          toast.success(res.data.message);
+        users(page);
+
+        } else {
+          toast.error(res.data?.message || "Something went wrong.");
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || "An error occurred.");
+        setLoading(false);
+      });
+  };
   return (
     <div className="w-full max-w-[100%]">
       <Header title={"All Users"} />
@@ -85,17 +108,15 @@ export default function UserList() {
                     {item?.phone_number}
                   </td>
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                    {item?.user_status=="active"?
-                    <button className="min-w-[120px] m-auto flex gap-2 items-center justify-between border border-[#ffffff33] text-[#4CAF50] px-[15px] py-[6px] rounded-[60px]">
-                      Active
-                      <FaAngleDown size={10} className="text-[#4CAF50]" />
+                    <button
+                      onClick={() => handleActiveStatues(item?._id, item?.user_status)} // Updated to use arrow function
+                      className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
+                                                       ${item?.user_status === 'active'
+                          ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
+                          : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
+                    >
+                      {item?.user_status}
                     </button>
-                    :
-                    <button className="min-w-[120px] m-auto flex items-center justify-between border border-[#ffffff33] text-[#D95858] px-[15px] py-[6px] rounded-[60px]">
-                      Deactive
-                      <FaAngleDown size={10} className="text-[#D95858]" />
-                    </button>
-                    }
                   </td>
                 </tr>
               ))}

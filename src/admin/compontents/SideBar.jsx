@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import logo from "../../asstes/logo.png"; // Ensure the path is correct
 import { MdDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -6,20 +6,22 @@ import { MdPayment } from "react-icons/md";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { FaListAlt } from "react-icons/fa";
 import { IoCloseSharp, IoLogOutSharp } from "react-icons/io5";
-
+import { IoAddCircleSharp } from "react-icons/io5";
+import { MdEdit } from "react-icons/md";
 function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
-    const location = useLocation(); 
+    const { Id } = useParams();
+    const location = useLocation();
     const isActive = (path) => location.pathname === path;
 
     const handleLinkClick = () => {
         if (isOpen) {
-            setIsOpen(false); 
+            setIsOpen(false);
         }
     };
     return (
         <div>
             <div
-                className={`${isOpen ? "  w-![340px] z-[1]" :"h-full  w-[100%]"} h-full border-r border-r-[#ccc] xl:border-none border-r-[#ccc] max-w-[286px] bg-[#1B1B1B] rounded-[0px] lg:rounded-[0] xl:rounded-[20px] px-[15px] py-[20px] fixed z-100 top-[0px] lg:top-[0] xl:top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
+                className={`${isOpen ? "  w-![340px] z-[1]" : "h-full  w-[100%]"} h-full border-r border-r-[#ccc] xl:border-none border-r-[#ccc] max-w-[286px] bg-[#1B1B1B] rounded-[0px] lg:rounded-[0] xl:rounded-[20px] px-[15px] py-[20px] fixed z-100 top-[0px] lg:top-[0] xl:top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
                     } xl:left-[15px] transition-all duration-300`}
             >
                 <div className="flex justify-between items-start mb-[40px]">
@@ -71,7 +73,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                                 <i
                                     onClick={toggleSidebar}
                                     className={`pr-[10px] ${isActive("/access-admin/booking") ? "text-pink-500" : "text-white"}`} >
-                                    <FaListAlt  />
+                                    <FaListAlt />
                                 </i>
                                 Booking Management
                             </Link>
@@ -91,6 +93,34 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                             </Link>
                         </li>
 
+                        <li className="flex mb-[5px]">
+                            {Id ? (
+                                <Link
+                                    to={`/access-admin/access-package-edit/${Id}`}
+                                    className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive(`/access-admin/access-package-edit/${Id}`) ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                                >
+                                    <i
+                                        onClick={toggleSidebar}
+                                        className={`pr-[10px] ${isActive(`/access-admin/access-package-edit/${Id}`) ? "text-pink-500" : "text-white"}`}>
+                                        <MdEdit />
+                                    </i>
+                                    Edit Package
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/access-admin/package-add"
+                                    className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package-add") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                                >
+                                    <i
+                                        onClick={toggleSidebar}
+                                        className={`pr-[10px] ${isActive("/access-admin/package-add") ? "text-pink-500" : "text-white"}`}>
+                                        <IoAddCircleSharp />
+                                    </i>
+                                    Add Package
+                                </Link>
+                            )}
+
+                        </li>
                         <li className="flex mb-[5px]">
                             <Link
                                 to="/access-admin/package"
