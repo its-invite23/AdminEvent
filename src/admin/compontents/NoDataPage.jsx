@@ -2,7 +2,7 @@ import React from 'react';
 
 const NoDataPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className=" h-full bg-black">
       <img 
         src="/path-to-your-image/no-data.png" 
         alt="No Data" 
