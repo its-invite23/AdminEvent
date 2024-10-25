@@ -221,7 +221,7 @@ export default function AddPackage() {
             />
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-center">
             <button
               type="submit"
               disabled={loading}

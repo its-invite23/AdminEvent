@@ -1,25 +1,30 @@
 import React from 'react';
+import Nodata from '../../asstes/nodata1.jpg'
 
 const NoDataPage = () => {
   return (
-    <div className=" h-full bg-black">
+    <div className=" h-full ">
+      <div className='mt-[40px] mb-[40px] md:mt-[20px] md:mb-[20px] p-[20px] flex items-center justify-center'>
       <img 
-        src="/path-to-your-image/no-data.png" 
+        src={Nodata} 
         alt="No Data" 
-        className="w-48 h-48 mb-4"
+        className="max-w-[235px] md:max-w-[335px] rounded-[20px]"
       />
-      <h1 className="text-2xl font-semibold text-gray-700 mb-2">
+      </div>
+      <h1 className=" font-[700] text-[30px] leading-[40px] sm:text-[30px] sm:leading-[30px] md:text-[50px] md:leading-[50px] lg:text-[60px] lg:leading-[60px] xl:text-[80px] xl:leading-[80px] text-center text-white mb-[15px]">
         No Data Available
       </h1>
-      <p className="text-gray-500 text-lg">
+      <p className="font-[600] text-[20px] leading-[25px] md:text-[30px] md:leading-[35px] text-center text-white mb-2">
         Sorry, there is nothing to display at the moment.
       </p>
+      <div className='flex items-center justify-center my-[40px]'>
       <button
         onClick={() => window.location.reload()} 
-        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="bg-[#EB3465] px-[30px] py-[15px] rounded-[60px] text-[15px] text-white"
       >
         Back To Pervious Page
       </button>
+      </div>
     </div>
   );
 };
