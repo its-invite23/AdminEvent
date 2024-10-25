@@ -48,14 +48,20 @@ class Listing extends Component {
     return Api.post(`/package/package-delete`, data);
   }
   
-  async contactGet() {
-    return Api.get(`/contact/contact-get`);
-  }
+  
  
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
   }
   
+
+  async contactGet() {
+    return Api.get(`/contact/contact-get`);
+  }
+
+  async contactreply(data) {
+    return Api.post(`/contact/contact-reply`, data);
+  }
   
   render() {
     return (

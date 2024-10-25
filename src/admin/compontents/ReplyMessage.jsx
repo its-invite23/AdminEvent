@@ -32,7 +32,7 @@ export default function ReplyMessage({item}) {
       e.preventDefault();
       setLoading(true);
       const main = new Listing();
-      const response = main.userfilter(formData );
+      const response = main.contactreply(formData );
       response.then((res) => {
         console.log("res",res)
           if (res && res?.data && res?.data?.status) {
