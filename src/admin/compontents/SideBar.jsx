@@ -6,6 +6,9 @@ import { MdPayment } from "react-icons/md";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { FaListAlt } from "react-icons/fa";
 import { IoCloseSharp, IoLogOutSharp } from "react-icons/io5";
+import { MdEvent } from "react-icons/md";
+import { MdContacts } from "react-icons/md";
+
 function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
@@ -99,6 +102,34 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                                     <FaRegEnvelope />
                                 </i>
                                 Package Management
+                            </Link>
+                        </li>
+
+                        <li className="flex mb-[5px]">
+                            <Link
+                                to="/access-admin/package"
+                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            >
+                                <i
+                                    onClick={toggleSidebar}
+                                    className={`pr-[10px] ${isActive("/access-admin/package") ? "text-pink-500" : "text-white"}`}>
+                                    <MdEvent />
+                                </i>
+                                Event Enquiry
+                            </Link>
+                        </li>
+
+                        <li className="flex mb-[5px]">
+                            <Link
+                                to="/access-admin/package"
+                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            >
+                                <i
+                                    onClick={toggleSidebar}
+                                    className={`pr-[10px] ${isActive("/access-admin/package") ? "text-pink-500" : "text-white"}`}>
+                                    <MdEvent />
+                                </i>
+                                Event Enquiry
                             </Link>
                         </li>
                     </ul>
