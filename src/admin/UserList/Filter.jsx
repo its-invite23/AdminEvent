@@ -20,20 +20,20 @@ export default function Filter() {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#1B1B1B] rounded-lg p-6 w-11/12 md:w-1/3">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
+          <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">
             <div className='flex flex-wrap justify-between'>
-              <h3 className="text-lg font-semibold mb-4 text-white">Filter</h3>
-              <IoCloseSharp size={24} className='cursor-pointer text-white' onClick={toggleModal} />
+              <h3 className="text-[30px] font-semibold mb-4 text-white">Filter</h3>
+              <IoCloseSharp size={30} className='cursor-pointer text-white absolute top-[32px] right-[15px]' onClick={toggleModal} />
             </div>
             <form>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-white">Name</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter user name" required />
+                <label className="block w-full font-manrope font-[400] text-white text-[18px] mb-[10px]">Name</label>
+                <input type="text" className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter user name" required />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-white">Status</label>
-                <select className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-white bg-[#1B1B1B]" required>
+                <label className="block w-full font-manrope font-[400] text-white text-[18px] mb-[10px]">Status</label>
+                <select className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" required>
                   <option value="" disabled selected>Select status</option>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
