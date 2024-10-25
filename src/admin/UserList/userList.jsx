@@ -64,7 +64,7 @@ export default function UserList() {
         ) : (
 
           <div className="overflow-auto">
-            {listing?.length === 0 ? (
+            {listing?.length !== 0 ? (
                 <NoDataPage />
               ) : (
             <table className="w-full table-auto whitespace-nowrap">

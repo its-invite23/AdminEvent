@@ -25,11 +25,11 @@ function Enquiry({EnquiryData}) {
                 {EnquiryData?.map((item,index)=>(
                 <tr key={index}>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{item?.name}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.email}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{moment(item?.created_at).format('MMMM Do, YYYY')}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.attendees}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.event_type}</td>
-                    <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
+                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.email}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{moment(item?.created_at).format('MMMM Do, YYYY')}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.attendees}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">{item?.event_type}</td>
+                    <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
                         <div className="flex items-center justify-center w-full gap-[10px]">
                             <Link to={"#"} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]"><FaCheck className="text-[#4CAF50] text-[15px]" /></Link>
 
@@ -41,22 +41,6 @@ function Enquiry({EnquiryData}) {
                 </tr>
                 ))}
 
-                <tr>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">John Doe</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">John@example.com</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">5 Oct 2024</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">10</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">Casual party</td>
-                    <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
-                        <div className="flex items-center justify-center w-full gap-[10px]">
-                            <Link to={"/"} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]"><FaCheck className="text-[#4CAF50] text-[15px]" /></Link>
-
-                            <Link to={"/"} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
-                                <IoClose className="text-[#D95858] text-[20px]" />
-                            </Link>
-                        </div>
-                    </td>
-                </tr>
             </table>
             </div>
 
