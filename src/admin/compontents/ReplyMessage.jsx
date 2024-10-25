@@ -15,7 +15,7 @@ export default function ReplyMessage({item}) {
   
   
     const [formData, setFormData] = useState({
-       Id:item?._id,
+       _id:item?._id,
        reply_message: "",
     });
     const [loading, setLoading] = useState(false);

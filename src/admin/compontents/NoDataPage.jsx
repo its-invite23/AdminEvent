@@ -1,7 +1,9 @@
 import React from 'react';
 import Nodata from '../../asstes/nodata1.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const NoDataPage = () => {
+  const navigate = useNavigate();
   return (
     <div className=" h-full ">
       <div className='mt-[40px] mb-[40px] md:mt-[20px] md:mb-[20px] p-[20px] flex items-center justify-center'>
@@ -19,7 +21,7 @@ const NoDataPage = () => {
       </p>
       <div className='flex items-center justify-center my-[40px]'>
       <button
-        onClick={() => window.location.reload()} 
+        onClick={() => navigate(-1)} 
         className="bg-[#EB3465] px-[30px] py-[15px] rounded-[60px] text-[15px] text-white"
       >
         Back To Pervious Page

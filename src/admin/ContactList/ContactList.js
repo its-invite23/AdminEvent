@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
-import Delete from "../compontents/Delete";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
-import moment from "moment";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
-import { IoAddSharp } from "react-icons/io5";
 import ReplyMessage from "../compontents/ReplyMessage";
 
 export default function ContactList() {
