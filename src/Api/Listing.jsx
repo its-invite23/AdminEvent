@@ -51,6 +51,10 @@ class Listing extends Component {
   async contactGet() {
     return Api.get(`/contact/contact-get`);
   }
+
+  async enquiryGet() {
+    return Api.get(`enquiry/enquiry-get`);
+  }
  
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
