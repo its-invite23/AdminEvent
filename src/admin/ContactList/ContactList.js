@@ -37,7 +37,7 @@ export default function ContactList() {
 
   return (
     <div className="w-full max-w-[100%]">
-      <Header title={"All package"} />
+      <Header title={"Contact Us"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-col">
           <div className="flex items-center justify-between mb-[20px]">
@@ -74,7 +74,7 @@ export default function ContactList() {
                 </tr>
               </thead>
               <tbody>
-                {listing?.packagegetdata?.length < 0 ? (
+                {listing?.length < 0 ? (
                   <NoDataPage />
                 ) : (
                   listing &&

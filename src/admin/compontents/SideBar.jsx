@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../asstes/logo.png"; // Ensure the path is correct
 import { MdDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -12,11 +12,15 @@ import { MdContacts } from "react-icons/md";
 function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
-
     const handleLinkClick = () => {
         if (isOpen) {
             setIsOpen(false);
         }
+    };
+    const navigate = useNavigate();
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      navigate('/');
     };
     return (
             <div
@@ -121,20 +125,20 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
 
                         <li className="flex mb-[5px]">
                             <Link
-                                to="/access-admin/package"
-                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                                to="/access-admin/contact"
+                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/contact") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                             >
                                 <i
                                     onClick={toggleSidebar}
-                                    className={`pr-[10px] ${isActive("/access-admin/package") ? "text-pink-500" : "text-white"}`}>
-                                    <MdEvent />
+                                    className={`pr-[10px] ${isActive("/access-admin/contact") ? "text-pink-500" : "text-white"}`}>
+                                    <MdContacts />
                                 </i>
-                                Event Enquiry
+                                Contact Enquiry
                             </Link>
                         </li>
                     </ul>
                     <div className="absolute bottom-[40px] left-[35px]">
-                        <Link to="/" className="flex items-center text-[18px] text-white" onClick={toggleSidebar}>
+                        <Link to="/" className="flex items-center text-[18px] text-white" onClick={handleLogout}>
                             <i onClick={toggleSidebar} className="text-[#EB3465] pr-[8px]">
                                 <IoLogOutSharp size={25} />
                             </i>
