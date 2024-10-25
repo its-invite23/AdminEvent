@@ -16,10 +16,9 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
         }
     };
     return (
-        <div>
             <div
-                className={`${isOpen ? "  w-![340px] z-[1]" : "h-full  w-[100%]"} h-full border-r border-r-[#ccc] xl:border-none border-r-[#ccc] max-w-[286px] bg-[#1B1B1B] rounded-[0px] lg:rounded-[0] xl:rounded-[20px] px-[15px] py-[20px] fixed z-100 top-[0px] lg:top-[0] xl:top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
-                    } xl:left-[15px] transition-all duration-300`}
+                className={`${isOpen ? "  w-![340px]  left-0 " : "h-full  w-[100%] -left-[500px]"} h-full border-r border-r-[#cccccc2e] xl:border-none border-r-[#ccc] max-w-[286px] bg-[#1B1B1B] rounded-[0px] lg:rounded-[0] xl:rounded-[20px] px-[15px] py-[20px] fixed z-100 top-[0px] lg:top-[0] xl:top-[15px] ${isOpen ? "left-[0px]" : "left-[-100%]"
+                    } z-[9] xl:left-[15px] transition-all duration-300`}
             >
                 <div className="flex justify-between items-start mb-[40px]">
                     <div className=" ">
@@ -113,7 +112,6 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

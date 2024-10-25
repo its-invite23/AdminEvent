@@ -22,12 +22,13 @@ function Package({ packages }) {
                                 <MdCake className="text-[#EB3465] text-[25px]" />
                             </div>
                             <div className="flex flex-col">
-                            <h2 className="font-manrope text-white text-[18px] leading-[18px] md:text-[18px] md:leading-[18px] lg:text-[20px] lg:leading-[20px] xl:text-[22px] xl:leading-[22px]">
+                            <h2 className="max-w-[180px] md:max-w-[80%] lg:max-w-[70%] xl:max-w-[80%]  whitespace-nowrap  text-ellipsis overflow-hidden font-manrope text-white text-[18px] leading-[18px] md:text-[18px] md:leading-[18px] lg:text-[18px] lg:leading-[20px] xl:text-[18px] xl:leading-[28px] ">
       {truncateText(item?.package_name, 10)}
     </h2>
+    <div className="flex items-center">
                                 {item?.package_categories?.map((category, index) => (
                                     <span className="flex items-center  font-manrope text-[#ffffff59] text-[600] uppercase text-[11px] leading-[22px] mr-[8px]">{category} ,</span>
-                                ))}
+                                ))}</div>
                             </div>
                         </div>
 

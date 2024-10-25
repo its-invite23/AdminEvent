@@ -58,11 +58,11 @@ export default function PackageList() {
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-col">
           <div className='flex items-center justify-between mb-[20px]'>
-            <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">All Packages</h2>
+            <h2 className="font-manrope font-[600] text-white text-[16px] md:text-[17px] lg:text-[24px] mb-[0]">All Packages</h2>
 
             <Link
               to="/access-admin/package-add"
-              className='flex items-center gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'
+              className='flex items-center gap-[10px] px-[10px] md:px-[15px] lg:px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[16px] lg:text-[18px]'
             >
               <IoAddSharp size={24} className='text-red-600 hover:text-red-700' />
               Add Package
@@ -80,7 +80,7 @@ export default function PackageList() {
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Id</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Name</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Event Type</th>
+                  <th className="w-[250px] min-w-[250px] border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Event Type</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Attendees</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Budget Range</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Status</th>
@@ -97,21 +97,21 @@ export default function PackageList() {
                   listing?.packagegetdata &&
                   listing?.packagegetdata.map((item, index) => (
                     <tr key={index}>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
-                      <td className="capitalize font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        <ul className='flex '>
+                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
+                      <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        <ul className='flex justify-center flex-wrap gap-[5px]'>
                           {item?.package_categories?.map((category, index) => (
-                            <li key={index} className='mr-4 text-white text-lg'>
+                            <li key={index} className=' text-white text-lg'>
                               {category},
                             </li>
                           ))}
                         </ul>
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
-                      <td className="capitalize font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
+                      <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         <button
                           onClick={() => handleActiveStatues(item?._id, item?.package_status, item?.package_availability)} // Updated to use arrow function
                           className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
@@ -122,17 +122,17 @@ export default function PackageList() {
                           {item?.package_status}
                         </button>
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('MMMM Do, YYYY')}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
                       <td
-                        className={`font-manrope font-[600] capitalize text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
+                        className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
                                                    ${item?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
                         {item?.package_availability}
                       </td>
-                      <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                        <div className='flex justify-between items-center gap-[20px]'> {/* Adjust the gap size as needed */}
+                      <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                        <div className='flex justify-between items-center gap-[5px]'> {/* Adjust the gap size as needed */}
 
                           <Link to={`/access-admin/access-package-edit/${item?._id}`}>
-                            <button className='gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'>
+                            <button className=' font-[manrope] font-[600] text-white text-[18px]'>
                               <MdEdit size={24} className='text-green-600 hover:text-green -700' />
                             </button>
                           </Link>

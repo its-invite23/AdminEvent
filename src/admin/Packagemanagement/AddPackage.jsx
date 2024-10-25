@@ -104,52 +104,52 @@ export default function AddPackage() {
       <div className="w-full bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-white">Package Name</label>
+            <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Name</label>
             <input
               type="text"
               onChange={handleChange}
               name="package_name"
               value={formData.package_name}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+              className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
               placeholder="Enter package name"
               required
             />
           </div>
 
           {/* Row for Services Provider Name and Email */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-white">Serivce Provider Name</label>
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Serivce Provider Name</label>
               <input
                 type="text"
                 onChange={handleChange}
                 name="services_provider_name"
                 value={formData.services_provider_name}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter Services Provider Name"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white">Email</label>
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Email</label>
               <input
                 type="email"
                 onChange={handleChange}
                 name="services_provider_email"
                 value={formData.services_provider_email}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter services provider email"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white">Number</label>
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Number</label>
               <input
                 type="tel"
                 onChange={handleChange}
                 name="services_provider_phone"
                 value={formData.services_provider_phone}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter services provider number"
                 required
               />
@@ -157,39 +157,39 @@ export default function AddPackage() {
           </div>
 
           {/* Row for Minimum, Maximum Price and People */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-white">Package Minimum Price</label>
+              <label className="block w-full font-manrope font-[400] text-white text-[14px] md:text-[16px] xl:text-[18px] mb-[10px]">Package Minimum Price</label>
               <input
                 type="number"
                 onChange={handleChange}
                 name="package_price_min"
                 value={formData.package_price_min}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter minimum price"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white">Package Maximum Price</label>
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Maximum Price</label>
               <input
                 type="number"
                 onChange={handleChange}
                 name="package_price_max"
                 value={formData.package_price_max}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter maximum price"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white">Package People</label>
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package People</label>
               <input
                 type="number"
                 onChange={handleChange}
                 name="package_people"
                 value={formData.package_people}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                 placeholder="Enter maximum people"
                 required
               />
@@ -197,26 +197,26 @@ export default function AddPackage() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-white">Package Categories</label>
+            <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Categories</label>
             <input
               type="text"
               onChange={handleChange}
               name="package_categories"
               value={formData.package_categories}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+              className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
               placeholder="Enter categories (comma-separated)"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-white">Package Image URL</label>
+            <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image URL</label>
             <input
               type="text" // Changed to text for URL input
               onChange={handleChange}
               name="package_image"
               value={formData.package_image}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white"
+              className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
               placeholder="Enter image URL"
             />
           </div>
@@ -225,7 +225,7 @@ export default function AddPackage() {
             <button
               type="submit"
               disabled={loading}
-              className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`min-w-[200px] bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[15px] py-[15px] text-white rounded-[5px] text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {loading ? 'processing...' : Id ? ("Edit package") : ("Add Package")}
             </button>
