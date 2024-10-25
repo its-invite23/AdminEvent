@@ -100,7 +100,6 @@ export default function ContactList() {
                       "Not replied yet"
                       }
                       </td>
-
                     </tr>
                   ))
                 )}
