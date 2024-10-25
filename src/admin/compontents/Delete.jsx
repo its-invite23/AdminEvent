@@ -66,30 +66,35 @@ export default function Delete({ step, Id, PackageGet, users }) {
 
     return (
         <div className="flex flex-col">
-                <button
-                    onClick={toggleModal}
-                    className=' gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px]'
-                >
-                    <MdDelete size={24} className='text-red-600 hover:text-red-700' />
-                </button>
+            <button
+                onClick={toggleModal}
+                className=' gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px]'
+            >
+                <MdDelete size={24} className='text-red-600 hover:text-red-700' />
+            </button>
             {/* Modal */}
             {isOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-[#1B1B1B] rounded-lg p-[15px] md:p-6 w-full w-[93%] max-w-[500px]">
-                        <div className='flex justify-between'>
-                            <h3 className="text-[22px] md:text-[28px] lg:text-[30px] xl:text-[35px] font-[700] mb-[7px] text-white">Delete Confirmation</h3>
-                            <IoCloseSharp size={33} className='cursor-pointer text-white' onClick={toggleModal} />
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
+                    <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-[30px] font-semibold text-white">Delete</h3>
+                            <IoCloseSharp
+                                size={30}
+                                className="cursor-pointer text-white"
+                                onClick={toggleModal}
+                            />
                         </div>
 
+
                         {/* Responsive Paragraph */}
-                        <p className="text-white mb-[4px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
-                            Are you sure you want to delete this package? 
+                        <p className="text-white mb-[6px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
+                            Are you sure you want to delete this package?
                         </p>
                         <p className="text-white mb-[40px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
-                          This action cannot be undone.
+                            This action cannot be undone.
                         </p>
 
-                        <div className="flex justify-start gap-[8px]">
+                        <div className="flex justify-end gap-[8px]">
                             <button
                                 type="button"
                                 onClick={toggleModal}
@@ -102,7 +107,7 @@ export default function Delete({ step, Id, PackageGet, users }) {
                                 onClick={handleClick}
                                 className="bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center"
                             >
-                                {loading ? "Loading.." : "Delete"}
+                                {loading ? "Loading..." : "Delete"}
                             </button>
                         </div>
                     </div>

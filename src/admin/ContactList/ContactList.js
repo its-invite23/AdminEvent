@@ -87,7 +87,7 @@ export default function ContactList() {
                         </td>
                         <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                           {item?.reply_message ? `${item?.reply_message}` :
-                            <ReplyMessage item={item}/>
+                            <ReplyMessage item={item} />
                           }
                         </td>
                       </tr>

@@ -54,7 +54,7 @@ export default function ReplyMessage({item}) {
   
   return (
     <div className="flex flex-col">
-      <button className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px]' onClick={toggleModal}>
+      <button className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px] hover:text-[#EB3465] ' onClick={toggleModal}>
         <FaRegMessage /> 
       </button>
 
@@ -63,8 +63,8 @@ export default function ReplyMessage({item}) {
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
         <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">
           <div className='flex flex-wrap justify-between'>
-            <h3 className="text-[30px] font-semibold mb-4 text-white">Message</h3>
-            <IoCloseSharp size={30} className='cursor-pointer text-white absolute top-[32px] right-[15px]' onClick={toggleModal} />
+            <h3 className="text-[30px] font-semibold mb-4 ">Message</h3>
+            <IoCloseSharp size={30} className='cursor-pointer text-white  absolute top-[32px] right-[15px]' onClick={toggleModal} />
           </div>
           <form>
             <div className="mb-4">
