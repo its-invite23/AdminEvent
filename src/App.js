@@ -9,7 +9,7 @@ import NotFoundPage from './admin/compontents/NotFoundPage.js';
 import BookingList from './admin/Bookingmanagement/BookingList.jsx';
 import PackageList from './admin/Packagemanagement/PackageList.jsx';
 import AddPackage from './admin/Packagemanagement/AddPackage.jsx';
-
+import ContactList from "./admin/ContactList/ContactList.js"
 
 function App() {
   return (
@@ -17,15 +17,15 @@ function App() {
       <Router>
         <Routes>
         <Route path="*" element={<NotFoundPage />} /> 
-          <Route path="/access-admin" element={<AdminLayout>   <Dashboard />          </AdminLayout>} />
+          <Route path="/access-admin" element={<AdminLayout> <Dashboard /> </AdminLayout>} />
           <Route path='/' element={<AdminLogin />} />
           <Route path="/access-admin/payment" element={<AdminLayout> <PaymentList /> </AdminLayout>} />
           <Route path="/access-admin/package-add" element={<AdminLayout> <AddPackage /> </AdminLayout>} />
           <Route path="/access-admin/access-package-edit/:Id" element={<AdminLayout> <AddPackage /> </AdminLayout>} />
           <Route path="/access-admin/user" element={<AdminLayout><UserList /> </AdminLayout> } />
           <Route path="/access-admin/booking" element={<AdminLayout> <BookingList />  </AdminLayout>} />
-          <Route path="/access-admin/package" element={<AdminLayout>   <PackageList />          </AdminLayout>} />
-
+          <Route path="/access-admin/package" element={<AdminLayout>  <PackageList /> </AdminLayout>} />
+          <Route path="/access-admin/contact" element={<AdminLayout>  <ContactList /> </AdminLayout>} />
         </Routes>
       </Router>
     </>
