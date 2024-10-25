@@ -2,8 +2,10 @@ import { Component } from "react";
 import Api from "./Api";
 
 class Listing extends Component {
-  async signup(data) {
-    return Api.post("/user/signup", data);
+
+  
+  async Dashboard() {
+    return Api.get("/user/all");
   }
   async login(data) {
     return Api.post("/user/login", data);
@@ -13,8 +15,8 @@ class Listing extends Component {
     return Api.post("/user/delete", data);
   }
 
-  async Dashboard() {
-    return Api.get("/user/all");
+  async userfilter(data) {
+    return Api.post("/user/user-filter", data);
   }
 
   async userupdatedstatus(data) {
@@ -45,9 +47,6 @@ class Listing extends Component {
   async packageDelete(data) {
     return Api.post(`/package/package-delete`, data);
   }
-  
- 
-
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
   }

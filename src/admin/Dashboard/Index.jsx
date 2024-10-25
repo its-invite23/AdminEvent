@@ -11,6 +11,7 @@ import Listing from '../../Api/Listing';
 export default function Index() {
 
   const [listing, setLisitng] = useState("");
+  console.log(listing)
   const [Loading, setLoading] = useState(false);
   const users = () => {
     setLoading(true);
@@ -80,7 +81,7 @@ export default function Index() {
         </div>
 
         <div className='w-full'>
-          <Enquiry/>
+          <Enquiry EnquiryData ={listing?.EnquiryData}          />
         </div>
       </div>
     </div>

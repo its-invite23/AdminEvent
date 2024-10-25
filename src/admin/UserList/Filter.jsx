@@ -1,12 +1,55 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoCloseSharp } from "react-icons/io5";
 import { IoFilterSharp } from "react-icons/io5";
+import Listing from '../../Api/Listing';
 
-export default function Filter() {
+export default function Filter({setLisitng}) {
   const [isOpen, setIsOpen] = useState(false); 
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
+  };
+
+
+  const [formData, setFormData] = useState({
+     username : "",
+     user_status: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const main = new Listing();
+    const response = main.userfilter(formData );
+    response.then((res) => {
+      console.log("res",res)
+        if (res && res?.data && res?.data?.status) {
+          toast.success(res.data.message);
+          setLisitng(res?.data?.users)
+          setLoading(false);
+          toggleModal();
+        } else {
+          toast.error(res.data.message);
+          setLoading(false);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("error",error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
+        // console.log("error", error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -29,11 +72,19 @@ export default function Filter() {
             <form>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Name</label>
-                <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter user name" required />
+                <input type="text"
+                   name="username"
+                   value={formData.username}
+                   onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-[#1B1B1B] text-white" placeholder="Enter user name" required />
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-white">Status</label>
-                <select className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-white bg-[#1B1B1B]" required>
+                <select 
+                name="user_status"
+                value={formData.user_status}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-white bg-[#1B1B1B]" required>
                   <option value="" disabled selected>Select status</option>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -43,7 +94,10 @@ export default function Filter() {
               </div>
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>
-                <button type="submit" className="bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center">Submit</button>
+                <button type="submit"
+                onClick={handleSubmit}
+                disabled={loading}
+                className="bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center">{loading ? "Loading.." :"Submit"}</button>
               </div>
             </form>
           </div>

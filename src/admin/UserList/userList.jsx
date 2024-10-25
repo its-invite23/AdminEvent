@@ -8,7 +8,8 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
 
 export default function UserList() {
-  const [listing, setLisitng] = useState("");
+  const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [Loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -19,7 +20,7 @@ export default function UserList() {
       .profile(page, limit)
       .then((r) => {
         setLoading(false);
-        setLisitng(r?.data?.data);
+        setLisitng(r?.data?.data?.users);
       })
       .catch((err) => {
         setLoading(false);
@@ -57,7 +58,7 @@ export default function UserList() {
     <div className="w-full max-w-[100%]">
       <Header title={"All Users"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
-        <Filter />
+        <Filter setLisitng={setLisitng}/>
         {Loading ? (
           <LoadingSpinner />
         ) : (
@@ -92,12 +93,11 @@ export default function UserList() {
                   </th>
                 </tr>
               </thead>
-              {listing?.users === 0 ? (
+              {listing === 0 ? (
                 <NoDataPage />
               ) : (
                 listing &&
-                listing?.users &&
-                listing?.users?.map((item, index) => (
+                listing?.map((item, index) => (
                   <tr key={index}>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {index + 1}
