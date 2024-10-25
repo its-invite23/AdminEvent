@@ -111,12 +111,12 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
 
                         <li className="flex mb-[5px]">
                             <Link
-                                to="/access-admin/package"
-                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                                to="/access-admin/enquiry"
+                                className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/enquiry") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                             >
                                 <i
                                     onClick={toggleSidebar}
-                                    className={`pr-[10px] ${isActive("/access-admin/package") ? "text-pink-500" : "text-white"}`}>
+                                    className={`pr-[10px] ${isActive("/access-admin/enquiry") ? "text-pink-500" : "text-white"}`}>
                                     <MdEvent />
                                 </i>
                                 Event Enquiry

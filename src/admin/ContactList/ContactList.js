@@ -3,7 +3,11 @@ import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
-import ReplyMessage from "../compontents/ReplyMessage";
+import moment from "moment";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { MdEdit } from "react-icons/md";
+import { IoAddSharp } from "react-icons/io5";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState("");
@@ -45,58 +49,62 @@ export default function ContactList() {
           {Loading ? (
             <LoadingSpinner />
           ) : (
-            listing?.length === 0 ? (
-              <NoDataPage />
-            ) : (
-              <table className="w-full table-auto whitespace-nowrap">
-                <thead className="mb-[15px]">
-                  <tr>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
-                      S. No.
-                    </th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
-                      Name
-                    </th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
-                      Email
-                    </th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
-                      Message
-                    </th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    listing &&
-                    listing?.map((item, index) => (
-                      <tr key={index}>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
-                          {index + 1}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          {item?.name}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          {item?.email}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          {item?.message}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          {item?.reply_message ? `${item?.reply_message}` :
-                            <ReplyMessage item={item} />
-                          }
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            )
-
+            <table className="w-full table-auto whitespace-nowrap">
+              <thead className="mb-[15px]">
+                <tr>
+                <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
+                    S. No.
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
+                    Name
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Email
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Message
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Message Status
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {listing?.packagegetdata?.length < 0 ? (
+                  <NoDataPage />
+                ) : (
+                  listing &&
+                  listing?.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
+                        {index + 1}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.name}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.email}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.message}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      {item?.contact_status}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      {item?.reply_message ? `${item?.reply_message}`: 
+                      "Not replied yet"
+                      }
+                      </td>
+                    </tr>
+                  ))
+                )}
+                {}
+              </tbody>
+            </table>
           )}
         </div>
       </div>

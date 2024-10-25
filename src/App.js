@@ -9,7 +9,8 @@ import NotFoundPage from './admin/compontents/NotFoundPage.js';
 import BookingList from './admin/Bookingmanagement/BookingList.jsx';
 import PackageList from './admin/Packagemanagement/PackageList.jsx';
 import AddPackage from './admin/Packagemanagement/AddPackage.jsx';
-import ContactList from "./admin/ContactList/ContactList.js"
+import ContactList from "./admin/ContactList/ContactList.js";
+import Enquiry from "./admin/Enquiry/Enquiry.js";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/access-admin/booking" element={<AdminLayout> <BookingList />  </AdminLayout>} />
           <Route path="/access-admin/package" element={<AdminLayout>  <PackageList /> </AdminLayout>} />
           <Route path="/access-admin/contact" element={<AdminLayout>  <ContactList /> </AdminLayout>} />
+          <Route path="/access-admin/enquiry" element={<AdminLayout>  <Enquiry /> </AdminLayout>} />
         </Routes>
       </Router>
     </>
