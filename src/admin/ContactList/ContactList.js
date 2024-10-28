@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
+import ReplyMessage from "../compontents/ReplyMessage.jsx";
+
 import NoDataPage from "../compontents/NoDataPage";
-import moment from "moment";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
-import { IoAddSharp } from "react-icons/io5";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState("");
@@ -91,12 +88,17 @@ export default function ContactList() {
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.message}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                      {item?.contact_status}
-                      </td>
+                      
+                      <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
+                    item?.contact_status === 'read' ? 'text-green-500' :
+                    item?.contact_status === 'unread' ? 'text-red-500' :
+                        'text-white'
+                    }`}>
+                    {item?.contact_status}
+                  </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                       {item?.reply_message ? `${item?.reply_message}`: 
-                      "Not replied yet"
+                      <ReplyMessage item={item} />
                       }
                       </td>
                     </tr>

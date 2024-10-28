@@ -3,7 +3,7 @@ import Api from "./Api";
 
 class Listing extends Component {
 
-  
+
   async Dashboard() {
     return Api.get("/user/all");
   }
@@ -22,10 +22,10 @@ class Listing extends Component {
   async userupdatedstatus(data) {
     return Api.post("/user/updated_status", data);
   }
-  async profile(page,limit) {
+  async profile(page, limit) {
     return Api.get(`/user/profile?page=${page}&limit=${limit}`);
   }
-  
+
   async profileVerify() {
     return Api.get(`/user/profile-token`);
   }
@@ -47,7 +47,7 @@ class Listing extends Component {
   async packageDelete(data) {
     return Api.post(`/package/package-delete`, data);
   }
-  
+
   async contactGet() {
     return Api.get(`/contact/contact-get`);
   }
@@ -55,20 +55,23 @@ class Listing extends Component {
   async enquiryGet() {
     return Api.get(`enquiry/enquiry-get`);
   }
- 
+
+  async EnquiryReply(data) {
+    return Api.post(`enquiry/enquiry-reply`, data);
+  }
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
   }
-  
+
 
   async contactGet() {
-    return Api.get(`/contact/contact-get`);
+    return Api.get("/contact/contact-get");
   }
 
   async contactreply(data) {
     return Api.post(`/contact/contact-reply`, data);
   }
-  
+
   render() {
     return (
       <div>

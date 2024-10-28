@@ -88,7 +88,7 @@ export default function Delete({ step, Id, PackageGet, users }) {
 
                         {/* Responsive Paragraph */}
                         <p className="text-white mb-[6px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
-                            Are you sure you want to delete this package?
+                            Are you sure you want to delete this {step === 1 ? "Package" : "User"} ?
                         </p>
                         <p className="text-white mb-[40px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
                             This action cannot be undone.

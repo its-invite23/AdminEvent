@@ -2,21 +2,21 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import Listing from '../../Api/Listing';
 import { IoCloseSharp } from "react-icons/io5";
-import { FaRegMessage } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
-export default function ReplyMessage({item}) {
 
+export default function EnquiryReplyMessage({item , enquire_status}) {
     const [isOpen, setIsOpen] = useState(false); 
-
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
-  
-  
     const [formData, setFormData] = useState({
        _id:item?._id,
        reply_message: "",
+       enquire_status :enquire_status
     });
+    console.log("formData",formData)
     const [loading, setLoading] = useState(false);
   
     const handleChange = (e) => {
@@ -31,11 +31,11 @@ export default function ReplyMessage({item}) {
       e.preventDefault();
       setLoading(true);
       const main = new Listing();
-      const response = main.contactreply(formData );
+      const response = main.EnquiryReply(formData );
       response.then((res) => {
         console.log("res",res)
           if (res && res?.data && res?.data?.status) {
-            toast.success(res.data.message);
+            toast.success(res.data.data);
             setLoading(false);
             toggleModal();
           } else {
@@ -54,7 +54,11 @@ export default function ReplyMessage({item}) {
   return (
     <div className="flex flex-col">
       <button className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px] hover:text-[#EB3465] ' onClick={toggleModal}>
-        <FaRegMessage /> 
+     {enquire_status === "active" ? (
+      <FaCheck className="text-[#4CAF50] text-[15px]" /> 
+     ) : (
+      <IoClose className="text-[#D95858] text-[20px]" />
+     ) }
       </button>
 
     {/* Modal */}
@@ -67,7 +71,6 @@ export default function ReplyMessage({item}) {
           </div>
           <form>
             <div className="mb-4">
-              <label className="block w-full text-left font-manrope font-[400] text-white text-[18px] mb-[10px]">Reply Message</label>
               <textarea type="text" 
               rows={5}
               cols={5}
