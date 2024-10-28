@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
 

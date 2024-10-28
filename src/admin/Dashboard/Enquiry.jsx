@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { FaCheck } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
 import moment from "moment"
 import EnquiryReplyMessage from "../Enquiry/EnquiryReplyMessage";
 function Enquiry({ EnquiryData }) {
