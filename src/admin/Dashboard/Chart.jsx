@@ -20,10 +20,10 @@ function Chart() {
     return (
         <div className="w-full  flex flex-col bg-!gray-800 relative -z-![0] ">
             <h2 className="font-manrope font-[600] text-white text-left text-[18px] md:text-[24px] mb-[15px]">Payment Statics</h2>
-            <ResponsiveContainer width="100%" height={300} className="relative -z-![0]" >
-                <BarChart data={data} className="relative -z-![1]">
-                    <XAxis dataKey="name" />
-                    <YAxis domain={['auto', 'auto']} />
+            <ResponsiveContainer width="100%" height={300} className="text-white relative -z-0">
+                <BarChart data={data} className="relative -z-1">
+                    <XAxis dataKey="name" tick={{ fill: '#FFFFFF' }} />
+                    <YAxis domain={['auto', 'auto']} tick={{ fill: '#FFFFFF' }} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="Failed" fill="#D95858" name="Failed" />

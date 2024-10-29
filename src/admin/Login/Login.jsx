@@ -63,7 +63,7 @@ export default function Login() {
       >
         <div className="w-full md:w-[50%] lg:w-[45%] xl:w-[49%] max-w-[100%] lg-max-w-[700px] h-full">
           <img
-            className="rounded-md w-full h-full object-cover"
+            className="rounded-md w-full "
             src={loginbanner}
             alt="Login Banner "
           />

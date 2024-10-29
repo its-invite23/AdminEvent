@@ -104,7 +104,7 @@ export default function PackageList() {
                         <ul className='flex justify-center flex-wrap gap-[5px]'>
                           {item?.package_categories?.map((category, index) => (
                             <li key={index} className=' text-white text-lg'>
-                              {category},
+                              {category &&  `${category},`}
                             </li>
                           ))}
                         </ul>

@@ -13,10 +13,10 @@ const NoDataPage = () => {
           className="max-w-[235px] md:max-w-[335px] rounded-[20px]"
         />
       </div>
-      <h1 className=" font-[700] text-[30px] leading-[40px] sm:text-[30px] sm:leading-[30px] md:text-[50px] md:leading-[50px] lg:text-[60px] lg:leading-[60px] xl:text-[80px] xl:leading-[80px] text-center text-white mb-[15px]">
+      <h1 className=" font-[700] text-[25px] leading-[25px] sm:text-[22px] sm:leading-[40px] md:text-[30px] md:leading-[30px] text-center text-white mb-[15px]">
         No Data Available
       </h1>
-      <p className="font-[600] text-[20px] leading-[25px] md:text-[30px] md:leading-[35px] text-center text-white mb-2">
+      <p className="font-[600] text-[20px] leading-[25px] md:text-[20px] md:leading-[25px] text-center text-white mb-2">
         Sorry, there is nothing to display at the moment.
       </p>
       <div className='flex items-center justify-center my-[40px]'>
