@@ -89,10 +89,10 @@ export default function UserList() {
                       Contact
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      Action
+                      Status
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      Delete
+                    Action
                     </th>
 
                   </tr>
