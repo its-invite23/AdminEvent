@@ -90,13 +90,13 @@ export default function Enquiry() {
                       <div className="flex items-center justify-center w-full gap-[10px]">
                         <Link to={""} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
 
-                          <EnquiryReplyMessage item={item} enquire_status={"active"} />
+                          <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"active"} />
                           {/* <FaCheck className="text-[#4CAF50] text-[15px]" /> */}
 
                         </Link>
 
                         <Link to={""} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
-                          <EnquiryReplyMessage item={item} enquire_status={"inactive"} />
+                          <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"inactive"} />
 
                         </Link>
                       </div>

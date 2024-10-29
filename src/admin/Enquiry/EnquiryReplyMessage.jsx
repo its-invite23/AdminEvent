@@ -6,7 +6,7 @@ import { FaCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 
 
-export default function EnquiryReplyMessage({item , enquire_status}) {
+export default function EnquiryReplyMessage({item , enquire_status, EnquiryList}) {
     const [isOpen, setIsOpen] = useState(false); 
     const toggleModal = () => {
       setIsOpen(!isOpen);
@@ -35,9 +35,10 @@ export default function EnquiryReplyMessage({item , enquire_status}) {
       response.then((res) => {
         console.log("res",res)
           if (res && res?.data && res?.data?.status) {
-            toast.success(res.data.data);
+            toast.success(res.data.message);
             setLoading(false);
             toggleModal();
+            EnquiryList();
           } else {
             toast.error(res.data.message);
             setLoading(false);
