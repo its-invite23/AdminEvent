@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import loginbanner from "../../asstes/loginbanner.jpg";
 import logo from "../../asstes/logo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { IoEye, IoEyeOff } from "react-icons/io5"; // Import both icons
+import {  useNavigate } from "react-router-dom";
+import { IoEye, IoEyeOff } from "react-icons/io5"; 
 import toast from "react-hot-toast";
 import Listing from "../../Api/Listing";
 
@@ -96,9 +96,9 @@ export default function Login() {
               className="bg-zinc-900 w-full px-4 py-4 pe-14 rounded-lg text-base text-white"
               required
             />
-            <button 
+            <button
               type="button" // Prevent form submission
-              className="absolute top-4 right-5" 
+              className="absolute top-4 right-5"
               onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
             >
               {showPassword ? (
@@ -108,7 +108,7 @@ export default function Login() {
               )}
             </button>
           </div>
-  {/* 
+          {/* 
             <div className="mb-8 text-white text-base text-center">
               <Link to="/forget-password">Forgot password?</Link>
             </div> */}

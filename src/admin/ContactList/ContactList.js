@@ -49,7 +49,7 @@ export default function ContactList() {
             <table className="w-full table-auto whitespace-nowrap">
               <thead className="mb-[15px]">
                 <tr>
-                <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
                     S. No.
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
@@ -88,23 +88,23 @@ export default function ContactList() {
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.message}
                       </td>
-                      
+
                       <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
-                    item?.contact_status === 'read' ? 'text-green-500' :
-                    item?.contact_status === 'unread' ? 'text-red-500' :
-                        'text-white'
-                    }`}>
-                    {item?.contact_status}
-                  </td>
+                        item?.contact_status === 'read' ? 'text-green-500' :
+                          item?.contact_status === 'unread' ? 'text-red-500' :
+                            'text-white'
+                        }`}>
+                        {item?.contact_status}
+                      </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                      {item?.reply_message ? `${item?.reply_message}`: 
-                      <ReplyMessage item={item} />
-                      }
+                        {item?.reply_message ? `${item?.reply_message}` :
+                          <ReplyMessage item={item} />
+                        }
                       </td>
                     </tr>
                   ))
                 )}
-                {}
+                { }
               </tbody>
             </table>
           )}

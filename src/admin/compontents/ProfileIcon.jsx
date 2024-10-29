@@ -10,7 +10,7 @@ export default function ProfileIcon() {
     };
 
     const closeModal = (e) => {
-        if (e.target === e.currentTarget) {  
+        if (e.target === e.currentTarget) {
             setIsOpen(false);
         }
     };
@@ -18,8 +18,8 @@ export default function ProfileIcon() {
     return (
         <div className="flex flex-col">
             <div className='flex items-center justify-between mb-[20px] mt-[10px] relative'>
-                <button 
-                    onClick={toggleModal} 
+                <button
+                    onClick={toggleModal}
                     aria-label="Toggle Profile Menu"
                     className='flex items-center gap-[10px] px-[20px] py-[8px] border border-[#ffffff1a] rounded-[80px] font-[manrope] font-[600] text-white text-[18px]'
                 >
@@ -28,10 +28,10 @@ export default function ProfileIcon() {
 
                 {/* Modal positioned below the button */}
                 {isOpen && (
-                    <div 
+                    <div
                         className="absolute top-full mt-2 left-0 bg-[#1B1B1B] rounded-lg p-6 w-auto z-10"
                         onClick={closeModal}
-                        aria-modal="true" 
+                        aria-modal="true"
                         role="dialog"
                     >
                         <ul className='flex flex-col items-start gap-[20px] font-manrope font-[600] text-[15px] md:text-[18px] lg:text-[20px] text-white'>

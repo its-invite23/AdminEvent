@@ -4,8 +4,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { IoFilterSharp } from "react-icons/io5";
 import Listing from '../../Api/Listing';
 
-export default function Filter({setLisitng}) {
-  const [isOpen, setIsOpen] = useState(false); 
+export default function Filter({ setLisitng }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -13,8 +13,8 @@ export default function Filter({setLisitng}) {
 
 
   const [formData, setFormData] = useState({
-     username : "",
-     user_status: "",
+    username: "",
+    user_status: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -30,22 +30,22 @@ export default function Filter({setLisitng}) {
     e.preventDefault();
     setLoading(true);
     const main = new Listing();
-    const response = main.userfilter(formData );
+    const response = main.userfilter(formData);
     response.then((res) => {
-      console.log("res",res)
-        if (res && res?.data && res?.data?.status) {
-          toast.success(res.data.message);
-          setLisitng(res?.data?.users)
-          setLoading(false);
-          toggleModal();
-        } else {
-          toast.error(res.data.message);
-          setLoading(false);
-        }
+      console.log("res", res)
+      if (res && res?.data && res?.data?.status) {
+        toast.success(res.data.message);
+        setLisitng(res?.data?.users)
         setLoading(false);
-      })
+        toggleModal();
+      } else {
+        toast.error(res.data.message);
+        setLoading(false);
+      }
+      setLoading(false);
+    })
       .catch((error) => {
-        console.log("error",error?.response?.data?.message);
+        console.log("error", error?.response?.data?.message);
         toast.error(error?.response?.data?.message);
         // console.log("error", error);
         setLoading(false);
@@ -72,21 +72,21 @@ export default function Filter({setLisitng}) {
             <form>
               <div className="mb-4">
                 <label className="block w-full font-manrope font-[400] text-white text-[18px] mb-[10px]">Name</label>
-                <input type="text" 
+                <input type="text"
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter user name" required />
+                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter user name" required />
               </div>
               <div className="mb-4">
                 <label className="block w-full font-manrope font-[400] text-white text-[18px] mb-[10px]">Status</label>
-                <select 
-              
+                <select
 
-                name="user_status"
-                value={formData.user_status}
-                onChange={handleChange}
-                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" required>
+
+                  name="user_status"
+                  value={formData.user_status}
+                  onChange={handleChange}
+                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" required>
                   <option value="" disabled selected>Select status</option>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -95,9 +95,9 @@ export default function Filter({setLisitng}) {
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>
                 <button type="submit"
-                onClick={handleSubmit}
-                disabled={loading}
-                className="bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center">{loading ? "Loading.." :"Submit"}</button>
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  className="bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center">{loading ? "Loading.." : "Submit"}</button>
               </div>
             </form>
           </div>
