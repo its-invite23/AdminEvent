@@ -90,7 +90,7 @@ export default function Delete({ step, Id, PackageGet, users }) {
                             Are you sure you want to delete this {step === 1 ? "package" : "user"} ?
                         </p>
                         <p className="mb-[40px] text-[12px] sm:text-[12px] md:text-[15px] font-[400] text-left text-[#f00000]">
-                            This action cannot be undone.
+                            (This action cannot be undone.)
                         </p>
 
                         <div className="flex justify-end gap-[8px]">
