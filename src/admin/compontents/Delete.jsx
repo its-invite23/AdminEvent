@@ -85,7 +85,6 @@ export default function Delete({ step, Id, PackageGet, users }) {
                             />
                         </div>
 
-
                         {/* Responsive Paragraph */}
                         <p className="text-white mb-[6px] text-[12px] sm:text-[14px] md:text-[17px] font-[400] text-left">
                             Are you sure you want to delete this {step === 1 ? "Package" : "User"} ?

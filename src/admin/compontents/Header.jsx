@@ -8,7 +8,6 @@ export default function Header({title}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-
   const handleToggle = () => {
     setIsActive(!isActive); // Toggle the state between true and false
   };
