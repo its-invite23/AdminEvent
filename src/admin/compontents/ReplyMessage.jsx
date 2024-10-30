@@ -4,7 +4,7 @@ import Listing from '../../Api/Listing';
 import { IoCloseSharp } from "react-icons/io5";
 import { FaRegMessage } from "react-icons/fa6";
 
-export default function ReplyMessage({ item }) {
+export default function ReplyMessage({ item, ContactUsGet }) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +38,7 @@ export default function ReplyMessage({ item }) {
         toast.success(res.data.message);
         setLoading(false);
         toggleModal();
+        ContactUsGet();
       } else {
         toast.error(res.data.message);
         setLoading(false);
@@ -53,11 +54,15 @@ export default function ReplyMessage({ item }) {
 
   return (
     <div className="flex flex-col">
-      <button className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px] hover:text-[#EB3465] ' onClick={toggleModal}>
+      <button
+        className={`gap-[10px] font-[manrope] font-semibold text-white text-[18px] ${item?.reply_message ? 'text-gray-400' : 'hover:text-[#EB3465]'
+          }`}
+        onClick={toggleModal}
+        disabled={!!item?.reply_message}
+      >
         <FaRegMessage />
       </button>
 
-      {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
           <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">

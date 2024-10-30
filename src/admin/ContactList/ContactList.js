@@ -10,7 +10,7 @@ export default function ContactList() {
   const [listing, setLisitng] = useState("");
   const [Loading, setLoading] = useState(false);
 
-  const PackageGet = () => {
+  const ContactUsGet = () => {
     setLoading(true);
     const main = new Listing();
     main
@@ -27,7 +27,7 @@ export default function ContactList() {
   };
 
   useEffect(() => {
-    PackageGet();
+    ContactUsGet();
   }, []);
 
 
@@ -67,6 +67,9 @@ export default function ContactList() {
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
                     Actions
                   </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Comment
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -79,7 +82,7 @@ export default function ContactList() {
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
                         {index + 1}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="capitalize font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.name}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
@@ -97,9 +100,10 @@ export default function ContactList() {
                         {item?.contact_status}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.reply_message ? `${item?.reply_message}` :
-                          <ReplyMessage item={item} />
-                        }
+                          <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.reply_message}
                       </td>
                     </tr>
                   ))
