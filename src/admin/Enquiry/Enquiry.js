@@ -135,17 +135,16 @@ export default function Enquiry() {
         </div>
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
-      {loading ? (
-        <LoadingSpinner /> 
-      ) : (
+      {
         hasMore && (
           <button
             onClick={loadMore}
+            disabled={loading}
             className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-            Load More
+            {loading ? "Loading..."  : "Load More"}
           </button>
         )
-      )}
+      }
       </div>
     </div>
   );
