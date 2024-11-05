@@ -9,29 +9,47 @@ import NoDataPage from "../compontents/NoDataPage";
 
 export default function UserList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing", listing)
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const users = () => {
-    setLoading(true);
-    const main = new Listing();
-    main
-      .profile(page, limit)
-      .then((r) => {
-        setLoading(false);
-        setLisitng(r?.data?.data?.users);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setLisitng([]);
-        console.log("error", err);
-      });
+  const [limit, setLimit] = useState(25);
+  const [hasMore, setHasMore] = useState(true);
+  const users = async (signal) => {
+    try {
+      setLoading(true);
+      const main = new Listing();
+      const response = await main.profile(page, limit, { signal });
+      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.users);
+      if (response?.data?.data?.users) {
+        setLisitng((prevData) => {
+          if (page === 1) {
+            return response.data.data.users;
+          } else {
+            return [...prevData, ...response.data.data.users];
+          }
+        });
+        setHasMore(response.data.data.nextPage !== null);
+      }
+    } catch (error) {
+      console.error("Error fetching package data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
+
   useEffect(() => {
-    users(page);
-  }, []);
+    const controller = new AbortController();
+    const { signal } = controller;
+    users(page, signal);
+    return () => controller.abort();
+  }, [page, limit]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
 
   const handleActiveStatues = (Id, status) => {
     setLoading(true);
@@ -59,7 +77,7 @@ export default function UserList() {
       <Header title={"All Users"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <Filter setLisitng={setLisitng} />
-        {Loading ? (
+        {loading ? (
           <LoadingSpinner />
         ) : (
 
@@ -92,7 +110,7 @@ export default function UserList() {
                       Status
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                    Action
+                      Action
                     </th>
 
                   </tr>
@@ -143,8 +161,23 @@ export default function UserList() {
                 }
               </table>
             )}
+
+
           </div>
         )}
+      </div>
+      <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+      {loading ? (
+        <LoadingSpinner /> 
+      ) : (
+        hasMore && (
+          <button
+            onClick={loadMore}
+            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+            Load More
+          </button>
+        )
+      )}
       </div>
     </div>
   );

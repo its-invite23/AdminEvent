@@ -8,29 +8,48 @@ import NoDataPage from "../compontents/NoDataPage"
 import EnquiryReplyMessage from "./EnquiryReplyMessage";
 
 export default function Enquiry() {
-  const [listing, setLisitng] = useState("");
-  console.log("listing", listing)
-  const [Loading, setLoading] = useState(false);
-
-  const EnquiryList = () => {
-    setLoading(true);
-    const main = new Listing();
-    main
-      .enquiryGet()
-      .then((r) => {
-        setLoading(false);
-        setLisitng(r?.data?.data);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setLisitng([]);
-        console.log("error", err);
-      });
+  const [listing, setLisitng] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(25);
+  const [hasMore, setHasMore] = useState(true);
+  const EnquiryList = async (signal) => {
+    try {
+      setLoading(true);
+      const main = new Listing();
+      const response = await main.enquiryGet(page, limit, { signal });
+      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.Enquiryget);
+      if (response?.data?.data?.Enquiryget) {
+        setLisitng((prevData) => {
+          if (page === 1) {
+            return response.data.data.Enquiryget;
+          } else {
+            return [...prevData, ...response.data.data.Enquiryget];
+          }
+        });
+        setHasMore(response.data.data.nextPage !== null);
+      }
+    } catch (error) {
+      console.error("Error fetching package data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
+
   useEffect(() => {
-    EnquiryList();
-  }, []);
+    const controller = new AbortController();
+    const { signal } = controller;
+    EnquiryList(page, signal);
+    return () => controller.abort();
+  }, [page, limit]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
 
 
   return (
@@ -45,7 +64,7 @@ export default function Enquiry() {
           </div>
         </div>
         <div className="overflow-auto">
-          {Loading ? (
+          {loading ? (
             <LoadingSpinner />
           ) : (
             listing?.length === 0 ? (
@@ -114,6 +133,19 @@ export default function Enquiry() {
 
           )}
         </div>
+      </div>
+      <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+      {loading ? (
+        <LoadingSpinner /> 
+      ) : (
+        hasMore && (
+          <button
+            onClick={loadMore}
+            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+            Load More
+          </button>
+        )
+      )}
       </div>
     </div>
   );

@@ -11,28 +11,48 @@ import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
 
 export default function PackageList() {
-  const [listing, setLisitng] = useState("");
-  const [Loading, setLoading] = useState(false);
+  const [listing, setLisitng] = useState([]);
+  console.log("listing", listing)
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(25);
+  const [hasMore, setHasMore] = useState(true);
 
-  const PackageGet = () => {
-    setLoading(true);
-    const main = new Listing();
-    main
-      .packageGet()
-      .then((r) => {
-        setLoading(false);
-        setLisitng(r?.data?.data);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setLisitng([]);
-        console.log("error", err);
-      });
+  const fetchData = async (signal) => {
+    try {
+      setLoading(true);
+      const main = new Listing();
+      const response = await main.packageGet(page, limit, { signal });
+      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.packagegetdata)
+      if (response?.data?.data?.packagegetdata) {
+        setLisitng((prevData) => {
+          if (page === 1) {
+            return response.data.data.packagegetdata;
+          } else {
+            return [...prevData, ...response.data.data.packagegetdata];
+          }
+        });
+        setHasMore(response.data.data.nextPage !== null);
+      }
+    } catch (error) {
+      console.error("Error fetching package data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    PackageGet();
-  }, []);
+    const controller = new AbortController();
+    const { signal } = controller;
+    fetchData(page, signal);
+    return () => controller.abort();
+  }, [page, limit]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   const handleActiveStatues = (Id, status, availability) => {
     const main = new Listing();
@@ -44,7 +64,7 @@ export default function PackageList() {
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
-        PackageGet();
+        fetchData(page);
       })
       .catch((error) => {
         console.log("error", error?.response?.data?.message);
@@ -71,7 +91,7 @@ export default function PackageList() {
           </div>
         </div>
         <div className="overflow-auto">
-          {Loading ? (
+          {loading ? (
             <LoadingSpinner />
           ) : (
             <table className="w-full table-auto whitespace-nowrap">
@@ -90,12 +110,12 @@ export default function PackageList() {
                 </tr>
               </thead>
               <tbody>
-                {listing?.packagegetdata?.length < 0 ? (
+                {listing?.length < 0 ? (
                   <NoDataPage />
                 ) : (
                   listing &&
-                  listing?.packagegetdata &&
-                  listing?.packagegetdata.map((item, index) => (
+                  listing &&
+                  listing.map((item, index) => (
                     <tr key={index}>
                       <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
                       <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
@@ -104,7 +124,7 @@ export default function PackageList() {
                         <ul className='flex justify-center flex-wrap gap-[5px]'>
                           {item?.package_categories?.map((category, index) => (
                             <li key={index} className=' text-white text-lg'>
-                              {category &&  `${category},`}
+                              {category && `${category},`}
                             </li>
                           ))}
                         </ul>
@@ -126,7 +146,7 @@ export default function PackageList() {
                       <td
                         className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
                                                    ${item?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
-                        {item?.package_availability === "outOfStock" ? "out Of Stock" :  (item?.package_availability)}
+                        {item?.package_availability === "outOfStock" ? "out Of Stock" : (item?.package_availability)}
                       </td>
                       <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         <div className='flex justify-between items-center gap-[5px]'> {/* Adjust the gap size as needed */}
@@ -137,7 +157,7 @@ export default function PackageList() {
                             </button>
                           </Link>
 
-                          <Delete Id={item?._id} step={1} PackageGet={PackageGet} />
+                          <Delete Id={item?._id} step={1} PackageGet={fetchData} />
                         </div>
                       </td>
 
@@ -151,6 +171,19 @@ export default function PackageList() {
           )}
 
         </div>
+      </div>
+      <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+      {loading ? (
+        <LoadingSpinner /> 
+      ) : (
+        hasMore && (
+          <button
+            onClick={loadMore}
+            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+            Load More
+          </button>
+        )
+      )}
       </div>
     </div>
   );

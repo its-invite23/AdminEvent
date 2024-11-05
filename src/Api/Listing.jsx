@@ -37,8 +37,8 @@ class Listing extends Component {
     return Api.post(`/package/package-update`, data);
   }
 
-  async packageGet() {
-    return Api.get(`/package/package-get`);
+  async packageGet(page, limit) {
+    return Api.get(`/package/package-get?page=${page}&limit=${limit}`);
   }
 
   async packageGetId(data) {
@@ -52,8 +52,8 @@ class Listing extends Component {
     return Api.get(`/contact/contact-get`);
   }
 
-  async enquiryGet() {
-    return Api.get(`enquiry/enquiry-get`);
+  async enquiryGet(page, limit) {
+    return Api.get(`enquiry/enquiry-get?page=${page}&limit=${limit}`);
   }
 
   async EnquiryReply(data) {
@@ -62,10 +62,8 @@ class Listing extends Component {
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
   }
-
-
-  async contactGet() {
-    return Api.get("/contact/contact-get");
+  async contactGet(page,limit) {
+    return Api.get(`/contact/contact-get?page=${page}&limit=${limit}`);
   }
 
   async contactreply(data) {
