@@ -9,6 +9,7 @@ import NoDataPage from "../compontents/NoDataPage";
 
 export default function UserList() {
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -98,6 +99,9 @@ export default function UserList() {
                       Email
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                      Country
+                    </th>
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       city
                     </th>
                     <th className=" w-[380px] min-w-[380px]  border-b border-[#ffffff59] font-manrope text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
@@ -130,6 +134,10 @@ export default function UserList() {
                         {item?.email}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.country
+                        }
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.city}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
@@ -138,7 +146,8 @@ export default function UserList() {
                         </div>
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.phone_number}
+                        {item?.phone_code
+                        } {item?.phone_number}
                       </td>
 
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">

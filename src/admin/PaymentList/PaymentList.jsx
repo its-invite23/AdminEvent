@@ -75,7 +75,7 @@ export default function PaymentList() {
             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Card </td>
             <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
             <button className='min-w-[110px] m-auto border border-[#EB3465] bg-[#EB34651A] font-[manrope] font-[600] text-[16] text-[#EB3465] text-center px-[15px] py-[6px] rounded-[60px]'>
-            Cancel</button>
+            cancelled</button>
             </td>
             <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
               23- Oct-2024
