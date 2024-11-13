@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
+import PackageView from './PackageView';
 
 export default function PackageList() {
   const [listing, setLisitng] = useState([]);
@@ -140,6 +141,7 @@ export default function PackageList() {
                       <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         <div className='flex justify-between items-center gap-[5px]'> {/* Adjust the gap size as needed */}
 
+<PackageView Id={item?._id}/>
                           <Link to={`/access-admin/access-package-edit/${item?._id}`}>
                             <button className=' font-[manrope] font-[600] text-white text-[18px]'>
                               <MdEdit size={24} className='text-green-600 hover:text-green -700' />
