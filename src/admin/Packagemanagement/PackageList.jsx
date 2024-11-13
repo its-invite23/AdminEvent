@@ -23,7 +23,6 @@ export default function PackageList() {
       setLoading(true);
       const main = new Listing();
       const response = await main.packageGet(page, limit, { signal });
-      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.packagegetdata)
       if (response?.data?.data?.packagegetdata) {
         setLisitng((prevData) => {
           if (page === 1) {
@@ -100,7 +99,6 @@ export default function PackageList() {
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Id</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Name</th>
-                  <th className="w-[250px] min-w-[250px] border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Event  Type</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Attendees</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Budget Range</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Status</th>
@@ -120,15 +118,6 @@ export default function PackageList() {
                       <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
                       <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
-                      <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        <ul className='flex justify-center flex-wrap gap-[5px]'>
-                          {item?.package_categories?.map((category, index) => (
-                            <li key={index} className=' text-white text-lg'>
-                              {category && `${category},`}
-                            </li>
-                          ))}
-                        </ul>
-                      </td>
                       <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
                       <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">

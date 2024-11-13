@@ -8,19 +8,63 @@ import LoadingSpinner from '../compontents/LoadingSpinner';
 export default function AddPackage() {
   const { Id } = useParams();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     package_name: "",
     package_people: "",
     package_price_min: "",
     package_price_max: "",
-    services_provider_name: "",
-    services_provider_email: "",
     package_categories: [],
     package_image: "",
+    package_services: [],
     Id: Id,
-    services_provider_phone: ""
   });
+  console.log("formData", formData)
+
+  const removePackage = (index) => {
+    setFormData((prevState) => {
+      const updatedServices = [...prevState.package_services];
+      updatedServices.splice(index, 1);
+
+      return {
+        ...prevState,
+        package_services: updatedServices,
+      };
+    });
+  };
+
+  const handleServiceChange = (e, index) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => {
+      const updatedServices = [...prevState.package_services];
+      updatedServices[index] = {
+        ...updatedServices[index],
+        [name]: value,
+      };
+
+      return {
+        ...prevState,
+        package_services: updatedServices,
+      };
+    });
+  };
+
+  const addNewPackage = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      package_services: [
+        ...prevState.package_services,
+        {
+          services_provider_email: "",
+          package_categories: [],
+          package_image: "",
+          services_provider_phone: "",
+          services_provider_name: "",
+          package_address: "",
+          package_descrption: ""
+        }
+      ],
+    }));
+  };
 
   const [loading, setLoading] = useState(false);
 
@@ -29,27 +73,47 @@ export default function AddPackage() {
     const main = new Listing();
     try {
       const response = await main.packageGetId({ Id });
+
+      console.log("response", response);
       if (response && response.data) {
-        const { package_name, package_people, package_price_min, package_price_max, services_provider_name, services_provider_email, package_categories, package_image, services_provider_phone } = response.data.data;
+        const {
+          package_name,
+          package_people,
+          package_services,
+          package_price_min,
+          package_price_max,
+          services_provider_name,
+          services_provider_email,
+          package_categories,
+          package_image,
+          services_provider_phone
+        } = response.data.data;
+
+        // Check if package_services exists and extract necessary fields
+        const serviceData = package_services && package_services.length > 0 ? package_services[0] : {};
+
         setFormData({
           package_name: package_name || "",
           package_people: package_people || "",
           package_price_min: package_price_min || "",
+          package_services: package_services || [], // Directly store the array
           package_price_max: package_price_max || "",
-          services_provider_name: services_provider_name || "",
-          services_provider_email: services_provider_email || "",
-          package_categories: package_categories || [], // Ensure this is an array
           package_image: package_image || "",
-          services_provider_phone: services_provider_phone || ""
+          service_provider_email: serviceData.services_provider_email || "",
+          service_provider_name: serviceData.services_provider_name || "",
+          service_provider_phone: serviceData.services_provider_phone || "",
+          package_categories: serviceData.package_categories || [],
+          package_address: serviceData.package_address || "",
+          package_descrption: serviceData.package_descrption || "",
         });
         setLoading(false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "An error occurred");
       setLoading(false);
-
     }
   };
+
 
   useEffect(() => {
     if (Id) {
@@ -65,13 +129,23 @@ export default function AddPackage() {
     });
   };
 
-  const handleCategoryChange = (e) => {
+  const handleCategoryChange = (e, index) => {
     const categories = e.target.value.split(',').map(category => category.trim());
-    setFormData({
-      ...formData,
-      package_categories: categories,
+    setFormData((prevState) => {
+      const updatedServices = [...prevState.package_services];
+      updatedServices[index] = {
+        ...updatedServices[index],
+        package_categories: categories,
+      };
+
+      return {
+        ...prevState,
+        package_services: updatedServices,
+      };
     });
   };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +174,6 @@ export default function AddPackage() {
       toast.error(error?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
-      // Reset form data after submission if necessary
       setFormData({
         package_name: "",
         package_people: "",
@@ -137,44 +210,7 @@ export default function AddPackage() {
             </div>
 
             {/* Row for Services Provider Name and Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div>
-                <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Service Provider Name</label>
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  name="services_provider_name"
-                  value={formData.services_provider_name}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                  placeholder="Enter Services Provider Name"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Email</label>
-                <input
-                  type="email"
-                  onChange={handleChange}
-                  name="services_provider_email"
-                  value={formData.services_provider_email}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                  placeholder="Enter services provider email"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Number</label>
-                <input
-                  type="tel"
-                  onChange={handleChange}
-                  name="services_provider_phone"
-                  value={formData.services_provider_phone}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                  placeholder="Enter services provider number"
-                  required
-                />
-              </div>
-            </div>
+            <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
 
             {/* Row for Minimum, Maximum Price and People */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -215,20 +251,6 @@ export default function AddPackage() {
                 />
               </div>
             </div>
-
-            {/* Package Categories */}
-            <div className="mb-4">
-              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Categories (comma-separated)</label>
-              <input
-                type="text"
-                onChange={handleCategoryChange}
-                value={formData.package_categories.join(', ')}
-                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                placeholder="Enter package categories"
-                required
-              />
-            </div>
-
             {/* Image Upload */}
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
@@ -239,7 +261,102 @@ export default function AddPackage() {
               />
             </div>
 
-            {/* Submit Button */}
+            {formData.package_services?.map((packageData, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-bold text-lg text-white">Serivces {index + 1}</h3>
+
+                  <button
+                    type="submit"
+                    onClick={() => removePackage(index)}
+                    className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed'}`}
+                  >
+                    Remove Serivces
+                  </button>
+                </div>
+
+
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Service Provider Name</label>
+                    <input
+                      type="text"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_name"
+                      value={packageData.services_provider_name}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter Services Provider Name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Email</label>
+                    <input
+                      type="email"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_email"
+                      value={packageData.services_provider_email}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter services provider email"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Number</label>
+                    <input
+                      type="tel"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_phone"
+                      value={packageData.services_provider_phone}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter services provider number"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
+                  <input
+                    type="text"
+                    name='package_address'
+                    onChange={(e) => handleServiceChange(e, index)}
+                    value={packageData.package_address}
+                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                    placeholder="Enter package address"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">package Descrption</label>
+                  <input
+                    type="text"
+                    value={packageData.package_descrption
+                    }
+                    onChange={(e) => handleServiceChange(e, index)}
+                    name='package_descrption'
+                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                    placeholder="Enter package descrption"
+                    required
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Categories (comma-separated)</label>
+                  <input
+                    type="text"
+                    onChange={(e) => handleCategoryChange(e, index)}
+                    name="package_categories"
+                    value={packageData.package_categories.join(', ')}
+                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                    placeholder="Enter package categories"
+                    required
+                  />
+                </div>
+
+              </div>
+            ))}
+
+
             <button
               type="submit"
               disabled={loading}
@@ -247,9 +364,9 @@ export default function AddPackage() {
             >
               {loading ? "Loading..." : Id ? "Update Package" : "Add Package"}
             </button>
+
           </form>
         )}
-
       </div>
     </div>
   );
