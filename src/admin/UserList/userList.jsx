@@ -111,6 +111,9 @@ export default function UserList() {
                       Contact
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                      Enquiry Count
+                    </th>
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       Status
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
@@ -148,6 +151,9 @@ export default function UserList() {
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.phone_code
                         } {item?.phone_number}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.enquiry_count} 
                       </td>
 
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">

@@ -7,8 +7,6 @@ import { IoCloseSharp } from "react-icons/io5";
 
 export default function PackageView({ Id }) {
     const [isOpen, setIsOpen] = useState(false);
-
-
     const [loading, setLoading] = useState(false);
     const [Lisitng, setLisitng] = useState("")
     const fetchData = async () => {
