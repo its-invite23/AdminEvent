@@ -70,6 +70,10 @@ class Listing extends Component {
     return Api.post(`/contact/contact-reply`, data);
   }
 
+
+  async BookingGet() {
+    return Api.get(`/booking/booking-get`);
+  }
   render() {
     return (
       <div>

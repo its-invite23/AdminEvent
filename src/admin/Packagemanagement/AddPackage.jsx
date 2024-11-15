@@ -210,7 +210,6 @@ export default function AddPackage() {
             </div>
 
             {/* Row for Services Provider Name and Email */}
-            <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
 
             {/* Row for Minimum, Maximum Price and People */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -260,7 +259,6 @@ export default function AddPackage() {
                 className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
               />
             </div>
-
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">
@@ -355,15 +353,20 @@ export default function AddPackage() {
 
               </div>
             ))}
+            <div className="flex justify-end mb-5">
 
+            <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
+          </div>
+            <div className="flex justify-center mb-5">
+              <button
+                type="submit"
+                disabled={loading}
+                className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed'}`}
+              >
+                {loading ? "Loading..." : Id ? "Update Package" : "Add Package"}
+              </button>
+            </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed'}`}
-            >
-              {loading ? "Loading..." : Id ? "Update Package" : "Add Package"}
-            </button>
 
           </form>
         )}

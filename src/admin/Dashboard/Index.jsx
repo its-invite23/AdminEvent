@@ -9,7 +9,6 @@ import Listing from '../../Api/Listing';
 import LoadingSpinner from '../compontents/LoadingSpinner';
 // import Enquiry from '../Dashboard/Enquiry';
 export default function Index() {
-
   const [listing, setLisitng] = useState("");
   const [Loading, setLoading] = useState(false);
   const DashboardData = () => {
