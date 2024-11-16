@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
+import ViewImage from "../../asstes/event.jpg"
 
 export default function BookingView({ item }) {
+    console.log("item",item)
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="p-4">
@@ -29,7 +31,7 @@ export default function BookingView({ item }) {
                             <div className="max-w-sm mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
                                 <img
                                     className="w-full object-cover h-48 md:h-64"
-                                    src="https://th.bing.com/th/id/OIP.zgiDOfpjSb5jqL9bSPKK8QHaD8?rs=1&pid=ImgDetMain"
+                                    src={ViewImage}
                                     alt="Sunset in the mountains"
                                 />
                                 <div className="px-6 py-4">
@@ -81,7 +83,7 @@ export default function BookingView({ item }) {
                                         <div className="relative">
                                             <div className="mk">
                                                 <img
-                                                    src="https://th.bing.com/th/id/OIP.zgiDOfpjSb5jqL9bSPKK8QHaD8?rs=1&pid=ImgDetMain"
+                                                    src={ViewImage}
                                                     alt={venue.name}
                                                     className="h-48 w-full object-cover rounded-t-lg mb-4"
                                                 />

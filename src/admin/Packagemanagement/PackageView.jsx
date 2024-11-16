@@ -3,11 +3,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import Listing from '../../Api/Listing';
 import toast from 'react-hot-toast';
 import { IoCloseSharp } from "react-icons/io5";
+import ViewImage from "../../asstes/event.jpg"
+import { IoStar } from "react-icons/io5";
 
 export default function PackageView({ Id }) {
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [Lisitng, setLisitng] = useState("")
+    const [item, setLisitng] = useState("")
+    console.log("Lisitng", item)
     const fetchData = async () => {
         setLoading(true);
         const main = new Listing();
@@ -43,8 +46,8 @@ export default function PackageView({ Id }) {
 
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
-                    <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">
-                        <div className=" mb-4">
+                    <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[700px] max-h-[90vh] overflow-y-auto overflow-x-auto">
+                        <div className="mb-4">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-[30px] font-semibold text-white">Package View</h3>
                                 <IoCloseSharp
@@ -53,58 +56,111 @@ export default function PackageView({ Id }) {
                                     onClick={() => setIsOpen(false)}
                                 />
                             </div>
-                            <div class="max-w-sm mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
-                                <img
-                                    class="w-full object-cover h-48 md:h-64"
-                                    src="https://th.bing.com/th/id/OIP.zgiDOfpjSb5jqL9bSPKK8QHaD8?rs=1&pid=ImgDetMain"
-                                    alt="Sunset in the mountains"
-                                />
-                                <div class="px-6 py-4">
-                                    <div class="font-bold text-xl mb-2 text-center md:text-left">{Lisitng.package_name} Package</div>
-                                    <p class="text-gray-700 text-base text-justify">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                    </p>
-                                </div>
-                                <div class="px-6 pt-4 pb-2">
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                        {Lisitng.package_people}
-                                    </span>
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                        ${Lisitng.package_price_min} - ${Lisitng.package_price_max}
-                                    </span>
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                        #winter
-                                    </span>
-                                </div>
-                            </div>
 
-                            <h3 className="text-lg font-semibold mt-4 mb-2">Services</h3>
-                            {Lisitng.package_services?.map((service, index) => (
-                                <div
-                                    key={index}
-                                    className="p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                                >
-                                    <h3 className="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Service {index + 1}</h3>
-                                    <p className='mb-3 font-normal  '>
-                                        <strong>Provider Name:</strong> {service.services_provider_name}
-                                    </p>
-                                    <p className='mb-3 font-normal '>
-                                        <strong>Email:</strong> {service.services_provider_email}
-                                    </p>
-                                    <p>
-                                        <strong>Phone:</strong> {service.services_provider_phone}
-                                    </p>
-                                    <p className='mb-3 font-normal '>
-                                        <strong>Address:</strong> {service.package_address}
-                                    </p>
-                                    <p className='mb-3 font-normal '>
-                                        <strong>Description:</strong> {service.package_descrption}
-                                    </p>
-                                    <p className='mb-3 font-normal '>
-                                        <strong>Categories:</strong> {service.package_categories.join(", ")}
-                                    </p>
+                            <>
+                                <div className="max-w-sm mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
+                                    <img
+                                        className="w-full object-cover h-48 md:h-64"
+                                        src={ViewImage}
+                                        alt="Sunset in the mountains"
+                                    />
+                                    <div className="px-6 py-4">
+                                        <div className="flex flex-row  items-center mr-2">
+                                            <button
+                                                className={`min-w-[110px] mr-2 capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.package_status === "pending"
+                                                    ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                                                    : item?.package_status === "active"
+                                                        ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                                                        : item?.package_status === "inactive"
+                                                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                                                            : ""
+                                                    }`}
+                                            >
+                                                {item?.package_status
+                                                }
+                                            </button>
+                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-3">
+                                                Person: {item.package_people
+                                                }
+                                            </span>
+                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
+                                                Total Price: ${item.package_price_max}-{item?.package_price_min}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between py-4">
+                                            {/* Left Section: Select Option */}
+                                            <div className="flex items-center">
+                                                <select className="border rounded px-3 py-2 text-sm font-medium text-gray-700">
+                                                    <option value="">Select an option</option>
+                                                    <option value="Approve">Approve</option>
+                                                    <option value="Reject">Reject</option>
+                                                </select>
+                                            </div>
+                                            {/* Right Section: Payment Generator Button */}
+                                            <div>
+                                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    Payment Generator
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            ))}
+                                <h3 className="text-[30px] font-semibold text-white mb-3 mt-3">Services Provider Details</h3>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+                                    {item?.package_services?.map((venue, index) => (
+                                        <div
+                                            className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-2"
+                                            key={index}
+                                        >
+                                            <div className="relative">
+                                                <img
+                                                    src={ViewImage}
+                                                    alt={venue.name}
+                                                    className="h-64 w-full object-cover rounded-t-lg"
+                                                />
+                                            </div>
+                                            <div className="p-4 space-y-4">
+                                                {/* Provider Name */}
+                                                <div className="flex justify-between items-center">
+                                                    <h2 className="text-xl font-semibold text-white">{venue.services_provider_name}</h2>
+                                                    <p className="text-white text-sm">{venue.services_provider_phone}</p>
+                                                </div>
+
+                                                <div className="flex items-center justify-between">
+                                                    {/* Email */}
+                                                    <p className="text-white text-sm">{venue.services_provider_email}</p>
+
+                                                    {/* Categories */}
+                                                    <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
+                                                        {venue.services_provider_categries}
+                                                    </div>
+                                                </div>
+
+                                                {/* Rating and Price */}
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
+                                                        <IoStar size={12} className='text-[#ffff00] ' />
+                                                        {venue.services_provider_rating}
+                                                    </div>
+                                                    <p className="text-white text-xs">${venue.services_provider_price}/person</p>
+                                                </div>
+
+                                                {/* Package Categories */}
+                                                <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_categories?.join(",")}</p>
+
+                                                {/* Description */}
+                                                <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_descrption}</p>
+
+                                                {/* Address */}
+                                                <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_address}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                            </>
+
                         </div>
                     </div>
                 </div>

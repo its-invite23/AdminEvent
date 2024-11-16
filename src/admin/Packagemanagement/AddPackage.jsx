@@ -317,38 +317,38 @@ export default function AddPackage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categries</label>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categories</label>
                     <input
                       type="text"
                       onChange={(e) => handleServiceChange(e, index)}
                       name="services_provider_categries"
                       value={packageData.services_provider_categries}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder="Enter (Venue Catering Activity Other )"
+                      placeholder=""
                       required
                     />
                   </div>
                   <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Prices (Estimated Budget) </label>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]"> Prices (Estimated Budget) </label>
                     <input
                       type="text"
                       onChange={(e) => handleServiceChange(e, index)}
                       name="services_provider_price"
                       value={packageData.services_provider_price}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder=" (Estimated Budget:)"
+                      placeholder=" (Estimated Budget)"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Rating</label>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]"> Rating</label>
                     <input
                       type="text"
                       onChange={(e) => handleServiceChange(e, index)}
                       name="services_provider_rating"
                       value={packageData.services_provider_rating}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder="Enter services rating"
+                      placeholder="Enter Rating"
                       required
                     />
                   </div>
@@ -356,18 +356,7 @@ export default function AddPackage() {
                   
                 </div>
                 <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
-                  <input
-                    type="file"
-                    name='services_provider_image'
-                    onChange={(e) => handleServiceChange(e, index)}
-                    value={packageData.services_provider_image}
-                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                    placeholder="Enter package image"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Address</label>
                   <input
                     type="text"
                     name='package_address'
@@ -379,7 +368,19 @@ export default function AddPackage() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">package Descrption</label>
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
+                  <input
+                    type="file"
+                    name='services_provider_image'
+                    onChange={(e) => handleServiceChange(e, index)}
+                    value={packageData.services_provider_image}
+                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                    placeholder="Enter package image"
+                  />
+                </div>
+            
+                <div className="mb-4">
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
                   <input
                     type="text"
                     value={packageData.package_descrption
@@ -387,7 +388,7 @@ export default function AddPackage() {
                     onChange={(e) => handleServiceChange(e, index)}
                     name='package_descrption'
                     className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                    placeholder="Enter package descrption"
+                    placeholder="Enter description"
                     required
                   />
                 </div>

@@ -139,17 +139,21 @@ export default function PackageList() {
                         {item?.package_availability === "outOfStock" ? "out Of Stock" : (item?.package_availability)}
                       </td>
                       <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                        <div className='flex justify-between items-center gap-[5px]'> {/* Adjust the gap size as needed */}
+                        <div className='flex justify-between items-center gap-[5px]'>
+                          {/* Package View Component */}
+                          <PackageView Id={item?._id} />
 
-<PackageView Id={item?._id}/>
+                          {/* Edit Button */}
                           <Link to={`/access-admin/access-package-edit/${item?._id}`}>
-                            <button className=' font-[manrope] font-[600] text-white text-[18px]'>
-                              <MdEdit size={24} className='text-green-600 hover:text-green -700' />
+                            <button className='font-[manrope] font-[600] text-white text-[18px]'>
+                              <MdEdit size={24} className='text-green-600 hover:text-green-700' />
                             </button>
                           </Link>
 
+                          {/* Delete Button */}
                           <Delete Id={item?._id} step={1} PackageGet={fetchData} />
                         </div>
+
                       </td>
 
                     </tr>
