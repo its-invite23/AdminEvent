@@ -56,10 +56,10 @@ export default function AddPackage() {
         {
           services_provider_email: "",
           package_categories: [],
-          package_image: "",
           services_provider_phone: "",
           services_provider_name: "",
           package_address: "",
+          services_provider_categries: "",
           package_descrption: "",
           services_provider_price: "",
           services_provider_rating: '',
@@ -212,8 +212,6 @@ export default function AddPackage() {
               />
             </div>
 
-            {/* Row for Services Provider Name and Email */}
-
             {/* Row for Minimum, Maximum Price and People */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
@@ -256,12 +254,11 @@ export default function AddPackage() {
             {/* Image Upload */}
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
-              {/* <input
+              <input
                 type="file"
                 onChange={(e) => setFormData({ ...formData, package_image: e.target.files[0] })}
                 className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-              /> */}
-                <ImageUpload setFormData={(image) => setFormData((prevData) => ({ ...prevData, image }))} />
+              />
 
             </div>
             {formData.package_services?.map((packageData, index) => (
@@ -318,16 +315,28 @@ export default function AddPackage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categries</label>
+                    <input
+                      type="text"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_categries"
+                      value={packageData.services_provider_categries}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter (Venue Catering Activity Other )"
+                      required
+                    />
+                  </div>
                   <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Prices </label>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Prices (Estimated Budget) </label>
                     <input
                       type="text"
                       onChange={(e) => handleServiceChange(e, index)}
                       name="services_provider_price"
                       value={packageData.services_provider_price}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder="Enter Services Prices"
+                      placeholder=" (Estimated Budget:)"
                       required
                     />
                   </div>
@@ -343,6 +352,8 @@ export default function AddPackage() {
                       required
                     />
                   </div>
+
+                  
                 </div>
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
@@ -353,7 +364,6 @@ export default function AddPackage() {
                     value={packageData.services_provider_image}
                     className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                     placeholder="Enter package image"
-                    required
                   />
                 </div>
                 <div className="mb-4">

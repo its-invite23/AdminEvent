@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useParams } from 'react-router-dom';
 import Listing from '../../Api/Listing';
 import toast from 'react-hot-toast';
 import { IoCloseSharp } from "react-icons/io5";
