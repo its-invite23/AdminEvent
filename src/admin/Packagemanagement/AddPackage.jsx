@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Listing from '../../Api/Listing';
 import Header from '../compontents/Header';
 import LoadingSpinner from '../compontents/LoadingSpinner';
+import ImageUpload from '../compontents/ImageUpload';
 
 export default function AddPackage() {
   const { Id } = useParams();
@@ -13,7 +14,6 @@ export default function AddPackage() {
     package_people: "",
     package_price_min: "",
     package_price_max: "",
-    package_categories: [],
     package_image: "",
     package_services: [],
     Id: Id,
@@ -60,7 +60,10 @@ export default function AddPackage() {
           services_provider_phone: "",
           services_provider_name: "",
           package_address: "",
-          package_descrption: ""
+          package_descrption: "",
+          services_provider_price: "",
+          services_provider_rating: '',
+          services_provider_image: ""
         }
       ],
     }));
@@ -253,11 +256,13 @@ export default function AddPackage() {
             {/* Image Upload */}
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
-              <input
+              {/* <input
                 type="file"
                 onChange={(e) => setFormData({ ...formData, package_image: e.target.files[0] })}
                 className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-              />
+              /> */}
+                <ImageUpload setFormData={(image) => setFormData((prevData) => ({ ...prevData, image }))} />
+
             </div>
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
@@ -312,6 +317,45 @@ export default function AddPackage() {
                     />
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Prices </label>
+                    <input
+                      type="text"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_price"
+                      value={packageData.services_provider_price}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter Services Prices"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Rating</label>
+                    <input
+                      type="text"
+                      onChange={(e) => handleServiceChange(e, index)}
+                      name="services_provider_rating"
+                      value={packageData.services_provider_rating}
+                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                      placeholder="Enter services rating"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
+                  <input
+                    type="file"
+                    name='services_provider_image'
+                    onChange={(e) => handleServiceChange(e, index)}
+                    value={packageData.services_provider_image}
+                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                    placeholder="Enter package image"
+                    required
+                  />
+                </div>
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Address</label>
                   <input
@@ -355,8 +399,8 @@ export default function AddPackage() {
             ))}
             <div className="flex justify-end mb-5">
 
-            <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
-          </div>
+              <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
+            </div>
             <div className="flex justify-center mb-5">
               <button
                 type="submit"
