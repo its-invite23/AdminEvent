@@ -269,7 +269,7 @@ export default function AddPackage() {
                   <button
                     type="submit"
                     onClick={() => removePackage(index)}
-                    className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed'}`}
+                    className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer'}`}
                   >
                     Remove Serivces
                   </button>
@@ -410,7 +410,7 @@ export default function AddPackage() {
             ))}
             <div className="flex justify-end mb-5">
 
-              <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-not-allowed">Add New Service</button>
+              <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer">Add New Service</button>
             </div>
             <div className="flex justify-center mb-5">
               <button
