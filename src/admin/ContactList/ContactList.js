@@ -8,6 +8,7 @@ import NoDataPage from "../compontents/NoDataPage";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -79,6 +80,9 @@ export default function ContactList() {
                     Email
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    Phone Number
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
                     Message
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
@@ -107,6 +111,10 @@ export default function ContactList() {
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.email}
+                      </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        {item?.phone_code
+                        } {item?.phone_number}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.message}
