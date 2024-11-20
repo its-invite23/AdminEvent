@@ -9,6 +9,7 @@ import BookingView from "./BookingView";
 export default function BookingList() {
 
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -84,9 +85,9 @@ export default function BookingList() {
                       <button
                         className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === 'pending'
                             ? 'border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]'
-                            : item?.status === 'confirmed'
+                            : item?.status === 'approve'
                               ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
-                              : item?.status === 'canceled'
+                              : item?.status === 'reject'
                                 ? 'border-[#EB3465] bg-[#EB34651A] text-[#EB3465]'
                                 : ''
                           }`}
@@ -99,7 +100,7 @@ export default function BookingList() {
                       {/* <button className='text-center'>
                         <BsThreeDots size={24} />
                       </button> */}
-                      <BookingView item ={item}/>
+                      <BookingView item ={item} bookignGet={bookignGet}/>
                     </td>
                   </tr>
                 ))

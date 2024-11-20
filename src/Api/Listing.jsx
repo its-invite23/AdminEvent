@@ -74,6 +74,14 @@ class Listing extends Component {
   async BookingGet() {
     return Api.get(`/booking/booking-get`);
   }
+
+  async BookingStatus(data) {
+    return Api.post(`/booking/booking-status` , data);
+  }
+
+  async BookingPayment(data) {
+    return Api.post(`/booking/booking-payment` , data);
+  }
   render() {
     return (
       <div>

@@ -9,7 +9,6 @@ import EnquiryReplyMessage from "./EnquiryReplyMessage";
 
 export default function Enquiry() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -75,15 +74,13 @@ export default function Enquiry() {
                 <thead className="mb-[15px]">
                   <tr>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S.No.</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Date</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Email</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Phone Number</th>
 
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Date</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Number of attendees</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  Name</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Phone number </th>
-
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  type</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Enquiry Status</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Action</th>
@@ -92,7 +89,7 @@ export default function Enquiry() {
                 {listing && listing?.map((item, index) => (
                   <tr key={index}>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{index + 1}</td>
-
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{item?.name}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{item?.email}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
@@ -100,14 +97,9 @@ export default function Enquiry() {
                         } {item?.phone_number}
                       </td>
 
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.attendees}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.eventname}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.event_type}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item}</td>
-
-
-       
                     <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.enquire_status === 'pending' ? 'text-yellow-500' :
                       item?.enquire_status === 'active' ? 'text-green-500' :
                         item?.enquire_status === 'inactive' ? 'text-red-500' :

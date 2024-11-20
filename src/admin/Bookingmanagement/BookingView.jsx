@@ -1,11 +1,63 @@
 import React, { useState } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoCloseSharp } from "react-icons/io5";
+import { IoCloseSharp, IoStar } from "react-icons/io5";
 import ViewImage from "../../asstes/event.jpg"
+import Listing from '../../Api/Listing';
+import toast from 'react-hot-toast';
 
-export default function BookingView({ item }) {
-    console.log("item",item)
+export default function BookingView({ item, bookignGet }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const handleActiveStatues = (Id, status) => {
+        console.log("Id:", Id, "Status:", status);
+        if (!Id || !status) {
+            toast.error("Invalid ID or status. Please check your input.");
+            return;
+        }
+        setLoading(true);
+        const main = new Listing();
+        const response = main.BookingStatus({ _id: Id, status: status });
+        response
+            .then((res) => {
+                if (res && res?.data?.status) {
+                    toast.success(res.data.message);
+                    bookignGet();
+                } else {
+                    toast.error(res.data?.message || "Something went wrong.");
+                }
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log("error", error?.response?.data?.message);
+                toast.error(error?.response?.data?.message || "An error occurred.");
+                setLoading(false);
+            });
+    };
+
+    const handlepayment = (Id) => {
+        console.log("Id:", Id, );
+        if (!Id ) {
+            toast.error("Invalid ID or status. Please check your input.");
+            return;
+        }
+        setLoading(true);
+        const main = new Listing();
+        const response = main.BookingPayment({ _id: Id,});
+        response
+            .then((res) => {
+                if (res && res?.data?.status) {
+                    toast.success(res.data.message);
+                } else {
+                    toast.error(res.data?.message || "Something went wrong.");
+                }
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log("error", error?.response?.data?.message);
+                toast.error(error?.response?.data?.message || "An error occurred.");
+                setLoading(false);
+            });
+    };
     return (
         <div className="p-4">
             <button
@@ -39,9 +91,9 @@ export default function BookingView({ item }) {
                                         <button
                                             className={`min-w-[110px] capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
                                                 ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                                                : item?.status === "confirmed"
+                                                : item?.status === "approve"
                                                     ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                                                    : item?.status === "canceled"
+                                                    : item?.status === "reject"
                                                         ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
                                                         : ""
                                                 }`}
@@ -56,52 +108,78 @@ export default function BookingView({ item }) {
                                         </span>
                                     </div>
                                     <div className="flex items-center justify-between py-4">
-                                        {/* Left Section: Select Option */}
                                         <div className="flex items-center">
-                                            <select className="border rounded px-3 py-2 text-sm font-medium text-gray-700">
+                                            <select
+                                                onChange={(e) => handleActiveStatues(item?._id, e.target.value)}
+                                                className="border rounded px-3 py-2 text-sm font-medium text-gray-700"
+                                            >
                                                 <option value="">Select an option</option>
-                                                <option value="Approve">Approve</option>
-                                                <option value="Reject">Reject</option>
+                                                <option value="approve">Approve</option>
+                                                <option value="reject">Reject</option>
                                             </select>
                                         </div>
                                         {/* Right Section: Payment Generator Button */}
                                         <div>
-                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            {item?.status === "approve" &&  (
+                                                <button onClick={() => handlepayment(item?._id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                 Payment Generator
                                             </button>
+                                            )}
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                                {item?.package.map((venue, index) => (
+                            <h3 className="text-[30px] font-semibold text-white mb-3 mt-3">Services Provider Details</h3>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+                                {item?.package?.map((venue, index) => (
                                     <div
-                                        className="bg-[#1B1B1B] shadow-md rounded-lg m-2 flex flex-col overflow-hidden"
+                                        className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-2"
                                         key={index}
                                     >
                                         <div className="relative">
-                                            <div className="mk">
-                                                <img
-                                                    src={ViewImage}
-                                                    alt={venue.name}
-                                                    className="h-48 w-full object-cover rounded-t-lg mb-4"
-                                                />
-                                            </div>
+                                            <img
+                                                src={ViewImage}
+                                                alt={venue.name}
+                                                className="h-64 w-full object-cover rounded-t-lg"
+                                            />
                                         </div>
-                                        <div className="p-[10px]">
-                                            <h2 className="text-[18px] mb-3 font-semibold text-white">{venue.name}</h2>
+                                        <div className="p-4 space-y-4">
+                                            {/* Provider Name */}
+                                            <div className="flex justify-between items-center">
+                                                <h2 className="text-xl font-semibold text-white">{venue.services_provider_name}</h2>
+                                                <p className="text-white text-sm">{venue.services_provider_phone}</p>
+                                            </div>
+
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-[10px] h-[38px] text-white bg-[#000] rounded-[60px] px-[15px] py-[2px] text-[14px] leading-[15px]">
-                                                    {venue.package_categories?.join(",")}
-                                                </div>
-                                                <div className="flex flex-col items-end justify-between">
-                                                    <p className="text-white block">${venue.price}/person</p>
+                                                {/* Email */}
+                                                <p className="text-white text-sm">{venue.services_provider_email}</p>
+
+                                                {/* Categories */}
+                                                <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
+                                                    {venue.services_provider_categries}
                                                 </div>
                                             </div>
-                                            <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
-                                                {venue.description}
-                                            </p>
+
+                                            {/* Rating and Price */}
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
+                                                    <IoStar size={12} className='text-[#ffff00] ' />
+                                                    {venue.services_provider_rating}
+                                                </div>
+                                                <p className="text-white text-xs">${venue.services_provider_price}/person</p>
+                                            </div>
+
+                                            {/* Package Categories */}
+                                            <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_categories?.join(",")}</p>
+
+                                            {/* Description */}
+                                            <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_descrption}</p>
+
+                                            {/* Address */}
+                                            <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">{venue.package_address}</p>
                                         </div>
                                     </div>
                                 ))}

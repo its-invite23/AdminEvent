@@ -96,12 +96,6 @@ export default function PackageView({ Id }) {
                                                     <option value="Reject">Reject</option>
                                                 </select>
                                             </div>
-                                            {/* Right Section: Payment Generator Button */}
-                                            <div>
-                                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                    Payment Generator
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

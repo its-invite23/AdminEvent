@@ -1,8 +1,8 @@
 import axios from 'axios';
+console.log("process.env.REACT_APP_URL",process.env.REACT_APP_URL)
+const API_URL = process.env.REACT_APP_URL || "http://localhost:5000";
 
-const API_URL = process.env.REACT_APP_URL;
-
-
+console.log("API_URL",API_URL)
 function getToken() {
   if (typeof window !== 'undefined') {
     const data = localStorage.getItem('token');
