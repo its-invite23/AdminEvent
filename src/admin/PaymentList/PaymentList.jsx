@@ -49,8 +49,6 @@ export default function PaymentList() {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
-
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"All Payment"} />
