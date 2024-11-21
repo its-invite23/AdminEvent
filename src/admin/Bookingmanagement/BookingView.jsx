@@ -114,7 +114,7 @@ export default function BookingView({ item, bookignGet }) {
                   onClick={() => setIsOpen(false)}
                 />
               </div>
-              <div className=" mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
+              <div className=" mx-auto rounded overflow-hidden shadow-lg rounded-md ">
                 <img
                   className="w-full object-cover h-48 md:h-64"
                   src={ViewImage}
@@ -174,8 +174,7 @@ export default function BookingView({ item, bookignGet }) {
                     </div>
                     {/* Right Section: Payment Generator Button */}
                     <div>
-                      {item?.status === "approve" || item?.
-                        payment_genrator_link !== true && (
+                      {item?.status === "approve" && item?.payment_genrator_link !== true && (
                           <button
                             onClick={() => handlepayment(item?._id)}
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -200,7 +199,7 @@ export default function BookingView({ item, bookignGet }) {
                   >
                     <div className="relative">
                       <img
-                        src={ViewImage}
+                        src={ViewImage || venue?.icon}
                         alt={venue.name}
                         className="h-64 w-full object-cover rounded-t-lg"
                       />
@@ -209,7 +208,7 @@ export default function BookingView({ item, bookignGet }) {
                       {/* Provider Name */}
                       <div className="flex justify-between items-center">
                         <h2 className="text-xl font-semibold text-white">
-                          {venue.services_provider_name}
+                          {venue.services_provider_name || venue?.name                          }
                         </h2>
                         <p className="text-white text-sm">
                           {venue.services_provider_phone}
@@ -232,7 +231,7 @@ export default function BookingView({ item, bookignGet }) {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                           <IoStar size={12} className="text-[#ffff00] " />
-                          {venue.services_provider_rating}
+                          {venue.services_provider_rating || venue?.rating}
                         </div>
                         <p className="text-white text-xs">
                           ${venue.services_provider_price}/person
