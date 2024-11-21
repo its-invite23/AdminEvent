@@ -175,13 +175,13 @@ export default function BookingView({ item, bookignGet }) {
                     {/* Right Section: Payment Generator Button */}
                     <div>
                       {item?.status === "approve" && item?.payment_genrator_link !== true && (
-                          <button
-                            onClick={() => handlepayment(item?._id)}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          >
-                            Payment Generator
-                          </button>
-                        )}
+                        <button
+                          onClick={() => handlepayment(item?._id)}
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                          Payment Generator
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export default function BookingView({ item, bookignGet }) {
                       {/* Provider Name */}
                       <div className="flex justify-between items-center">
                         <h2 className="text-xl font-semibold text-white">
-                          {venue.services_provider_name || venue?.name                          }
+                          {venue.services_provider_name || venue?.name}
                         </h2>
                         <p className="text-white text-sm">
                           {venue.services_provider_phone}

@@ -48,9 +48,6 @@ class Listing extends Component {
     return Api.post(`/package/package-delete`, data);
   }
 
-  async contactGet() {
-    return Api.get(`/contact/contact-get`);
-  }
 
   async enquiryGet(page, limit) {
     return Api.get(`enquiry/enquiry-get?page=${page}&limit=${limit}`);
