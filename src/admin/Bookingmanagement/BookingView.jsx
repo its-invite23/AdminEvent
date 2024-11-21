@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export default function BookingView({ item, bookignGet }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [price,setPrice]=useState(item.totalPrice);
+  const [price, setPrice] = useState(item.totalPrice);
 
   const handleChange = (e) => {
     const inputPrice = e.target.value;
@@ -75,7 +75,7 @@ export default function BookingView({ item, bookignGet }) {
     }
     setLoading(true);
     const main = new Listing();
-    const response = main.BookingPayment({ _id: Id });
+    const response = main.BookingPayment({ _id: Id, payment_genrator_link: true });
     response
       .then((res) => {
         if (res && res?.data?.status) {
@@ -92,7 +92,7 @@ export default function BookingView({ item, bookignGet }) {
         setLoading(false);
       });
   };
-  console.log("item",item);
+  console.log("item", item);
 
   return (
     <div className="p-4">
@@ -114,58 +114,57 @@ export default function BookingView({ item, bookignGet }) {
                   onClick={() => setIsOpen(false)}
                 />
               </div>
-              <div className="max-w-sm mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
+              <div className=" mx-auto rounded overflow-hidden shadow-lg lg:max-w-md">
                 <img
                   className="w-full object-cover h-48 md:h-64"
                   src={ViewImage}
                   alt="Sunset in the mountains"
                 />
                 <div className="px-6 py-4">
-                  <div className="flex flex-row  items-center">
+                  <div className="flex flex-row  items-center gap-4">
                     <button
-                      className={`min-w-[110px] capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                        item?.status === "pending"
-                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                          : item?.status === "approve"
+                      className={`min-w-[110px] capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                        ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                        : item?.status === "approve"
                           ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                           : item?.status === "reject"
-                          ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                          : ""
-                      }`}
+                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                            : ""
+                        }`}
                     >
                       {item?.status}
                     </button>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-3">
+                    <span className="min-w-[110px]  capitalize border font-[manrope] font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
                       Person: {item.attendees}
                     </span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
+                    <span className=" capitalize border font-[manrope] font-[600] text-[16px]  px-[15px] py-[6px] rounded-[60px] flex items-center">
                       Total Price:
                       <input
-                      type="number"
-                      value={price}
-                      onChange={handleChange}
-                      className="w-[4vw] bg-gray-200 pl-1 py-1 text-sm font-semibold text-gray-700"
-                    />
+                        type="number"
+                        value={price}
+                        onChange={handleChange}
+                        className="cursor-pointer ml-2 w-[4vw] bg-gray-500 pl-1 py-1 text-sm font-semibold text-white text-center rounded"
+                      />
                     </span>
-                  </div>
-                  {item?.totalPrice !== price ?
-                  <div className="flex items-center justify-between py-4">
-                     <button
+                    {item?.totalPrice !== price &&
+                      <div className="flex items-center justify-between py-4">
+                        <button
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          onClick={()=>{handlePriceChange(item?._id);}}
+                          onClick={() => { handlePriceChange(item?._id); }}
                         >
                           Update Price
                         </button>
-                        </div>
-                        :
-                       null
-                  }
+                      </div>
+                    }
+
+                  </div>
                   <div className="flex items-center justify-between py-4">
                     <div className="flex items-center">
                       <select
                         onChange={(e) =>
                           handleActiveStatues(item?._id, e.target.value)
                         }
+                        value={item?.package_status}
                         className="border rounded px-3 py-2 text-sm font-medium text-gray-700"
                       >
                         <option value="">Select an option</option>
@@ -175,14 +174,15 @@ export default function BookingView({ item, bookignGet }) {
                     </div>
                     {/* Right Section: Payment Generator Button */}
                     <div>
-                      {item?.status === "approve" && (
-                        <button
-                          onClick={() => handlepayment(item?._id)}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                          Payment Generator
-                        </button>
-                      )}
+                      {item?.status === "approve" || item?.
+                        payment_genrator_link !== true && (
+                          <button
+                            onClick={() => handlepayment(item?._id)}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          >
+                            Payment Generator
+                          </button>
+                        )}
                     </div>
                   </div>
                 </div>

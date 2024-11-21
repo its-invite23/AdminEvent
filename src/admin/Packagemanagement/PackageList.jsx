@@ -142,14 +142,12 @@ export default function PackageList() {
                         <div className='flex justify-between items-center gap-[5px]'>
                           {/* Package View Component */}
                           <PackageView Id={item?._id} />
-
                           {/* Edit Button */}
                           <Link to={`/access-admin/access-package-edit/${item?._id}`}>
                             <button className='font-[manrope] font-[600] text-white text-[18px]'>
                               <MdEdit size={24} className='text-green-600 hover:text-green-700' />
                             </button>
                           </Link>
-
                           {/* Delete Button */}
                           <Delete Id={item?._id} step={1} PackageGet={fetchData} />
                         </div>

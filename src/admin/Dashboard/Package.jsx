@@ -4,6 +4,7 @@ import { AiOutlineDash } from "react-icons/ai";
 
 function Package({ packages }) {
 
+    console.log("packages",packages)
     const truncateText = (text, wordLimit) => {
         if (!text) return '';
         const words = text.split(' ');
@@ -15,7 +16,6 @@ function Package({ packages }) {
                 <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">Packages</h2>
                 {packages?.map((item, index) => (
                     <div key={index} className="flex items-center justify-between gap-[10px] w-full border border-[#404040] rounded-[10px] p-[15px] mb-[15px]">
-
                         <div className="flex items-center gap-[13px] w-[90%] ">
                             <div className="flex gap-[10px] items-center justify-center rounded-[5px] w-[38px] h-[38px] 
                     md:w-[40px] md:h-[40px] lg:w-[45px] lg:h-[45px] xl:w-[60px] xl:h-[60px] bg-[#302F2F]">
@@ -26,8 +26,8 @@ function Package({ packages }) {
                                     {truncateText(item?.package_name, 10)}
                                 </h2>
                                 <div className="flex items-center">
-                                    {item?.package_categories?.map((category, index) => (
-                                        <span className="flex items-center  font-manrope text-[#ffffff59] text-[600] uppercase text-[11px] leading-[22px] mr-[8px]">{category} ,</span>
+                                    {item?.package_services?.map((category, index) => (
+                                        <span className="flex items-center  font-manrope text-[#ffffff59] text-[600] uppercase text-[11px] leading-[22px] mr-[8px]">{category?.services_provider_categries} ,</span>
                                     ))}</div>
                             </div>
                         </div>

@@ -271,7 +271,7 @@ export default function AddPackage() {
                     onClick={() => removePackage(index)}
                     className={`bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer'}`}
                   >
-                    Remove Serivces
+                    Remove Services
                   </button>
                 </div>
 
@@ -316,7 +316,7 @@ export default function AddPackage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div>
+                  <div>
                     <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categories</label>
                     <input
                       type="text"
@@ -353,7 +353,7 @@ export default function AddPackage() {
                     />
                   </div>
 
-                  
+
                 </div>
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Address</label>
@@ -378,7 +378,7 @@ export default function AddPackage() {
                     placeholder="Enter package image"
                   />
                 </div>
-            
+
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
                   <input

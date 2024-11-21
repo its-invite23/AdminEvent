@@ -35,10 +35,10 @@ export default function PackageView({ Id }) {
     }, [Id]);
 
     return (
-        <div className="p-4">
+        <div className="">
             <button
                 onClick={() => setIsOpen(true)}
-                className=""
+                className="font-[manrope] font-[600] text-white text-[18px]"
             >
                 <BsThreeDotsVertical size={24} />
 
@@ -86,16 +86,6 @@ export default function PackageView({ Id }) {
                                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
                                                 Total Price: ${item.package_price_max}-{item?.package_price_min}
                                             </span>
-                                        </div>
-                                        <div className="flex items-center justify-between py-4">
-                                            {/* Left Section: Select Option */}
-                                            <div className="flex items-center">
-                                                <select className="border rounded px-3 py-2 text-sm font-medium text-gray-700">
-                                                    <option value="">Select an option</option>
-                                                    <option value="Approve">Approve</option>
-                                                    <option value="Reject">Reject</option>
-                                                </select>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
