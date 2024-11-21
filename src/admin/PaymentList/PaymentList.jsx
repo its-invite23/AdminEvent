@@ -80,27 +80,26 @@ export default function PaymentList() {
                 {listing?.map((item, index) => (
                   <tr>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">JK345</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Casual party</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">Jhon Dev</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">10</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_id || "N/A"}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.booking_id}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
                     <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       <button
-                        className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.Payment_status
+                        className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.payment_status
                           === 'pending'
                           ? 'border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]'
-                          : item?.Payment_status
-                            === 'approve'
+                          : item?.payment_status
+                            === 'success'
                             ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
-                            : item?.Payment_status
-                              === 'reject'
+                            : item?.payment_status
+                              === 'failed'
                               ? 'border-[#EB3465] bg-[#EB34651A] text-[#EB3465]'
                               : ''
                           }`}
                       >
-                        {item?.Payment_status
-                        }
+                        {item?.payment_status}
                       </button>
                     </td>
                     <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
