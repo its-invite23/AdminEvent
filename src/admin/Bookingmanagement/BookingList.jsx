@@ -9,7 +9,6 @@ import BookingView from "./BookingView";
 export default function BookingList() {
 
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
