@@ -92,7 +92,19 @@ export default function BookingView({ item, bookignGet }) {
         setLoading(false);
       });
   };
-  console.log("item", item);
+
+  const getPhotoUrls = (photos) => {
+    if (photos && photos.length > 0) {
+      // Check if photos is an array of URLs or an array of objects with getUrl method
+      return photos.map((photo) => {
+        if (photo.getUrl) {
+          return photo.getUrl({ maxWidth: 400 });
+        }
+        return photo.url || photo.photo_reference; // Fallback if not using getUrl
+      });
+    }
+    return []; // Return empty array if no photos are available
+  };
 
   return (
     <div className="p-4">
@@ -105,9 +117,7 @@ export default function BookingView({ item, bookignGet }) {
           <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[700px] max-h-[90vh] overflow-y-auto overflow-x-auto">
             <div className="mb-4">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-[30px] font-semibold text-white">
-                  Booking View
-                </h3>
+                <h3 className="text-[30px] font-semibold text-white">Booking View</h3>
                 <IoCloseSharp
                   size={30}
                   className="cursor-pointer text-white"
@@ -156,7 +166,6 @@ export default function BookingView({ item, bookignGet }) {
                         </button>
                       </div>
                     }
-
                   </div>
                   <div className="flex items-center justify-between py-4">
                     <div className="flex items-center">
@@ -198,11 +207,9 @@ export default function BookingView({ item, bookignGet }) {
                     key={index}
                   >
                     <div className="relative">
-                      <img
-                        src={ViewImage || venue?.icon}
-                        alt={venue.name}
-                        className="h-64 w-full object-cover rounded-t-lg"
-                      />
+                      {getPhotoUrls(venue.photos)?.map((url, imgIndex) => (
+                        <img key={imgIndex} src={url} alt={venue.name} className="h-[400px] w-full object-cover" />
+                      ))}
                     </div>
                     <div className="p-4 space-y-4">
                       {/* Provider Name */}
@@ -230,7 +237,7 @@ export default function BookingView({ item, bookignGet }) {
                       {/* Rating and Price */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
-                          <IoStar size={12} className="text-[#ffff00] " />
+                          <IoStar size={12} className="text-[#ffff00]" />
                           {venue.services_provider_rating || venue?.rating}
                         </div>
                         <p className="text-white text-xs">
