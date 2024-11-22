@@ -9,7 +9,8 @@ export default function BookingView({ item, bookignGet }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(item.totalPrice);
-
+  console.log("item", item)
+  const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   const handleChange = (e) => {
     const inputPrice = e.target.value;
     const numericPrice = parseFloat(inputPrice) || 0;
@@ -94,17 +95,24 @@ export default function BookingView({ item, bookignGet }) {
   };
 
   const getPhotoUrls = (photos) => {
-    if (photos && photos.length > 0) {
-      // Check if photos is an array of URLs or an array of objects with getUrl method
+    console.log("Photos Array:", photos); // Inspect structure
+  
+    if (Array.isArray(photos) && photos.length > 0) {
       return photos.map((photo) => {
-        if (photo.getUrl) {
-          return photo.getUrl({ maxWidth: 400 });
+        // Check if the photo object has required properties
+        if (photo?.height && photo?.width) {
+          // Generate the URL based on the Google Maps Places API structure
+          return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=YOUR_GOOGLE_API_KEY`;
         }
-        return photo.url || photo.photo_reference; // Fallback if not using getUrl
-      });
+        return null; // Return null for invalid photos
+      }).filter(Boolean); // Remove null or undefined values
     }
-    return []; // Return empty array if no photos are available
+  
+    return []; // Return empty array if no valid photos
   };
+  
+  
+
 
   return (
     <div className="p-4">
@@ -200,68 +208,66 @@ export default function BookingView({ item, bookignGet }) {
                 Services Provider Details
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
                 {item?.package?.map((venue, index) => (
                   <div
                     className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-2"
                     key={index}
                   >
                     <div className="relative">
-                      {getPhotoUrls(venue.photos)?.map((url, imgIndex) => (
-                        <img key={imgIndex} src={url} alt={venue.name} className="h-[400px] w-full object-cover" />
-                      ))}
+                      {getPhotoUrls(venue.photos)?.length > 0 ? (
+                        getPhotoUrls(venue.photos).map((url, imgIndex) => (
+                          <img
+                            key={imgIndex || ViewImage}
+                            src={url}
+                            alt={venue.name || "Venue Photo"}
+                            className="h-[400px] w-full object-cover"
+                          />
+                        ))
+                      ) : (
+                        <img
+                          src="/default-placeholder.png" // Replace with your default image path
+                          alt="Default Placeholder"
+                          className="h-[400px] w-full object-cover"
+                        />
+                      )}
                     </div>
                     <div className="p-4 space-y-4">
-                      {/* Provider Name */}
                       <div className="flex justify-between items-center">
                         <h2 className="text-xl font-semibold text-white">
                           {venue.services_provider_name || venue?.name}
                         </h2>
-                        <p className="text-white text-sm">
-                          {venue.services_provider_phone}
-                        </p>
+                        <p className="text-white text-sm">{venue.services_provider_phone}</p>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        {/* Email */}
-                        <p className="text-white text-sm">
-                          {venue.services_provider_email}
-                        </p>
-
-                        {/* Categories */}
+                        <p className="text-white text-sm">{venue.services_provider_email}</p>
                         <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
                           {venue.services_provider_categries}
                         </div>
                       </div>
 
-                      {/* Rating and Price */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                           <IoStar size={12} className="text-[#ffff00]" />
                           {venue.services_provider_rating || venue?.rating}
                         </div>
-                        <p className="text-white text-xs">
-                          ${venue.services_provider_price}/person
-                        </p>
+                        <p className="text-white text-xs">${venue.services_provider_price}/person</p>
                       </div>
 
-                      {/* Package Categories */}
-                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">
+                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
                         {venue.package_categories?.join(",")}
                       </p>
-
-                      {/* Description */}
-                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">
+                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
                         {venue.package_descrption}
                       </p>
-
-                      {/* Address */}
-                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden ">
+                      <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
                         {venue.package_address}
                       </p>
                     </div>
                   </div>
                 ))}
+
               </div>
             </div>
           </div>
