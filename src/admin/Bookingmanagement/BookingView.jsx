@@ -99,16 +99,14 @@ export default function BookingView({ item, bookignGet }) {
   
     if (Array.isArray(photos) && photos.length > 0) {
       return photos.map((photo) => {
-        // Check if the photo object has required properties
         if (photo?.height && photo?.width) {
-          // Generate the URL based on the Google Maps Places API structure
-          return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=YOUR_GOOGLE_API_KEY`;
+          return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${apikey}`;
         }
-        return null; // Return null for invalid photos
-      }).filter(Boolean); // Remove null or undefined values
+        return null; 
+      }).filter(Boolean); 
     }
   
-    return []; // Return empty array if no valid photos
+    return []; 
   };
   
   
@@ -119,7 +117,6 @@ export default function BookingView({ item, bookignGet }) {
       <button onClick={() => setIsOpen(true)} className="">
         <BsThreeDotsVertical size={24} />
       </button>
-
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
           <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[700px] max-h-[90vh] overflow-y-auto overflow-x-auto">
@@ -218,7 +215,7 @@ export default function BookingView({ item, bookignGet }) {
                       {getPhotoUrls(venue.photos)?.length > 0 ? (
                         getPhotoUrls(venue.photos).map((url, imgIndex) => (
                           <img
-                            key={imgIndex || ViewImage}
+                            key={imgIndex }
                             src={url}
                             alt={venue.name || "Venue Photo"}
                             className="h-[400px] w-full object-cover"
@@ -226,7 +223,7 @@ export default function BookingView({ item, bookignGet }) {
                         ))
                       ) : (
                         <img
-                          src="/default-placeholder.png" // Replace with your default image path
+                          src={ ViewImage} // Replace with your default image path
                           alt="Default Placeholder"
                           className="h-[400px] w-full object-cover"
                         />
@@ -252,7 +249,7 @@ export default function BookingView({ item, bookignGet }) {
                           <IoStar size={12} className="text-[#ffff00]" />
                           {venue.services_provider_rating || venue?.rating}
                         </div>
-                        <p className="text-white text-xs">${venue.services_provider_price}/person</p>
+                        <p className="text-white text-xs">${venue.services_provider_price || venue.price_level}/person </p>
                       </div>
 
                       <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">

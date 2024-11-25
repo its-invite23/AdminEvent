@@ -93,9 +93,9 @@ export default function Enquiry() {
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{item?.name}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{item?.email}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.phone_code
-                        } {item?.phone_number}
-                      </td>
+                      {item?.phone_code
+                      } {item?.phone_number}
+                    </td>
 
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.attendees}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.eventname}</td>
@@ -139,16 +139,16 @@ export default function Enquiry() {
         </div>
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
-      {
-        hasMore && (
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-            {loading ? "Loading..."  : "Load More"}
-          </button>
-        )
-      }
+        {
+          hasMore && (
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          )
+        }
       </div>
     </div>
   );

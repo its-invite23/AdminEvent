@@ -86,6 +86,11 @@ class Listing extends Component {
   async PaymentGet() {
     return Api.get(`/stripe/payment-get` );
   }
+
+  
+  async PLaceDATA(data) {
+    return Api.post(`/place/get-place-details` ,data );
+  }
   render() {
     return (
       <div>
