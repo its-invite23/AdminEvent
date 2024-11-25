@@ -87,10 +87,10 @@ class Listing extends Component {
     return Api.get(`/stripe/payment-get` );
   }
 
-  
-  async PLaceDATA(data) {
-    return Api.post(`/place/get-place-details` ,data );
+  async PackageContactGet(data) {
+    return Api.post(`/place/get-place-details` , data);
   }
+
   render() {
     return (
       <div>
