@@ -11,6 +11,7 @@ import PackageList from './admin/Packagemanagement/PackageList.jsx';
 import AddPackage from './admin/Packagemanagement/AddPackage.jsx';
 import ContactList from "./admin/ContactList/ContactList.js";
 import Enquiry from "./admin/Enquiry/Enquiry.js";
+import BookingView from './admin/Bookingmanagement/BookingView.jsx';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path="/access-admin/access-package-edit/:Id" element={<AdminLayout> <AddPackage /> </AdminLayout>} />
           <Route path="/access-admin/user" element={<AdminLayout><UserList /> </AdminLayout>} />
           <Route path="/access-admin/booking" element={<AdminLayout> <BookingList />  </AdminLayout>} />
+          <Route path="/access-admin/booking/:Id" element={<AdminLayout> <BookingView />  </AdminLayout>} />
+
           <Route path="/access-admin/package" element={<AdminLayout>  <PackageList /> </AdminLayout>} />
           <Route path="/access-admin/contact" element={<AdminLayout>  <ContactList /> </AdminLayout>} />
           <Route path="/access-admin/enquiry" element={<AdminLayout>  <Enquiry /> </AdminLayout>} />

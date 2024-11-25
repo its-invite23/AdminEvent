@@ -71,7 +71,12 @@ class Listing extends Component {
   async BookingGet() {
     return Api.get(`/booking/booking-get`);
   }
+  // const [isOpen, setIsOpen] = useState(false);
+  
 
+  async BookingGetID(id) {
+    return Api.get(`/booking/getByID/${id}`);
+  }
   async BookingStatus(data) {
     return Api.post(`/booking/booking-status` , data);
   }
@@ -87,8 +92,8 @@ class Listing extends Component {
     return Api.get(`/stripe/payment-get` );
   }
 
-  async PackageContactGet(data) {
-    return Api.post(`/place/get-place-details` , data);
+  async PackageContactGet(id) {
+    return Api.get(`/place/get-place-details/${id}` );
   }
 
   render() {

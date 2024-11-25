@@ -6,6 +6,7 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
 import BookingView from "./BookingView";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
@@ -136,12 +137,9 @@ export default function BookingList() {
                         <BsThreeDots size={24} />
                       </button> */}
                       <div className="p-4">
-                        <button onClick={() => setIsOpen(true)} className="">
+                        <Link to={`/access-admin/booking/${item?._id}`} className="">
                           <BsThreeDotsVertical size={24} />
-                        </button>
-                        {isOpen && (
-                          <BookingView item={item} bookignGet={bookignGet} handleClose={handleClose}/>
-                        )}
+                        </Link>
                       </div>
                     </td>
                   </tr>

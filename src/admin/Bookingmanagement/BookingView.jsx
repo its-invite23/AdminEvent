@@ -1,16 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoCloseSharp, IoStar } from "react-icons/io5";
+import { IoStar } from "react-icons/io5";
 import ViewImage from "../../asstes/event.jpg";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import LoadingSpinner from "../compontents/LoadingSpinner";
+import moment from "moment"
 
-export default function BookingView({ handleClose, item, bookignGet }) {
-  // const [isOpen, setIsOpen] = useState(false);
+export default function BookingView({ bookignGet }) {
+  const { Id } = useParams();
+  const priceText = {
+    1: "Budget-friendly places",
+    2: "Mid-range places with good value",
+    3: "Higher-end places",
+    4: "Luxury and premium options"
+  };
+  const [item, setItem] = useState("")
+  console.log("item", item)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const main = new Listing();
+        const response = await main.BookingGetID(Id);
+        console.log("Response:", response);
+        setItem(response?.data?.data)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (Id) {
+      fetchData(Id);
+    }
+  }, [Id]);
+
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(item.totalPrice);
-  const [selectedPackage, setselectedPackage] = useState();
-  console.log("item", item?.package);
+  const [selectedPackage, setSelectedPackage] = useState();
+  console.log("item", item);
+  console.log("selectedPackage", selectedPackage)
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const handleChange = (e) => {
     const inputPrice = e.target.value;
@@ -18,25 +46,30 @@ export default function BookingView({ handleClose, item, bookignGet }) {
     setPrice(numericPrice);
   };
 
-  const packageContact = () => {
+  const packageContact = (place_id) => {
+    if (!place_id) {
+      console.error("No place_id found in the package.");
+      return;
+    }
+
     setLoading(true);
-    const main = new Listing();
+    const main = new Listing(); // Assuming Listing is defined and imported
+
     main
-      .PackageContactGet(item?.package)
-      .then((r) => {
+      .PackageContactGet(place_id) // Pass place_id to the API
+      .then((response) => {
+        console.log("response", response)
         setLoading(false);
-        setselectedPackage(r?.data?.data);
+        setSelectedPackage(response?.data?.data);
       })
       .catch((err) => {
         setLoading(false);
-        setselectedPackage([]);
-        console.log("error", err);
+        setSelectedPackage([]);
+        console.error("Error fetching package contact:", err);
       });
   };
 
-  useEffect(() => {
-    packageContact();
-  }, []);
+
 
   const handleActiveStatues = (Id, status) => {
     console.log("Id:", Id, "Status:", status);
@@ -119,39 +152,41 @@ export default function BookingView({ handleClose, item, bookignGet }) {
   };
 
   const getPhotoUrls = (photos) => {
-    // console.log("Photos Array:", photos); // Inspect structure
-
     if (Array.isArray(photos) && photos.length > 0) {
       return photos
         .map((photo) => {
-          // Check if the photo object has required properties
-          if (photo?.height && photo?.width) {
-            // Generate the URL based on the Google Maps Places API structure
-            return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=YOUR_GOOGLE_API_KEY`;
+          if (photo?.photo_reference) {
+            return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${apikey}`;
           }
-          return null; // Return null for invalid photos
+          return null; // Skip invalid entries
         })
-        .filter(Boolean); // Remove null or undefined values
+        .filter(Boolean); // Filter out null or undefined
     }
-
-    return []; // Return empty array if no valid photos
+    return []; // Return an empty array if photos is invalid or empty
   };
 
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
-      <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[700px] max-h-[90vh] overflow-y-auto overflow-x-auto">
-        <div className="mb-4">
+    <>
+      {loading ? (<LoadingSpinner />) : (
+        <div className="mb-4 w-full">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-[30px] font-semibold text-white">
               Booking View
             </h3>
-            <IoCloseSharp
-              size={30}
-              className="cursor-pointer text-white"
-              onClick={() => handleClose()}
-            />
           </div>
           <div className=" mx-auto rounded overflow-hidden shadow-lg rounded-md ">
+            <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
+              Package Name: {item.package_name}
+            </span>
+            <span className="text-white">
+              {item?.location
+              }
+            </span>
+            <span className="text-white">
+              {moment(item?.bookingDate).format('MMMM Do, YYYY')}
+            </span>
+
             <img
               className="w-full object-cover h-48 md:h-64"
               src={ViewImage}
@@ -160,28 +195,27 @@ export default function BookingView({ handleClose, item, bookignGet }) {
             <div className="px-6 py-4">
               <div className="flex flex-row  items-center gap-4">
                 <button
-                  className={`min-w-[110px] capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                    item?.status === "pending"
-                      ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                      : item?.status === "approve"
+                  className={`min-w-[110px] capitalize m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                    ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                    : item?.status === "approve"
                       ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                       : item?.status === "reject"
-                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                      : ""
-                  }`}
+                        ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                        : ""
+                    }`}
                 >
                   {item?.status}
                 </button>
-                <span className="min-w-[110px]  capitalize border font-[manrope] font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
+                <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
                   Person: {item.attendees}
                 </span>
-                <span className=" capitalize border font-[manrope] font-[600] text-[16px]  px-[15px] py-[6px] rounded-[60px] flex items-center">
+                <span className=" capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                   Total Price:
                   <input
                     type="number"
                     value={price}
                     onChange={handleChange}
-                    className="cursor-pointer ml-2 w-[4vw] bg-gray-500 pl-1 py-1 text-sm font-semibold text-white text-center rounded"
+                    className="cursor-pointer  text-white ml-2 w-[4vw] bg-gray-500 pl-1 py-1 text-sm font-semibold text-white text-center rounded"
                   />
                 </span>
                 {item?.totalPrice !== price && (
@@ -236,12 +270,13 @@ export default function BookingView({ handleClose, item, bookignGet }) {
               <div
                 className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-2"
                 key={index}
+
               >
                 <div className="relative">
-                  {getPhotoUrls(venue.photos)?.length > 0 ? (
-                    getPhotoUrls(venue.photos).map((url, imgIndex) => (
+                  {getPhotoUrls(venue.placeDetails?.photos[0])?.length > 0 ? (
+                    getPhotoUrls(venue.placeDetails?.photos[0]).map((url, imgIndex) => (
                       <img
-                        key={imgIndex || ViewImage}
+                        key={imgIndex}
                         src={url}
                         alt={venue.name || "Venue Photo"}
                         className="h-[400px] w-full object-cover"
@@ -255,6 +290,7 @@ export default function BookingView({ handleClose, item, bookignGet }) {
                     />
                   )}
                 </div>
+
                 <div className="p-4 space-y-4">
                   <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold text-white">
@@ -264,23 +300,36 @@ export default function BookingView({ handleClose, item, bookignGet }) {
                       {venue.services_provider_phone}
                     </p>
                   </div>
-
+                  <div className="text-white text-sm" onClick={() => packageContact(venue?.place_id)} >
+                    Update Prices Data
+                  </div>
                   <div className="flex items-center justify-between">
                     <p className="text-white text-sm">
                       {venue.services_provider_email}
                     </p>
-                    <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
-                      {venue.services_provider_categries}
+                    <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-lg leading-tight">
+                      {venue.services_provider_categries ? (venue.services_provider_categries) : (venue?.types?.join(","))}
                     </div>
                   </div>
-
+                  <div className="flex items-center justify-between">
+                    <p className="text-white text-sm">
+                      international phone number:-    {venue.placeDetails?.international_phone_number
+                      }
+                    </p>
+                    <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-lg leading-tight">
+                      formatted phone number : -    {venue.placeDetails?.formatted_phone_number
+                      }
+                    </div>
+                  </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                       <IoStar size={12} className="text-[#ffff00]" />
                       {venue.services_provider_rating || venue?.rating}
                     </div>
-                    <p className="text-white text-xs">
-                      ${venue.services_provider_price}/person
+                    <p className="text-white text-lg">
+                      {venue?.price_level ? (priceText[venue?.price_level]) : (`${venue.services_provider_price}/person`)
+                      }
+
                     </p>
                   </div>
 
@@ -290,15 +339,17 @@ export default function BookingView({ handleClose, item, bookignGet }) {
                   <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
                     {venue.package_descrption}
                   </p>
-                  <p className="text-[#ffffffc2] text-[14px] mt-2 whitespace-normal overflow-hidden">
-                    {venue.package_address}
+                  <p className="text-[#ffffffc2] text-[18px] mt-2 whitespace-normal overflow-hidden">
+                    {venue.package_address ? (venue.package_address) : (venue?.vicinity)}
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      )}
+
+
+    </>
   );
 }
