@@ -96,6 +96,9 @@ class Listing extends Component {
     return Api.get(`/place/get-place-details/${id}` );
   }
 
+  async chartGet(id) {
+    return Api.get(`/api/payments` );
+  }
   render() {
     return (
       <div>
