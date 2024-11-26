@@ -5,7 +5,7 @@ import Listing from '../../Api/Listing';
 import Header from '../compontents/Header';
 import LoadingSpinner from '../compontents/LoadingSpinner';
 import ImageUpload from '../compontents/ImageUpload';
-
+import { IoIosArrowBack } from "react-icons/io";
 export default function AddPackage() {
   const { Id } = useParams();
   const navigate = useNavigate();
@@ -195,6 +195,7 @@ export default function AddPackage() {
     <div className='w-full max-w-[100%]'>
       <Header title={Id ? "Edit Package" : "Add Package"} />
       <div className="w-full bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
+      <button type="button" onClick={()=>(navigate(-1))} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
         {loading ? (
           <LoadingSpinner />
         ) : (
