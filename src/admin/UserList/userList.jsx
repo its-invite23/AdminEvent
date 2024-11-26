@@ -6,10 +6,11 @@ import toast from "react-hot-toast";
 import Delete from "../compontents/Delete";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
+import moment from "moment";
 
 export default function UserList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
+  console.log("listing", listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -140,7 +141,11 @@ export default function UserList() {
                         {item?.email}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.DOB}
+                        {
+                          item?.DOB ? (
+                            moment(item?.DOB).format('DD MMM YYYY')
+                          ) : ("N/A")
+                        }
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.country
@@ -159,7 +164,7 @@ export default function UserList() {
                         } {item?.phone_number}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.enquiry_count} 
+                        {item?.enquiry_count}
                       </td>
 
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
@@ -188,16 +193,16 @@ export default function UserList() {
         )}
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
-      {
-        hasMore && (
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-            {loading ? "Loading..."  : "Load More"}
-          </button>
-        )
-      }
+        {
+          hasMore && (
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          )
+        }
       </div>
     </div>
   );

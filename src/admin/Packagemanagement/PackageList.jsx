@@ -9,7 +9,8 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
-import PackageView from './PackageView';
+import { BsThreeDotsVertical } from "react-icons/bs";
+
 
 export default function PackageList() {
   const [listing, setLisitng] = useState([]);
@@ -141,7 +142,12 @@ export default function PackageList() {
                       <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         <div className='flex justify-between items-center gap-[5px]'>
                           {/* Package View Component */}
-                          <PackageView Id={item?._id} />
+                          <div className="p-4">
+                        <Link to={`/access-admin/package/${item?._id}`} className="">
+                          <BsThreeDotsVertical size={24} />
+                        </Link>
+                      </div>
+                          {/* <PackageView Id={item?._id} /> */}
                           {/* Edit Button */}
                           <Link to={`/access-admin/access-package-edit/${item?._id}`}>
                             <button className='font-[manrope] font-[600] text-white text-[18px]'>
