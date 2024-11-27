@@ -30,6 +30,7 @@ export default function Index() {
   useEffect(() => {
     DashboardData();
   }, []);
+  
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"Dashboard"} />

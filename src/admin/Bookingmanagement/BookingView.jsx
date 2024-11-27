@@ -3,13 +3,15 @@ import { IoStar } from "react-icons/io5";
 import ViewImage from "../../asstes/event.jpg";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import moment from "moment";
 import Header from "../compontents/Header";
+import { IoIosArrowBack } from "react-icons/io";
 
-export default function BookingView({ bookignGet }) {
+export default function BookingView() {
   const { Id } = useParams();
+  const navigate = useNavigate();
   const priceText = {
     1: "Budget-friendly places",
     2: "Mid-range places with good value",
@@ -18,18 +20,17 @@ export default function BookingView({ bookignGet }) {
   };
   const [item, setItem] = useState("");
   console.log("item", item);
+  const fetchData = async () => {
+    try {
+      const main = new Listing();
+      const response = await main.BookingGetID(Id);
+      console.log("Response:", response);
+      setItem(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const main = new Listing();
-        const response = await main.BookingGetID(Id);
-        console.log("Response:", response);
-        setItem(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     if (Id) {
       fetchData(Id);
     }
@@ -47,28 +48,6 @@ export default function BookingView({ bookignGet }) {
     setPrice(numericPrice);
   };
 
-  const packageContact = (place_id) => {
-    if (!place_id) {
-      console.error("No place_id found in the package.");
-      return;
-    }
-
-    setLoading(true);
-    const main = new Listing(); // Assuming Listing is defined and imported
-
-    main
-      .PackageContactGet(place_id) // Pass place_id to the API
-      .then((response) => {
-        console.log("response", response);
-        setLoading(false);
-        setSelectedPackage(response?.data?.data);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setSelectedPackage([]);
-        console.error("Error fetching package contact:", err);
-      });
-  };
 
   const handleActiveStatues = (Id, status) => {
     console.log("Id:", Id, "Status:", status);
@@ -81,10 +60,9 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
-        console.log("res", res);
+        fetchData(res?.data?.data?._id)
         if (res && res?.data) {
           toast.success(res.data.message);
-          packageContact(res?.data?.data?._id);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -112,9 +90,10 @@ export default function BookingView({ bookignGet }) {
     response
       .then((res) => {
         console.log("res", res);
+        fetchData(res?.data?.data?._id)
         if (res && res?.data?.status) {
+
           console.log("res?.data?.data?._id", res?.data?.data?._id);
-          packageContact(res?.data?.data?._id);
           toast.success(res.data.message);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
@@ -144,7 +123,6 @@ export default function BookingView({ bookignGet }) {
       .then((res) => {
         if (res && res?.data?.status) {
           toast.success(res.data.message);
-          packageContact(Id);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -179,6 +157,8 @@ export default function BookingView({ bookignGet }) {
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-[20px]">
               <h3 className="text-[30px] font-semibold text-white mb-[5px]">
+                <button type="button" onClick={() => (navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
+
                 Booking View
               </h3>
             </div>
@@ -203,15 +183,14 @@ export default function BookingView({ bookignGet }) {
                         Package Name: {item.package_name}
                       </span>
                       <button
-                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                          item?.status === "pending"
-                            ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                            : item?.status === "approve"
+                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                          : item?.status === "approve"
                             ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                             : item?.status === "reject"
-                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                            : ""
-                        }`}
+                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                              : ""
+                          }`}
                       >
                         {item?.status}
                       </button>
@@ -227,25 +206,41 @@ export default function BookingView({ bookignGet }) {
                     </div>
 
                     <div className="w-full mb-[10px]">
+                      <strong className="text-[15px] text-[#fff]">
+                        Date:{" "}
+                      </strong>
+                      <span className="text-white">
+                        {moment(item?.bookingDate).format("MMMM Do, YYYY")}
+                      </span>
+                    </div>
+
+                    <div className="w-full mb-[10px]">
                       <div className="flex flex-wrap flex-row  items-center gap-4">
-                        <strong className="text-[15px] text-[#fff]">
-                          Date:{" "}
-                        </strong>
-                        <span className="text-white">
-                          {moment(item?.bookingDate).format("MMMM Do, YYYY")}
-                        </span>
+                        <div className="flex items-center">
+                          <select
+                            onChange={(e) =>
+                              handleActiveStatues(item?._id, e.target.value)
+                            }
+                            value={item?.package_status}
+                            className="bg-[#000] min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]  focus:outline-none"
+                          >
+                            <option value="">Select an option</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                          </select>
+                        </div>
                         <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
                           Person: {item.attendees}
                         </span>
                       </div>
-                      <div className="flex flex-wrap flex-row  items-center gap-4">
+                      <div className="flex flex-wrap flex-row mt-5   items-center gap-4">
                         <span className="w-full max-w-[280px]  capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                           Total Price:
                           <input
                             type="number"
                             value={price}
                             onChange={handleChange}
-                            className="cursor-pointer  text-white ml-2 w-[4vw] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                            className="cursor-pointer  text-white ml-2 w-[15vw] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
                           />
                         </span>
                         {item?.totalPrice !== price && (
@@ -264,30 +259,18 @@ export default function BookingView({ bookignGet }) {
                     </div>
                     <div className="w-full mb-[10px]">
                       <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-                        <div className="flex items-center">
-                          <select
-                            onChange={(e) =>
-                              handleActiveStatues(item?._id, e.target.value)
-                            }
-                            value={item?.package_status}
-                            className="bg-[#000] border-none px-[15px] py-[13px] text-[15px] md:text-[14px] text-[#fff] rounded-[4px]   focus:outline-none"
-                          >
-                            <option value="">Select an option</option>
-                            <option value="approve">Approve</option>
-                            <option value="reject">Reject</option>
-                          </select>
-                        </div>
+
                         {/* Right Section: Payment Generator Button */}
                         <div>
-                          {/* {item?.status === "approve" &&
-                      item?.payment_genrator_link !== true && ( */}
-                          <button
-                            onClick={() => handlepayment(item?._id)}
-                            className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                          >
-                            Payment Generator
-                          </button>
-                          {/* )} */}
+                          {item?.status === "approve" && item?.totalPrice !== 0 &&
+                            item?.payment_genrator_link !== true && (
+                              <button
+                                onClick={() => handlepayment(item?._id)}
+                                className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                              >
+                                Payment Generator
+                              </button>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -297,7 +280,7 @@ export default function BookingView({ bookignGet }) {
                 <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
                   Services Provider Details
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                   {item?.package?.map((venue, index) => (
                     <div
                       className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#9999]"
@@ -305,7 +288,7 @@ export default function BookingView({ bookignGet }) {
                     >
                       <div className="relative">
                         {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                        0 ? (
+                          0 ? (
                           getPhotoUrls(venue.placeDetails?.photos[0]).map(
                             (url, imgIndex) => (
                               <img
@@ -373,8 +356,9 @@ export default function BookingView({ bookignGet }) {
                           </div>
                           <p className="text-white text-[15px]">
                             {venue?.price_level
-                              ? priceText[venue?.price_level]
-                              : `${venue.services_provider_price}/person`}
+                              && priceText[venue?.price_level]}
+                            {venue?.services_provider_price
+                              && `${venue.services_provider_price}/person`}
                           </p>
                         </div>
 

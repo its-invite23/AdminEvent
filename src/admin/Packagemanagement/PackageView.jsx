@@ -3,11 +3,14 @@ import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.jpg";
 import { IoStar } from "react-icons/io5";
-import { useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function PackageView() {
   const { Id } = useParams();
+const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [item, setLisitng] = useState("");
   console.log("Lisitng", item);
@@ -32,7 +35,6 @@ export default function PackageView() {
       fetchData();
     }
   }, [Id]);
-
   return (
     <>
       {loading ? (
@@ -41,7 +43,9 @@ export default function PackageView() {
         <>
           <div class="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
             <div class="flex items-center justify-between mb-[20px]">
+
               <h3 class="text-[30px] font-semibold text-white mb-[5px]">
+      <button type="button" onClick={()=>(navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
                 Package View
               </h3>
             </div>
@@ -57,20 +61,25 @@ export default function PackageView() {
               </div>
 
               <div class="w-[100%] md:w-[55%] lg:w-[55%] pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
-                <div className="w-full flex flex-wrap justify-start flex-row  items-center gap-[10px]">
+                <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
+                  <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
+                    Package Name: {item.package_name}
+                  </span>
                   <button
-                    className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                      item?.package_status === "pending"
-                        ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                        : item?.package_status === "active"
+                    className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.package_status === "pending"
+                      ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                      : item?.package_status === "active"
                         ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                         : item?.package_status === "inactive"
-                        ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                        : ""
-                    }`}
+                          ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                          : ""
+                      }`}
                   >
                     {item?.package_status}
                   </button>
+                </div>
+                <div className="w-full flex flex-wrap justify-start flex-row  items-center gap-[10px]">
+
                   <span className="inline-block bg-gray-200 rounded-full px-3 py-[9px] text-sm font-semibold text-gray-700">
                     Person: {item.package_people}
                   </span>
@@ -79,6 +88,8 @@ export default function PackageView() {
                     {item?.package_price_min}
                   </span>
                 </div>
+
+
               </div>
             </div>
 
@@ -86,7 +97,7 @@ export default function PackageView() {
               Services Provider Details
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
               {item?.package_services?.map((venue, index) => (
                 <div
                   className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#333]"
@@ -135,7 +146,7 @@ export default function PackageView() {
 
                     {/* Package Categories */}
                     <p className="break-words whitespace-normal text-white text-[13px] capitalize ">
-                    <strong>Categroy:</strong> {" "}    
+                      <strong>Categroy:</strong> {" "}
                       {venue.package_categories?.join(",")}
                     </p>
 
