@@ -81,7 +81,7 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
-        console.log("res", res)
+        console.log("res", res);
         if (res && res?.data) {
           toast.success(res.data.message);
           packageContact(res?.data?.data?._id);
@@ -111,9 +111,9 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingPriceUpdate({ _id: Id, price });
     response
       .then((res) => {
-        console.log("res", res)
+        console.log("res", res);
         if (res && res?.data?.status) {
-          console.log("res?.data?.data?._id", res?.data?.data?._id)
+          console.log("res?.data?.data?._id", res?.data?.data?._id);
           packageContact(res?.data?.data?._id);
           toast.success(res.data.message);
         } else {
@@ -203,14 +203,15 @@ export default function BookingView({ bookignGet }) {
                         Package Name: {item.package_name}
                       </span>
                       <button
-                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
+                          item?.status === "pending"
                             ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                             : item?.status === "approve"
-                              ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                              : item?.status === "reject"
-                                ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                                : ""
-                          }`}
+                            ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                            : item?.status === "reject"
+                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                            : ""
+                        }`}
                       >
                         {item?.status}
                       </button>
@@ -225,17 +226,14 @@ export default function BookingView({ bookignGet }) {
                       </span>
                     </div>
 
-
-
                     <div className="w-full mb-[10px]">
-                     
                       <div className="flex flex-wrap flex-row  items-center gap-4">
-                      <strong className="text-[15px] text-[#fff]">
-                        Date:{" "}
-                      </strong>
-                      <span className="text-white">
-                        {moment(item?.bookingDate).format("MMMM Do, YYYY")}
-                      </span>
+                        <strong className="text-[15px] text-[#fff]">
+                          Date:{" "}
+                        </strong>
+                        <span className="text-white">
+                          {moment(item?.bookingDate).format("MMMM Do, YYYY")}
+                        </span>
                         <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
                           Person: {item.attendees}
                         </span>
@@ -299,16 +297,15 @@ export default function BookingView({ bookignGet }) {
                 <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
                   Services Provider Details
                 </h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {item?.package?.map((venue, index) => (
                     <div
-                      className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#333]"
+                      className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#9999]"
                       key={index}
                     >
                       <div className="relative">
                         {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                          0 ? (
+                        0 ? (
                           getPhotoUrls(venue.placeDetails?.photos[0]).map(
                             (url, imgIndex) => (
                               <img
@@ -343,7 +340,7 @@ export default function BookingView({ bookignGet }) {
                           </p>
                           <div className="w-full  break-words whitespace-normal">
                             <p className="break-words whitespace-normal text-white text-[13px] capitalize">
-                              <strong>Categroy:</strong> {" "}
+                              <strong>Categroy:</strong>{" "}
                               {venue.services_provider_categries
                                 ? venue.services_provider_categries
                                 : venue?.types?.join(", ")}
@@ -352,14 +349,18 @@ export default function BookingView({ bookignGet }) {
                         </div>
                         <div className="flex flex-wrap items-center justify-between">
                           <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                            <p className=""><strong>International Phone:</strong></p>
+                            <p className="">
+                              <strong>International Phone:</strong>
+                            </p>
                             <p className="text-[#0fc036] text-[13px] font-[700]">
                               {venue.placeDetails?.international_phone_number}
                             </p>
                           </div>
 
                           <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                            <p className=""><strong>Formatted Phone Number:</strong></p>
+                            <p className="">
+                              <strong>Formatted Phone Number:</strong>
+                            </p>
                             <p className="text-[#0fc036] text-[13px] font-[700]">
                               {venue.placeDetails?.formatted_phone_number}
                             </p>
