@@ -31,7 +31,6 @@ export default function Header({ title, type, setData }) {
     });
     response
       .then((res) => {
-        console.log("res", res)
         if (res && res?.data?.status) {
           toast.success(res.data.message);
           setData(res?.data?.data);

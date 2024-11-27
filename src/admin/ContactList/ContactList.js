@@ -8,7 +8,6 @@ import NoDataPage from "../compontents/NoDataPage";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -18,7 +17,6 @@ export default function ContactList() {
       setLoading(true);
       const main = new Listing();
       const response = await main.contactGet(page, limit, { signal });
-      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.Contactget);
       if (response?.data?.data?.Contactget) {
         setLisitng((prevData) => {
           if (page === 1) {

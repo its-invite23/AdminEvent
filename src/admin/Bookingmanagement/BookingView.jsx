@@ -39,8 +39,6 @@ export default function BookingView() {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(item.totalPrice);
   const [selectedPackage, setSelectedPackage] = useState();
-  console.log("item", item);
-  console.log("selectedPackage", selectedPackage);
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const handleChange = (e) => {
     const inputPrice = e.target.value;
@@ -50,7 +48,6 @@ export default function BookingView() {
 
 
   const handleActiveStatues = (Id, status) => {
-    console.log("Id:", Id, "Status:", status);
     if (!Id || !status) {
       toast.error("Invalid ID or status. Please check your input.");
       return;
@@ -89,11 +86,9 @@ export default function BookingView() {
     const response = main.BookingPriceUpdate({ _id: Id, price });
     response
       .then((res) => {
-        console.log("res", res);
         fetchData(res?.data?.data?._id)
         if (res && res?.data?.status) {
 
-          console.log("res?.data?.data?._id", res?.data?.data?._id);
           toast.success(res.data.message);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
@@ -108,7 +103,6 @@ export default function BookingView() {
   };
 
   const handlepayment = (Id) => {
-    console.log("Id:", Id);
     if (!Id) {
       toast.error("Invalid ID or status. Please check your input.");
       return;

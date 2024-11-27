@@ -7,6 +7,7 @@ import Header from '../compontents/Header';
 import Package from '../Dashboard/Package';
 import Listing from '../../Api/Listing';
 import LoadingSpinner from '../compontents/LoadingSpinner';
+import { Link } from 'react-router-dom';
 // import Enquiry from '../Dashboard/Enquiry';
 export default function Index() {
   const [listing, setLisitng] = useState("");
@@ -40,7 +41,7 @@ export default function Index() {
         ) : (
           <div className='w-full'>
             <div className='w-full flex flex-wrap md:flex-nowrap gap-[15px] mb-[20px]'>
-              <div className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              < Link  to="/access-admin/user" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaUsers className='text-[#EB3465] text-[30px]' />
                 </div>
@@ -48,9 +49,9 @@ export default function Index() {
                   <h3 className='capitalize font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px] '>Total Users</h3>
                   <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.userCount}</h2>
                 </div>
-              </div>
+              </Link>
 
-              <div className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              <Link  to="/access-admin/booking" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaListAlt className='text-[#EB3465] text-[30px]' />
                 </div>
@@ -58,9 +59,9 @@ export default function Index() {
                   <h3 className='capitalize font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px]  '>Total booking</h3>
                   <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.bookingCount}</h2>
                 </div>
-              </div>
+              </Link>
 
-              <div className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              <Link  to="/access-admin/enquiry" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaUsers className='text-[#EB3465] text-[30px]' />
                 </div>
@@ -68,7 +69,7 @@ export default function Index() {
                   <h3 className='capitalize font-manrope text-white text-[14px] leading-[15px] mb-[2px] lg:mb-[5px] lg:mb-[8px]  '>Recent inquiries</h3>
                   <h2 className='font-manrope text-white text-[25px] md:text-[28px] lg:text-[35px] xl:text-[48px] leading-[48px]'>{listing?.EnquiryCount}</h2>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className='w-full flex flex-wrap xl:flex-nowrap gap-[15px] '>
