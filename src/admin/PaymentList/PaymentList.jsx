@@ -7,7 +7,8 @@ import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
 
 export default function PaymentList() {
-
+  const [data, setdata] = useState("")
+  console.log("datadata", data)
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -51,7 +52,7 @@ export default function PaymentList() {
   };
   return (
     <div className='w-full max-w-[100%]'>
-      <Header title={"All Payment"} />
+      <Header title={"All Payment"} type={"payment"} data={data} setData={setdata} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">All Payments</h2>
         <div className="overflow-auto">
@@ -75,33 +76,33 @@ export default function PaymentList() {
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Actions</th>
                   </tr>
                 </thead>
-                {listing?.map((item, index) => (
+                {data ? (
                   <tr>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_id || "N/A"}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.booking_id}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{1}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?._id || "N/A"}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.booking_id}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.amount}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.payment_type} </td>
                     <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       <button
-                        className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.payment_status
+                        className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${data?.payment_status
                           === 'pending'
                           ? 'border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]'
-                          : item?.payment_status
+                          : data?.payment_status
                             === 'success'
                             ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
-                            : item?.payment_status
+                            : data?.payment_status
                               === 'failed'
                               ? 'border-[#EB3465] bg-[#EB34651A] text-[#EB3465]'
                               : ''
                           }`}
                       >
-                        {item?.payment_status}
+                        {data?.payment_status}
                       </button>
                     </td>
                     <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                      {moment(item?.created_at).format('MMMM Do, YYYY')}
+                      {moment(data?.created_at).format('MMMM Do, YYYY')}
                     </td>
                     <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       <button className='text-center'>
@@ -109,7 +110,45 @@ export default function PaymentList() {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ) : (<>
+                  {listing?.map((item, index) => (
+                    <tr>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?._id || "N/A"}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.booking_id}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
+                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <button
+                          className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.payment_status
+                            === 'pending'
+                            ? 'border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]'
+                            : item?.payment_status
+                              === 'success'
+                              ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
+                              : item?.payment_status
+                                === 'failed'
+                                ? 'border-[#EB3465] bg-[#EB34651A] text-[#EB3465]'
+                                : ''
+                            }`}
+                        >
+                          {item?.payment_status}
+                        </button>
+                      </td>
+                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        {moment(item?.created_at).format('MMMM Do, YYYY')}
+                      </td>
+                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <button className='text-center'>
+                          <BsThreeDots size={24} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </>
+                )}
+
 
 
 

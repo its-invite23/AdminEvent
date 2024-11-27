@@ -5,7 +5,7 @@ class Listing extends Component {
 
 
   async Dashboard() {
-    return Api.get("/user/all");
+    return Api.get("/common/dashboard");
   }
   async login(data) {
     return Api.post("/user/login", data);
@@ -96,8 +96,12 @@ class Listing extends Component {
     return Api.get(`/place/get-place-details/${id}` );
   }
 
-  async chartGet(id) {
-    return Api.get(`/api/payments` );
+  async chartGet() {
+    return Api.get(`/common/graph` );
+  }
+
+  async SearchData(data) {
+    return Api.post(`/common/search` ,data );
   }
   render() {
     return (

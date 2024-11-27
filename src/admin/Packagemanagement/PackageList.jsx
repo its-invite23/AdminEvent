@@ -13,6 +13,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 export default function PackageList() {
+  const [data, setdata] = useState("")
+  console.log("datadata", data)
   const [listing, setLisitng] = useState([]);
   console.log("listing", listing)
   const [loading, setLoading] = useState(false);
@@ -75,7 +77,7 @@ export default function PackageList() {
 
   return (
     <div className='w-full max-w-[100%]'>
-      <Header title={"All package"} />
+      <Header title={"All package"} type={"package"} data={data} setData={setdata} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-col">
           <div className='flex items-center justify-between mb-[20px]'>
@@ -110,59 +112,107 @@ export default function PackageList() {
                 </tr>
               </thead>
               <tbody>
-                {listing?.length < 0 ? (
-                  <NoDataPage />
-                ) : (
-                  listing &&
-                  listing &&
-                  listing.map((item, index) => (
-                    <tr key={index}>
-                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
-                      <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        <button
-                          onClick={() => handleActiveStatues(item?._id, item?.package_status, item?.package_availability)} // Updated to use arrow function
-                          className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
-                                                       ${item?.package_status === 'active'
-                              ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
-                              : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
-                        >
-                          {item?.package_status}
-                        </button>
-                      </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
-                      <td
-                        className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
-                                                   ${item?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
-                        {item?.package_availability === "outOfStock" ? "out Of Stock" : (item?.package_availability)}
-                      </td>
-                      <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                        <div className='flex justify-between items-center gap-[5px]'>
-                          {/* Package View Component */}
-                          <div className="p-4">
-                        <Link to={`/access-admin/package/${item?._id}`} className="">
-                          <BsThreeDotsVertical size={24} />
-                        </Link>
-                      </div>
-                          {/* <PackageView Id={item?._id} /> */}
-                          {/* Edit Button */}
-                          <Link to={`/access-admin/access-package-edit/${item?._id}`}>
-                            <button className='font-[manrope] font-[600] text-white text-[18px]'>
-                              <MdEdit size={24} className='text-green-600 hover:text-green-700' />
-                            </button>
+                {data ? (
+                  <tr key={1}>
+                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{1}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?._id}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?.package_name}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?.package_people}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${data?.package_price_min}- ${data?.package_price_max}</td>
+                    <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <button
+                        onClick={() => handleActiveStatues(data?._id, data?.package_status, data?.package_availability)} // Updated to use arrow function
+                        className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
+                                                    ${data?.package_status === 'active'
+                            ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
+                            : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
+                      >
+                        {data?.package_status}
+                      </button>
+                    </td>
+                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(data?.created_at).format('DD-MMM-YYYY')}</td>
+                    <td
+                      className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
+                                                ${data?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
+                      {data?.package_availability === "outOfStock" ? "out Of Stock" : (data?.package_availability)}
+                    </td>
+                    <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <div className='flex justify-between items-center gap-[5px]'>
+                        {/* Package View Component */}
+                        <div className="p-4">
+                          <Link to={`/access-admin/package/${data?._id}`} className="">
+                            <BsThreeDotsVertical size={24} />
                           </Link>
-                          {/* Delete Button */}
-                          <Delete Id={item?._id} step={1} PackageGet={fetchData} />
                         </div>
+                        {/* <PackageView Id={item?._id} /> */}
+                        {/* Edit Button */}
+                        <Link to={`/access-admin/access-package-edit/${data?._id}`}>
+                          <button className='font-[manrope] font-[600] text-white text-[18px]'>
+                            <MdEdit size={24} className='text-green-600 hover:text-green-700' />
+                          </button>
+                        </Link>
+                        {/* Delete Button */}
+                        <Delete Id={data?._id} step={1} PackageGet={fetchData} />
+                      </div>
 
-                      </td>
+                    </td>
 
-                    </tr>
-                  ))
-                )}
+                  </tr>
+                ) : (<>
+                  {listing?.length < 0 ? (
+                    <NoDataPage />
+                  ) : (
+                    listing &&
+                    listing &&
+                    listing.map((item, index) => (
+                      <tr key={index}>
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
+                        <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                          <button
+                            onClick={() => handleActiveStatues(item?._id, item?.package_status, item?.package_availability)} // Updated to use arrow function
+                            className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
+                                                       ${item?.package_status === 'active'
+                                ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
+                                : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
+                          >
+                            {item?.package_status}
+                          </button>
+                        </td>
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
+                        <td
+                          className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
+                                                   ${item?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
+                          {item?.package_availability === "outOfStock" ? "out Of Stock" : (item?.package_availability)}
+                        </td>
+                        <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                          <div className='flex justify-between items-center gap-[5px]'>
+                            {/* Package View Component */}
+                            <div className="p-4">
+                              <Link to={`/access-admin/package/${item?._id}`} className="">
+                                <BsThreeDotsVertical size={24} />
+                              </Link>
+                            </div>
+                            {/* <PackageView Id={item?._id} /> */}
+                            {/* Edit Button */}
+                            <Link to={`/access-admin/access-package-edit/${item?._id}`}>
+                              <button className='font-[manrope] font-[600] text-white text-[18px]'>
+                                <MdEdit size={24} className='text-green-600 hover:text-green-700' />
+                              </button>
+                            </Link>
+                            {/* Delete Button */}
+                            <Delete Id={item?._id} step={1} PackageGet={fetchData} />
+                          </div>
+
+                        </td>
+
+                      </tr>
+                    ))
+                  )} </>)}
+
                 {
                 }
               </tbody>
