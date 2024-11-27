@@ -81,9 +81,10 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
-        if (res && res?.data?.status) {
+        console.log("res",res)
+        if (res && res?.data) {
           toast.success(res.data.message);
-          packageContact(Id);
+          packageContact(res?.data?.data?._id);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -101,14 +102,20 @@ export default function BookingView({ bookignGet }) {
       toast.error("Invalid ID or status. Please check your input.");
       return;
     }
+    if (!price) {
+      toast.error("Please Enter Price");
+      return;
+    }
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPriceUpdate({ _id: Id, price });
     response
       .then((res) => {
+        console.log("res",res)
         if (res && res?.data?.status) {
+          console.log("res?.data?.data?._id",res?.data?.data?._id)
+          packageContact(res?.data?.data?._id);
           toast.success(res.data.message);
-          packageContact(Id);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -234,7 +241,7 @@ export default function BookingView({ bookignGet }) {
                         <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
                           Person: {item.attendees}
                         </span>
-                        <span className=" capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
+                        <span className="w-full max-w-[280px]  capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                           Total Price:
                           <input
                             type="number"
@@ -246,7 +253,7 @@ export default function BookingView({ bookignGet }) {
                         {item?.totalPrice !== price && (
                           <div className="flex items-center justify-center py-4">
                             <button
-                              className="bg-[#0fc036] hover:bg-blue-700 text-white py-2 px-4 rounded"
+                              className="bg-[#ff0062] hover:bg-[#4400c3]  text-white py-2 px-4 rounded"
                               onClick={() => {
                                 handlePriceChange(item?._id);
                               }}
@@ -265,7 +272,7 @@ export default function BookingView({ bookignGet }) {
                               handleActiveStatues(item?._id, e.target.value)
                             }
                             value={item?.package_status}
-                            className="border-none px-[15px] py-[13px] text-[12px] md:text-[14px] text-[#fff] rounded-[4px] bg-[#6045ec] focus:outline-none"
+                            className="bg-[#000] border-none px-[15px] py-[13px] text-[15px] md:text-[14px] text-[#fff] rounded-[4px]   focus:outline-none"
                           >
                             <option value="">Select an option</option>
                             <option value="approve">Approve</option>
@@ -278,7 +285,7 @@ export default function BookingView({ bookignGet }) {
                       item?.payment_genrator_link !== true && ( */}
                           <button
                             onClick={() => handlepayment(item?._id)}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                            className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
                           >
                             Payment Generator
                           </button>
@@ -293,7 +300,7 @@ export default function BookingView({ bookignGet }) {
                   Services Provider Details
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                   {item?.package?.map((venue, index) => (
                     <div
                       className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#333]"

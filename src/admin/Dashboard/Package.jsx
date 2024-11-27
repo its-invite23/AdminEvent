@@ -33,7 +33,7 @@ function Package({ packages }) {
                         </div>
 
                         <div className="w-[10%] text-center flex items-center justify-center">
-                            <Link to={"/access-admin/package"}>
+                            <Link to={`/access-admin/package/${item?._id}`}>
                                 <AiOutlineDash className="text-white text-[20px]" />
                             </Link>
                         </div>
