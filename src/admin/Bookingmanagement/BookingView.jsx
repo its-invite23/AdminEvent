@@ -81,7 +81,7 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
-        console.log("res",res)
+        console.log("res", res)
         if (res && res?.data) {
           toast.success(res.data.message);
           packageContact(res?.data?.data?._id);
@@ -111,9 +111,9 @@ export default function BookingView({ bookignGet }) {
     const response = main.BookingPriceUpdate({ _id: Id, price });
     response
       .then((res) => {
-        console.log("res",res)
+        console.log("res", res)
         if (res && res?.data?.status) {
-          console.log("res?.data?.data?._id",res?.data?.data?._id)
+          console.log("res?.data?.data?._id", res?.data?.data?._id)
           packageContact(res?.data?.data?._id);
           toast.success(res.data.message);
         } else {
@@ -203,15 +203,14 @@ export default function BookingView({ bookignGet }) {
                         Package Name: {item.package_name}
                       </span>
                       <button
-                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                          item?.status === "pending"
+                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
                             ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                             : item?.status === "approve"
-                            ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                            : item?.status === "reject"
-                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                            : ""
-                        }`}
+                              ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                              : item?.status === "reject"
+                                ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                                : ""
+                          }`}
                       >
                         {item?.status}
                       </button>
@@ -226,21 +225,22 @@ export default function BookingView({ bookignGet }) {
                       </span>
                     </div>
 
+
+
                     <div className="w-full mb-[10px]">
+                     
+                      <div className="flex flex-wrap flex-row  items-center gap-4">
                       <strong className="text-[15px] text-[#fff]">
                         Date:{" "}
                       </strong>
                       <span className="text-white">
                         {moment(item?.bookingDate).format("MMMM Do, YYYY")}
                       </span>
-                    </div>
-
-                    <div className="w-full mb-[10px]"></div>
-                    <div className="w-full mb-[10px]">
-                      <div className="flex flex-wrap flex-row  items-center gap-4">
                         <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
                           Person: {item.attendees}
                         </span>
+                      </div>
+                      <div className="flex flex-wrap flex-row  items-center gap-4">
                         <span className="w-full max-w-[280px]  capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                           Total Price:
                           <input
@@ -308,7 +308,7 @@ export default function BookingView({ bookignGet }) {
                     >
                       <div className="relative">
                         {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                        0 ? (
+                          0 ? (
                           getPhotoUrls(venue.placeDetails?.photos[0]).map(
                             (url, imgIndex) => (
                               <img
