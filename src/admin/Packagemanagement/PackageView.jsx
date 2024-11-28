@@ -3,13 +3,13 @@ import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.jpg";
 import { IoStar } from "react-icons/io5";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
 
 export default function PackageView() {
   const { Id } = useParams();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [item, setLisitng] = useState("");
@@ -45,7 +45,7 @@ const navigate = useNavigate();
             <div class="flex items-center justify-between mb-[20px]">
 
               <h3 class="text-[30px] font-semibold text-white mb-[5px]">
-      <button type="button" onClick={()=>(navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
+                <button type="button" onClick={() => (navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
                 Package View
               </h3>
             </div>
@@ -131,7 +131,7 @@ const navigate = useNavigate();
                         ${venue.services_provider_price}/person
                       </p>
                       {/* Categories */}
-                     
+
                     </div>
 
                     {/* Rating and Price */}
@@ -143,28 +143,28 @@ const navigate = useNavigate();
 
                       <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
                         {venue.services_provider_categries}
-                      </div> 
-                    
+                      </div>
+
                     </div>
 
                     {/* Package Categories */}
                     <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                          {venue.package_categories?.map((category, index) => (
-                            <span
-                              key={index}
-                              className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
-                            >
-                              {category}
-                            </span>
-                          ))}
-                        </p>
+                      {venue.package_categories?.map((category, index) => (
+                        <span
+                          key={index}
+                          className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
+                        >
+                          {category}
+                        </span>
+                      ))}
+                    </p>
 
-                        <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                          <span className="text-[#4CAF50]"> Address: </span>{" "}
-                          {venue.package_address
-                            ? venue.package_address
-                            : venue?.vicinity}
-                        </p>
+                    <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                      <span className="text-[#4CAF50]"> Address: </span>{" "}
+                      {venue.package_address
+                        ? venue.package_address
+                        : venue?.vicinity}
+                    </p>
                     {/* Description */}
                     <p className="text-[#fff] text-[14px] mt-2 whitespace-normal overflow-hidden ">
                       {venue.package_descrption}

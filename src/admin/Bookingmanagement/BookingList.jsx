@@ -9,8 +9,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 export default function BookingList() {
-  const[data ,setdata] = useState("")
-console.log("datadata",data)
+  const [data, setdata] = useState("")
+  console.log("datadata", data)
   const [listing, setLisitng] = useState(data || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -38,7 +38,7 @@ console.log("datadata",data)
       setLoading(false);
     }
   };
-  const handleClose = ()=>{
+  const handleClose = () => {
     setIsOpen(false);
   }
 
@@ -92,120 +92,118 @@ console.log("datadata",data)
                 </tr>
               </thead>
               {data ? (
-             <tr>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
-               { 1}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?._id}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?.package_name}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?.userId?.username}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?.attendees}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?.totalPrice}
-             </td>
-             <td className="max-w-[280px] whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {data?.location}
-             </td>
-             <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-               <button
-                 className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                  data?.status === "pending"
-                     ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                     : data?.status === "approve"
-                     ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                     : data?.status === "reject"
-                     ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                     : ""
-                 }`}
-               >
-                 {data?.status}
-               </button>
-             </td>
+                <tr>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
+                    {1}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?._id}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?.package_name}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?.userId?.username}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?.attendees}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?.totalPrice}
+                  </td>
+                  <td className="max-w-[280px] whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {data?.location}
+                  </td>
+                  <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                    <button
+                      className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${data?.status === "pending"
+                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                          : data?.status === "approve"
+                            ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                            : data?.status === "reject"
+                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                              : ""
+                        }`}
+                    >
+                      {data?.status}
+                    </button>
+                  </td>
 
-             <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-               {/* <button className='text-center'>
+                  <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    {/* <button className='text-center'>
                  <BsThreeDots size={24} />
                </button> */}
-               <div className="p-4">
-                 <Link to={`/access-admin/booking/${data?._id}`} className="">
-                   <BsThreeDotsVertical size={24} />
-                 </Link>
-               </div>
-             </td>
-           </tr>
+                    <div className="p-4">
+                      <Link to={`/access-admin/booking/${data?._id}`} className="">
+                        <BsThreeDotsVertical size={24} />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
               ) : (
                 <>
-                   {
+                  {
                     listing?.length < 0 ? (
-                    <NoDataPage />
-                  ) : (
-                    listing &&
-                    listing?.map((item, index) => (
-                      <tr>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
-                          {index + 1}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {item?._id}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {item?.package_name}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {item?.userId?.username}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {item?.attendees}
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {item?.totalPrice}
-                        </td>
-                        <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                        <span className="address">
+                      <NoDataPage />
+                    ) : (
+                      listing &&
+                      listing?.map((item, index) => (
+                        <tr>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
+                            {index + 1}
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {item?._id}
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {item?.package_name}
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {item?.userId?.username}
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {item?.attendees}
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {item?.totalPrice}
+                          </td>
+                          <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            <span className="address">
 
-                          {item?.location}
-                        </span>
-                        </td>
-                        <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          <button
-                            className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                              item?.status === "pending"
-                                ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                                : item?.status === "approve"
-                                ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                                : item?.status === "reject"
-                                ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                                : ""
-                            }`}
-                          >
-                            {item?.status}
-                          </button>
-                        </td>
-    
-                        <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                          {/* <button className='text-center'>
+                              {item?.location}
+                            </span>
+                          </td>
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                            <button
+                              className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                                  ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                                  : item?.status === "approve"
+                                    ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                                    : item?.status === "reject"
+                                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                                      : ""
+                                }`}
+                            >
+                              {item?.status}
+                            </button>
+                          </td>
+
+                          <td className=" font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                            {/* <button className='text-center'>
                             <BsThreeDots size={24} />
                           </button> */}
-                          <div className="p-4">
-                            <Link to={`/access-admin/booking/${item?._id}`} className="">
-                              <BsThreeDotsVertical size={24} />
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                            <div className="p-4">
+                              <Link to={`/access-admin/booking/${item?._id}`} className="">
+                                <BsThreeDotsVertical size={24} />
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                 </>
-              ) }
-           
+              )}
+
             </table>
           )}
         </div>

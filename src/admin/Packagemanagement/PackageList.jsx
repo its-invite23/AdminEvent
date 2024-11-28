@@ -11,7 +11,6 @@ import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-
 export default function PackageList() {
   const [data, setdata] = useState("")
   console.log("datadata", data)
