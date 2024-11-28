@@ -100,7 +100,7 @@ const navigate = useNavigate();
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
               {item?.package_services?.map((venue, index) => (
                 <div
-                  className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#333]"
+                  className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-[#9999]"
                   key={index}
                 >
                   <div className="relative">

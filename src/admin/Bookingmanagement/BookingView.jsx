@@ -277,7 +277,7 @@ export default function BookingView() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                   {item?.package?.map((venue, index) => (
                     <div
-                      className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-white border-1 border-[#9999]"
+                      className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col  border border-[#9999]"
                       key={index}
                     >
                       <div className="relative">
@@ -325,6 +325,7 @@ export default function BookingView() {
                           </div>
                         </div>
                         <div className="flex flex-wrap items-center justify-between">
+                          {venue.placeDetails?.international_phone_number && (
                           <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
                             <p className="">
                               <strong>International Phone:</strong>
@@ -333,7 +334,8 @@ export default function BookingView() {
                               {venue.placeDetails?.international_phone_number}
                             </p>
                           </div>
-
+                          )}
+                          {venue.placeDetails?.formatted_phone_number && (
                           <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
                             <p className="">
                               <strong>Formatted Phone Number:</strong>
@@ -342,7 +344,8 @@ export default function BookingView() {
                               {venue.placeDetails?.formatted_phone_number}
                             </p>
                           </div>
-                        </div>
+                          )}
+                          </div>
                         <div className="flex flex-wrap items-center justify-start gap-[10px]">
                           <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                             <IoStar size={11} className="text-[#ffff00]" />
