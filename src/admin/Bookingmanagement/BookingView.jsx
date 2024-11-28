@@ -46,7 +46,6 @@ export default function BookingView() {
     setPrice(numericPrice);
   };
 
-
   const handleActiveStatues = (Id, status) => {
     if (!Id || !status) {
       toast.error("Invalid ID or status. Please check your input.");
@@ -57,7 +56,7 @@ export default function BookingView() {
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
-        fetchData(res?.data?.data?._id)
+        fetchData(res?.data?.data?._id);
         if (res && res?.data) {
           toast.success(res.data.message);
         } else {
@@ -86,9 +85,8 @@ export default function BookingView() {
     const response = main.BookingPriceUpdate({ _id: Id, price });
     response
       .then((res) => {
-        fetchData(res?.data?.data?._id)
+        fetchData(res?.data?.data?._id);
         if (res && res?.data?.status) {
-
           toast.success(res.data.message);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
@@ -146,13 +144,18 @@ export default function BookingView() {
   return (
     <>
       <div className="w-full max-w-[100%]">
-        <Header title={"All package"} />
+        <Header title={"Booking View"} />
         <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-[20px]">
               <h3 className="text-[30px] font-semibold text-white mb-[5px]">
-                <button type="button" onClick={() => (navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
-
+                <button
+                  type="button"
+                  onClick={() => navigate(-1)}
+                  className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"
+                >
+                  <IoIosArrowBack />
+                </button>
                 Booking View
               </h3>
             </div>
@@ -177,14 +180,15 @@ export default function BookingView() {
                         Package Name: {item.package_name}
                       </span>
                       <button
-                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
-                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                          : item?.status === "approve"
+                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
+                          item?.status === "pending"
+                            ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                            : item?.status === "approve"
                             ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                             : item?.status === "reject"
-                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                              : ""
-                          }`}
+                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                            : ""
+                        }`}
                       >
                         {item?.status}
                       </button>
@@ -228,13 +232,13 @@ export default function BookingView() {
                         </span>
                       </div>
                       <div className="flex flex-wrap flex-row mt-5   items-center gap-4">
-                        <span className="w-full max-w-[280px]  capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
+                        <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                           Total Price:
                           <input
                             type="number"
                             value={price}
                             onChange={handleChange}
-                            className="cursor-pointer  text-white ml-2 w-[15vw] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                            className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
                           />
                         </span>
                         {item?.totalPrice !== price && (
@@ -253,10 +257,10 @@ export default function BookingView() {
                     </div>
                     <div className="w-full mb-[10px]">
                       <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-
                         {/* Right Section: Payment Generator Button */}
                         <div>
-                          {item?.status === "approve" && item?.totalPrice !== 0 &&
+                          {item?.status === "approve" &&
+                            item?.totalPrice !== 0 &&
                             item?.payment_genrator_link !== true && (
                               <button
                                 onClick={() => handlepayment(item?._id)}
@@ -282,7 +286,7 @@ export default function BookingView() {
                     >
                       <div className="relative">
                         {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                          0 ? (
+                        0 ? (
                           getPhotoUrls(venue.placeDetails?.photos[0]).map(
                             (url, imgIndex) => (
                               <img
@@ -307,68 +311,93 @@ export default function BookingView() {
                           <h2 className="text-xl font-semibold text-white">
                             {venue.services_provider_name || venue?.name}
                           </h2>
-                          <p className="text-white text-sm mb-[10px]">
-                            {venue.services_provider_phone}
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap items-center justify-between mb-[15px]">
-                          <p className="text-white text-sm">
-                            {venue.services_provider_email}
-                          </p>
-                          <div className="w-full  break-words whitespace-normal">
-                            <p className="break-words whitespace-normal text-white text-[13px] capitalize">
-                              <strong>Categroy:</strong>{" "}
-                              {venue.services_provider_categries
-                                ? venue.services_provider_categries
-                                : venue?.types?.join(", ")}
+                          {venue.services_provider_phone && (
+                            <p className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
+                              {venue.services_provider_phone}
                             </p>
-                          </div>
+                          )}
                         </div>
+
+                        <div className="flex flex-wrap items-center justify-start md:justify-between mb-[15px]">
+                          {venue.services_provider_email && (
+                            <p className="w-[100%] md:w-[40%] text-white text-sm">
+                              {venue.services_provider_email}
+                            </p>
+                          )}
+                          {venue.services_provider_categries && (
+                            <p className="flex items-center gap-2 md:mt-0 mt-3 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs break-words whitespace-normal text-white text-[13px] capitalize">
+                              {venue.services_provider_categries}
+                            </p>
+                          )}
+                        </div>
+
                         <div className="flex flex-wrap items-center justify-between">
                           {venue.placeDetails?.international_phone_number && (
-                          <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                            <p className="">
-                              <strong>International Phone:</strong>
-                            </p>
-                            <p className="text-[#0fc036] text-[13px] font-[700]">
-                              {venue.placeDetails?.international_phone_number}
-                            </p>
-                          </div>
+                            <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
+                              <p className="">
+                                <strong>International Phone:</strong>
+                              </p>
+                              <p className="text-[#0fc036] text-[13px] font-[700]">
+                                {venue.placeDetails?.international_phone_number}
+                              </p>
+                            </div>
                           )}
                           {venue.placeDetails?.formatted_phone_number && (
-                          <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                            <p className="">
-                              <strong>Formatted Phone Number:</strong>
-                            </p>
-                            <p className="text-[#0fc036] text-[13px] font-[700]">
-                              {venue.placeDetails?.formatted_phone_number}
-                            </p>
-                          </div>
+                            <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
+                              <p className="">
+                                <strong>Formatted Phone Number:</strong>
+                              </p>
+                              <p className="text-[#0fc036] text-[13px] font-[700]">
+                                {venue.placeDetails?.formatted_phone_number}
+                              </p>
+                            </div>
                           )}
-                          </div>
-                        <div className="flex flex-wrap items-center justify-start gap-[10px]">
+                        </div>
+                        <div className="flex flex-wrap items-center justify-between gap-[10px] mb-[15px]">
                           <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                             <IoStar size={11} className="text-[#ffff00]" />
                             {venue.services_provider_rating || venue?.rating}
                           </div>
                           <p className="text-white text-[15px]">
-                            {venue?.price_level
-                              && priceText[venue?.price_level]}
-                            {venue?.services_provider_price
-                              && `${venue.services_provider_price}/person`}
+                            {venue?.price_level &&
+                              priceText[venue?.price_level]}
+                            {venue?.services_provider_price &&
+                              `${venue.services_provider_price}/person`}
                           </p>
                         </div>
 
                         <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                          {venue.package_categories?.join(",")}
+                          {venue.package_categories?.map((category, index) => (
+                            <span
+                              key={index}
+                              className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
+                            >
+                              {category}
+                            </span>
+                          ))}
                         </p>
+
+                        {venue?.types && (
+                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                            {venue?.types?.map((category, index) => (
+                              <span
+                                key={index}
+                                className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
+                              >
+                                {category}
+                              </span>
+                            ))}
+                          </p>
+                        )}
+
                         <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                          {venue.package_descrption}
-                        </p>
-                        <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                          <span className="text-[#4CAF50]"> Address: </span>{" "}
                           {venue.package_address
                             ? venue.package_address
                             : venue?.vicinity}
+                        </p>
+                        <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                          {venue?.package_descrption}{" "}
                         </p>
                       </div>
                     </div>

@@ -121,44 +121,55 @@ const navigate = useNavigate();
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-[10px] items-center justify-between mb-[10px]">
+                    <div className="flex flex-wrap gap-[10px] items-center justify-between mb-[10px] mt-[10px]">
                       {/* Email */}
-                      <p className="text-white text-sm break-words">
+                      <p className="text-white text-[15px] break-words">
                         {venue.services_provider_email}
                       </p>
 
+                      <p className="text-white text-[15px]">
+                        ${venue.services_provider_price}/person
+                      </p>
                       {/* Categories */}
-                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
-                        {venue.services_provider_categries}
-                      </div>
+                     
                     </div>
 
                     {/* Rating and Price */}
-                    <div className="flex items-center justify-between mb-[10px]">
+                    <div className="flex items-center  justify-between mb-[15px] mt-[15px]">
                       <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                         <IoStar size={12} className="text-[#ffff00] " />
                         {venue.services_provider_rating}
                       </div>
-                      <p className="text-white text-xs">
-                        ${venue.services_provider_price}/person
-                      </p>
+
+                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
+                        {venue.services_provider_categries}
+                      </div> 
+                    
                     </div>
 
                     {/* Package Categories */}
-                    <p className="break-words whitespace-normal text-white text-[13px] capitalize ">
-                      <strong>Categroy:</strong> {" "}
-                      {venue.package_categories?.join(",")}
-                    </p>
+                    <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                          {venue.package_categories?.map((category, index) => (
+                            <span
+                              key={index}
+                              className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
+                            >
+                              {category}
+                            </span>
+                          ))}
+                        </p>
 
+                        <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                          <span className="text-[#4CAF50]"> Address: </span>{" "}
+                          {venue.package_address
+                            ? venue.package_address
+                            : venue?.vicinity}
+                        </p>
                     {/* Description */}
                     <p className="text-[#fff] text-[14px] mt-2 whitespace-normal overflow-hidden ">
                       {venue.package_descrption}
                     </p>
 
-                    {/* Address */}
-                    <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                      {venue.package_address}
-                    </p>
                   </div>
                 </div>
               ))}
