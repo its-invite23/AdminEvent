@@ -168,8 +168,11 @@ console.log("datadata",data)
                         <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                           {item?.totalPrice}
                         </td>
-                        <td className="max-w-[280px] whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <span className="address">
+
                           {item?.location}
+                        </span>
                         </td>
                         <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                           <button

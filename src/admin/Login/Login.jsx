@@ -11,6 +11,7 @@ export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    role:"admin",
   });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
@@ -30,6 +31,7 @@ export default function Login() {
     const response = main.login({
       email: formData.email,
       password: formData.password,
+      role:formData.role,
     });
     response
       .then((res) => {

@@ -8,7 +8,7 @@ class Listing extends Component {
     return Api.get("/common/dashboard");
   }
   async login(data) {
-    return Api.post("/user/login", data);
+    return Api.post("/user/adminlogin", data);
   }
 
   async userDelete(data) {
