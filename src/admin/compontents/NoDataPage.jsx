@@ -22,7 +22,7 @@ const NoDataPage = () => {
       <div className='flex items-center justify-center my-[40px]'>
         <button
           onClick={() => navigate(-1)}
-          className="bg-[#EB3465] px-[30px] py-[15px] rounded-[60px] text-[15px] text-white"
+          className="bg-[#ff0062] hover:bg-[#4400c3]  px-[30px] py-[15px] rounded-[60px] text-[15px] text-white"
         >
           Back To Pervious Page
         </button>
