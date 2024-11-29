@@ -54,9 +54,9 @@ export default function EnquiryReplyMessage({ item, enquire_status, EnquiryList 
 
   return (
     <div className="flex flex-col">
-      <button className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px] hover:text-[#EB3465] ' onClick={toggleModal}>
+      <button disabled={!!item?.reply_message} className='gap-[10px] m-auto font-[manrope] font-[600] text-white text-[18px] hover:text-[#EB3465] ' onClick={toggleModal}>
         {enquire_status === "active" ? (
-          <FaCheck className="text-[#4CAF50] text-[15px]" />
+          <FaCheck className="text-[#4CAF50] text-[15px] " />
         ) : (
           <IoClose className="text-[#D95858] text-[20px]" />
         )}

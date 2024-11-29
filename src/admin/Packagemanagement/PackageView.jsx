@@ -3,9 +3,11 @@ import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.jpg";
 import { IoStar } from "react-icons/io5";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
+import Delete from "../compontents/Delete";
+import { MdEdit } from "react-icons/md";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -45,9 +47,22 @@ export default function PackageView() {
             <div class="flex items-center justify-between mb-[20px]">
 
               <h3 class="text-[30px] font-semibold text-white mb-[5px]">
-                <button type="button" onClick={() => (navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
+                <button type="button" onClick={() => (navigate(-1))} className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack size={24} /></button>
                 Package View
               </h3>
+
+              <button
+                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.package_status === "pending"
+                  ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                  : item?.package_status === "active"
+                    ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                    : item?.package_status === "inactive"
+                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                      : ""
+                  }`}
+              >
+                {item?.package_status}
+              </button>
             </div>
             <div class="flex flex-wrap lg-flex-nowrap  gap-[20px]">
               <div class="w-[100%] md:w-[40%] lg:w-[40%]">
@@ -88,8 +103,6 @@ export default function PackageView() {
                     {item?.package_price_min}
                   </span>
                 </div>
-
-
               </div>
             </div>
 
@@ -121,18 +134,6 @@ export default function PackageView() {
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-[10px] items-center justify-between mb-[10px] mt-[10px]">
-                      {/* Email */}
-                      <p className="text-white text-[15px] break-words">
-                        {venue.services_provider_email}
-                      </p>
-
-                      <p className="text-white text-[15px]">
-                        ${venue.services_provider_price}/person
-                      </p>
-                      {/* Categories */}
-
-                    </div>
 
                     {/* Rating and Price */}
                     <div className="flex items-center  justify-between mb-[15px] mt-[15px]">

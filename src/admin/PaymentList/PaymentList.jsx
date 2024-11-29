@@ -66,26 +66,29 @@ export default function PaymentList() {
               <table className="w-full table-auto whitespace-nowrap">
                 <thead className="mb-[15px]">
                   <tr>
+
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Transaction Date</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Payment Id</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Booking ID</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Client Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Amount</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Payment Method</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Status</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Transaction Date</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Actions</th>
                   </tr>
                 </thead>
                 {data ? (
                   <tr>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{1}</td>
+                    <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                      {moment(data?.created_at).format('MMMM Do, YYYY')}
+                    </td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?._id || "N/A"}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                      <Link to= {`/access-admin/booking/${data?.booking_id}`}>
-                      {data?.booking_id}
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] hover:text-[#EB3465]  border-b border-[#ffffff1a] text-center  ">
+                      <Link to={`/access-admin/booking/${data?.booking_id}`} >
+                        {data?.booking_id}
                       </Link>
-                      </td>
+                    </td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.amount}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.payment_type} </td>
@@ -106,24 +109,21 @@ export default function PaymentList() {
                         {data?.payment_status}
                       </button>
                     </td>
-                    <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                      {moment(data?.created_at).format('MMMM Do, YYYY')}
-                    </td>
-                    <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                      <button className='text-center'>
-                        <BsThreeDots size={24} />
-                      </button>
-                    </td>
+
+
                   </tr>
                 ) : (<>
                   {listing?.map((item, index) => (
                     <tr>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
+                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        {moment(item?.created_at).format('MMMM Do, YYYY')}
+                      </td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?._id || "N/A"}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">  
-                        <Link to= {`/access-admin/booking/${item?.booking_id}`} className="text-white">
-                      {item?.booking_id}
-                      </Link></td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <Link to={`/access-admin/booking/${item?.booking_id}`} className="text-white">
+                          {item?.booking_id}
+                        </Link></td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
@@ -144,14 +144,7 @@ export default function PaymentList() {
                           {item?.payment_status}
                         </button>
                       </td>
-                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                        {moment(item?.created_at).format('MMMM Do, YYYY')}
-                      </td>
-                      <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                        <button className='text-center'>
-                          <BsThreeDots size={24} />
-                        </button>
-                      </td>
+
                     </tr>
                   ))}
                 </>

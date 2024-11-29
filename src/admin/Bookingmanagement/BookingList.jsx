@@ -105,18 +105,21 @@ export default function BookingList() {
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                     {data?.totalPrice}
                   </td>
-                  <td className="max-w-[280px] whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                    {data?.location}
+                  <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    <span className="address">
+
+                      {data?.location}
+                    </span>
                   </td>
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                     <button
                       className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${data?.status === "pending"
-                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                          : data?.status === "approve"
-                            ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                            : data?.status === "reject"
-                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                              : ""
+                        ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                        : data?.status === "approve"
+                          ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                          : data?.status === "reject"
+                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                            : ""
                         }`}
                     >
                       {data?.status}
@@ -170,12 +173,12 @@ export default function BookingList() {
                           <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                             <button
                               className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
-                                  ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                                  : item?.status === "approve"
-                                    ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                                    : item?.status === "reject"
-                                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                                      : ""
+                                ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                                : item?.status === "approve"
+                                  ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                                  : item?.status === "reject"
+                                    ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                                    : ""
                                 }`}
                             >
                               {item?.status}

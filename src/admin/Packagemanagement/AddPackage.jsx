@@ -191,7 +191,7 @@ export default function AddPackage() {
     <div className='w-full max-w-[100%]'>
       <Header title={Id ? "Edit Package" : "Add Package"} />
       <div className="w-full bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
-        <button type="button" onClick={() => (navigate(-1))} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack /></button>
+        <button type="button" onClick={() => (navigate(-1))} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"><IoIosArrowBack size={24} /></button>
         {loading ? (
           <LoadingSpinner />
         ) : (
@@ -365,7 +365,7 @@ export default function AddPackage() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Image</label>
                   <input
                     type="file"
                     name='services_provider_image'
@@ -377,7 +377,7 @@ export default function AddPackage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Description</label>
                   <input
                     type="text"
                     value={packageData.package_descrption
@@ -391,14 +391,14 @@ export default function AddPackage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Categories (comma-separated)</label>
+                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Categories (comma-separated)</label>
                   <input
                     type="text"
                     onChange={(e) => handleCategoryChange(e, index)}
                     name="package_categories"
                     value={packageData.package_categories.join(', ')}
                     className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                    placeholder="Enter package categories"
+                    placeholder="Enter Services categories"
                     required
                   />
                 </div>

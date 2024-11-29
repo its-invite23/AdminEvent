@@ -154,12 +154,24 @@ export default function BookingView() {
                 <button
                   type="button"
                   onClick={() => navigate(-1)}
-                  className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer"
+                  className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center  cursor-pointer"
                 >
-                  <IoIosArrowBack />
+                  <IoIosArrowBack size={24} />
                 </button>
                 Booking View
               </h3>
+              <button
+                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                  ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                  : item?.status === "approve"
+                    ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                    : item?.status === "reject"
+                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                      : ""
+                  }`}
+              >
+                {item?.status}
+              </button>
             </div>
             {loading ? (
               <LoadingSpinner />
@@ -195,24 +207,21 @@ export default function BookingView() {
                       </button>
                     </div>
 
-                    <div className="w-full mb-[10px]">
-                      <strong className="text-[15px] text-[#fff]">
-                        Location:{" "}
-                      </strong>
-                      <span className="text-white inline-flex">
-                        {item?.location}
-                      </span>
-                    </div>
-
-                    <div className="w-full mb-[10px]">
-                      <strong className="text-[15px] text-[#fff]">
-                        Date:{" "}
-                      </strong>
-                      <span className="text-white">
+                    <div className="w-full mb-[10px] text-white font-semibold">
+                      Date:{" "}
+                      <span className=" text-[17px] ">
                         {item?.bookingDate}
                         {/* {moment(item?.bookingDate).format("MMMM Do, YYYY")} */}
                       </span>
                     </div>
+                    <div className="w-full mb-[10px] text-white font-semibold">
+                      Location:{" "}
+                      <span className="text-white text-[17px]  ">
+                        {item?.location}
+                      </span>
+                    </div>
+
+
 
                     <div className="w-full mb-[10px]">
                       <div className="flex flex-wrap flex-row  items-center gap-4">
@@ -353,8 +362,8 @@ export default function BookingView() {
                         <div className="flex flex-wrap items-center justify-between">
                           {venue.placeDetails?.international_phone_number && (
                             <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                              <p className="">
-                                <strong>International Phone:</strong>
+                              <p className="font-bold">
+                                International Phone:
                               </p>
                               <p className="text-[#0fc036] text-[13px] font-[700]">
                                 {venue.placeDetails?.international_phone_number}
@@ -362,9 +371,9 @@ export default function BookingView() {
                             </div>
                           )}
                           {venue.placeDetails?.formatted_phone_number && (
-                            <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                              <p className="">
-                                <strong>Formatted Phone Number:</strong>
+                            <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[14px] mb-[15px]">
+                              <p className="font-bold">
+                                Formatted Phone Number:
                               </p>
                               <p className="text-[#0fc036] text-[13px] font-[700]">
                                 {venue.placeDetails?.formatted_phone_number}
@@ -373,16 +382,23 @@ export default function BookingView() {
                           )}
                         </div>
                         <div className="flex flex-wrap items-center justify-between gap-[10px] mb-[15px]">
+
+                          {venue?.price_level && <p className="text-white text-[15px]">
+                            {venue?.price_level ?
+                              priceText[venue?.price_level] : "N/A"}
+                          </p>}
+                          {venue?.services_provider_price &&
+                            <p className="text-white text-[15px]">
+                              {venue?.services_provider_price &&
+                                `${venue.services_provider_price}/person`}
+                            </p>
+                          }
+
                           <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                             <IoStar size={11} className="text-[#ffff00]" />
                             {venue.services_provider_rating || venue?.rating}
                           </div>
-                          <p className="text-white text-[15px]">
-                            {venue?.price_level &&
-                              priceText[venue?.price_level]}
-                            {venue?.services_provider_price &&
-                              `${venue.services_provider_price}/person`}
-                          </p>
+
                         </div>
 
                         <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">

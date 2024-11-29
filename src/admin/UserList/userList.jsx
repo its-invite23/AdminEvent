@@ -94,7 +94,7 @@ export default function UserList() {
                       S.No.
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px] text-center ">
-                      Username
+                      Name
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       Email

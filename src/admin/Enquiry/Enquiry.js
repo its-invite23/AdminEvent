@@ -78,12 +78,12 @@ export default function Enquiry() {
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Email</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Phone Number</th>
-
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Number of attendees</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  type</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Enquiry Status</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Action</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Comment</th>
                   </tr>
                 </thead>
                 {listing && listing?.map((item, index) => (
@@ -111,22 +111,21 @@ export default function Enquiry() {
 
                     </td>
                     <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
-                      {item?.reply_message ? (
-                        item?.reply_message
-                      ) : (
                         <div className="flex items-center justify-center w-full gap-[10px]">
-                          <Link to={""} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
-
+                          {/* success */}
+                          <div  className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
                             <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"active"} />
                             {/* <FaCheck className="text-[#4CAF50] text-[15px]" /> */}
-
-                          </Link>
-
-                          <Link to={""} className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
+                          </div>
+                          {/* Cancel */}
+                          <div  className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
                             <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"inactive"} />
-
-                          </Link>
+                          </div>
                         </div>
+                    </td>
+                    <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
+                      {item?.reply_message && (
+                        item?.reply_message 
                       )}
 
                     </td>
