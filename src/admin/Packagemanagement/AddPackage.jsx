@@ -4,8 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Listing from '../../Api/Listing';
 import Header from '../compontents/Header';
 import LoadingSpinner from '../compontents/LoadingSpinner';
-import ImageUpload from '../compontents/ImageUpload';
 import { IoIosArrowBack } from "react-icons/io";
+import PackageImage from './PackageImage';
+import ServicepackageImage from './ServicepackageImage';
 export default function AddPackage() {
   const { Id } = useParams();
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ export default function AddPackage() {
         const res = await main.packageUpdate({ Id, ...formData });
         if (res && res.data && res.data.status) {
           toast.success(res.data.message);
-          navigate("/access-admin/package");
+          // navigate("/access-admin/package");
         } else {
           toast.error(res.data.message);
         }
@@ -164,7 +165,7 @@ export default function AddPackage() {
         const res = await main.packageAdd(formData);
         if (res && res.data && res.data.status) {
           toast.success(res.data.message);
-          navigate("/access-admin/package");
+          // navigate("/access-admin/package");
         } else {
           toast.error(res.data.message);
         }
@@ -249,7 +250,7 @@ export default function AddPackage() {
               </div>
             </div>
             {/* Image Upload */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
               <input
                 type="file"
@@ -257,7 +258,10 @@ export default function AddPackage() {
                 className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
               />
 
-            </div>
+            </div> */}
+
+            <PackageImage setFormData={setFormData} />
+
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">
@@ -364,7 +368,7 @@ export default function AddPackage() {
                     required
                   />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Image</label>
                   <input
                     type="file"
@@ -374,7 +378,8 @@ export default function AddPackage() {
                     className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                     placeholder="Enter package image"
                   />
-                </div>
+                </div> */}
+                <ServicepackageImage index={index} setFormData={setFormData} />
 
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Description</label>

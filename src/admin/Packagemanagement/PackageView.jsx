@@ -69,7 +69,7 @@ export default function PackageView() {
                 <div>
                   <img
                     class="w-full object-cover max-h-[400px] rounded-[10px]"
-                    src={ViewImage}
+                    src={item?.package_image}
                     alt="Sunset in the mountains"
                   />
                 </div>
@@ -118,7 +118,8 @@ export default function PackageView() {
                 >
                   <div className="relative">
                     <img
-                      src={ViewImage}
+                      src={venue?.services_provider_image
+                      }
                       alt={venue.name}
                       className="h-64 w-full object-cover rounded-t-lg"
                     />

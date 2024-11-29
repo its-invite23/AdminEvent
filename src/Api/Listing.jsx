@@ -2,13 +2,15 @@ import { Component } from "react";
 import Api from "./Api";
 
 class Listing extends Component {
-
-
   async Dashboard() {
     return Api.get("/common/dashboard");
   }
+  async ImageUpload(data) {
+    return Api.post("/cloud/upload" , data);
+  }
+  
   async login(data) {
-    return Api.post("/user/adminlogin", data);
+    return Api.post("/user/admin/login", data);
   }
 
   async userDelete(data) {
