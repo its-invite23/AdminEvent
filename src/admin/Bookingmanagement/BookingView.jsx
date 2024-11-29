@@ -113,6 +113,8 @@ export default function BookingView() {
     });
     response
       .then((res) => {
+        console.log("res", res)
+        fetchData(res?.data?.data?._id);
         if (res && res?.data?.status) {
           toast.success(res.data.message);
         } else {
@@ -180,15 +182,14 @@ export default function BookingView() {
                         Package Name: {item.package_name}
                       </span>
                       <button
-                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                          item?.status === "pending"
-                            ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                            : item?.status === "approve"
+                        className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                          : item?.status === "approve"
                             ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                             : item?.status === "reject"
-                            ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                            : ""
-                        }`}
+                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                              : ""
+                          }`}
                       >
                         {item?.status}
                       </button>
@@ -208,7 +209,8 @@ export default function BookingView() {
                         Date:{" "}
                       </strong>
                       <span className="text-white">
-                        {moment(item?.bookingDate).format("MMMM Do, YYYY")}
+                        {item?.bookingDate}
+                        {/* {moment(item?.bookingDate).format("MMMM Do, YYYY")} */}
                       </span>
                     </div>
 
@@ -228,20 +230,28 @@ export default function BookingView() {
                           </select>
                         </div>
                         <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
-                          Person: {item.attendees}
+                          Number of Attendees: {item.attendees}
                         </span>
                       </div>
                       <div className="flex flex-wrap flex-row mt-5   items-center gap-4">
+
                         <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                           Total Price:
-                          <input
-                            type="number"
-                            value={price}
-                            onChange={handleChange}
-                            className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
-                          />
+                          {item?.totalPrice ? (
+                            <span >
+                              {item?.totalPrice}
+                            </span>
+                          ) : (
+                            <input
+                              type="number"
+                              value={price}
+                              onChange={handleChange}
+                              className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                            />
+                          )}
+
                         </span>
-                        {item?.totalPrice !== price && (
+                        {!item?.totalPrice && (
                           <div className="flex items-center justify-center py-4">
                             <button
                               className="bg-[#ff0062] hover:bg-[#4400c3]  text-white py-2 px-4 rounded"
@@ -259,16 +269,25 @@ export default function BookingView() {
                       <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                         {/* Right Section: Payment Generator Button */}
                         <div>
-                          {item?.status === "approve" &&
-                            item?.totalPrice !== 0 &&
-                            item?.payment_genrator_link !== true && (
+                          {!item?.payment_genrator_link ? (
+                            item?.status === "approve" &&
+                            item?.totalPrice !== 0 && (
                               <button
                                 onClick={() => handlepayment(item?._id)}
                                 className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
                               >
                                 Payment Generator
                               </button>
-                            )}
+                            )
+                          ) : (
+                            <p className="text-green-700 font-bold text-[17px]">
+                              Payment already generated. User data has been managed.
+                            </p>
+                          )}
+
+                          {
+
+                          }
                         </div>
                       </div>
                     </div>
@@ -286,7 +305,7 @@ export default function BookingView() {
                     >
                       <div className="relative">
                         {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                        0 ? (
+                          0 ? (
                           getPhotoUrls(venue.placeDetails?.photos[0]).map(
                             (url, imgIndex) => (
                               <img

@@ -5,6 +5,7 @@ import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
+import { Link } from "react-router-dom";
 
 export default function PaymentList() {
   const [data, setdata] = useState("")
@@ -80,7 +81,11 @@ export default function PaymentList() {
                   <tr>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{1}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?._id || "N/A"}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.booking_id}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                      <Link to= {`/access-admin/booking/${data?.booking_id}`}>
+                      {data?.booking_id}
+                      </Link>
+                      </td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.amount}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.payment_type} </td>
@@ -115,7 +120,10 @@ export default function PaymentList() {
                     <tr>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?._id || "N/A"}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.booking_id}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">  
+                        <Link to= {`/access-admin/booking/${item?.booking_id}`} className="text-white">
+                      {item?.booking_id}
+                      </Link></td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>

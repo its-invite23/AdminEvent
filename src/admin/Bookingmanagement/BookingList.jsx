@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { BsThreeDots } from "react-icons/bs";
 import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
-import BookingView from "./BookingView";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
@@ -16,7 +14,6 @@ export default function BookingList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
   const bookignGet = async (signal) => {
     try {
       setLoading(true);
@@ -38,9 +35,6 @@ export default function BookingList() {
       setLoading(false);
     }
   };
-  const handleClose = () => {
-    setIsOpen(false);
-  }
 
   useEffect(() => {
     const controller = new AbortController();
