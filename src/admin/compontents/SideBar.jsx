@@ -29,7 +29,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
         >
             <div className="flex justify-between items-start mb-[40px]">
                 <div className=" ">
-                    <img src={logo} alt="Logo" className="w-auto" />
+                    <img src={logo} alt="Logo" className="max-w-[130px]" />
                 </div>
 
                 <button onClick={toggleSidebar} className="text-white">
