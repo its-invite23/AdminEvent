@@ -5,6 +5,8 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import NoDataPage from "../compontents/NoDataPage";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
+import { TbCurrencyDirham } from "react-icons/tb";
 
 export default function BookingList() {
   const [data, setdata] = useState("")
@@ -13,6 +15,12 @@ export default function BookingList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
+  const currencySymbol = {
+    USD: <FaDollarSign size={18} />,
+    EUR: <FaEuroSign size={18} />,
+    AED: <TbCurrencyDirham size={18} />,
+    GBP: <FaPoundSign size={18} />,
+  };
   const bookignGet = async (signal) => {
     try {
       setLoading(true);
@@ -102,7 +110,14 @@ export default function BookingList() {
                     {data?.attendees}
                   </td>
                   <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                    {data?.totalPrice}
+                  {data?.totalPrice && (
+  <span className="flex items-center">
+    <span className="mr-1 flex items-center">{currencySymbol[data?.CurrencyCode]}</span>
+    <span>{data?.totalPrice}</span>
+  </span>
+)}
+
+
                   </td>
                   <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                     <span className="address">
@@ -160,8 +175,13 @@ export default function BookingList() {
                           <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                             {item?.attendees}
                           </td>
-                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                            {item?.totalPrice}
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                          {item?.totalPrice && (
+  <>
+    {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+  </>
+)}
+
                           </td>
                           <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                             <span className="address">

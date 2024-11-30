@@ -7,8 +7,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
-
+import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
+import { TbCurrencyDirham } from "react-icons/tb";
 export default function BookingView() {
+
+  const currencySymbol = {
+    USD: <FaDollarSign size={18} />,
+    EUR: <FaEuroSign size={18} />,
+    AED: <TbCurrencyDirham size={18} />,
+    GBP: <FaPoundSign size={18} />,
+  };
+  const [currency, setCurrency] = useState("USD"); // Default currency
+  const [price, setPrice] = useState(""); // Price input
+
+  const handleCurrencyChange = (e) => {
+    setCurrency(e.target.value.toUpperCase()); // Convert to uppercase for consistency
+  };
+
+  const handleChange = (e) => {
+    setPrice(e.target.value);
+  };
   const { Id } = useParams();
   const navigate = useNavigate();
   const priceText = {
@@ -37,13 +55,9 @@ export default function BookingView() {
   }, [Id]);
 
   const [loading, setLoading] = useState(false);
-  const [price, setPrice] = useState(item.totalPrice);
+
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-  const handleChange = (e) => {
-    const inputPrice = e.target.value;
-    const numericPrice = parseFloat(inputPrice) || 0;
-    setPrice(numericPrice);
-  };
+
 
   const handleActiveStatues = (Id, status) => {
     if (!Id || !status) {
@@ -81,7 +95,7 @@ export default function BookingView() {
     }
     setLoading(true);
     const main = new Listing();
-    const response = main.BookingPriceUpdate({ _id: Id, price });
+    const response = main.BookingPriceUpdate({ _id: Id, price, currency });
     response
       .then((res) => {
         fetchData(res?.data?.data?._id);
@@ -162,15 +176,14 @@ export default function BookingView() {
                   Booking View
                 </h3>
                 <button
-                  className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                    item?.status === "pending"
-                      ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                      : item?.status === "approve"
+                  className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                    ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                    : item?.status === "approve"
                       ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                       : item?.status === "reject"
-                      ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                      : ""
-                  }`}
+                        ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                        : ""
+                    }`}
                 >
                   {item?.status}
                 </button>
@@ -196,15 +209,14 @@ export default function BookingView() {
                           Package Name: {item.package_name}
                         </span>
                         <button
-                          className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${
-                            item?.status === "pending"
-                              ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                              : item?.status === "approve"
+                          className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
+                            ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                            : item?.status === "approve"
                               ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
                               : item?.status === "reject"
-                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                              : ""
-                          }`}
+                                ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                                : ""
+                            }`}
                         >
                           {item?.status}
                         </button>
@@ -244,17 +256,35 @@ export default function BookingView() {
                           </span>
                         </div>
                         <div className="flex flex-wrap flex-row mt-5   items-center gap-4">
+                          {!item?.CurrencyCode && <div className="flex items-center">
+
+                            <select
+                              value={currency}
+                              onChange={handleCurrencyChange}
+                              className="bg-[#000] min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]  focus:outline-none"
+                            >
+                              <option value="USD">USD</option>
+                              <option value="EUR">EUR</option>
+                              <option value="AED">AED</option>
+                              <option value="GBP">GBP</option>
+                            </select>
+                          </div>
+                          }
+
                           <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
                             Total Price:
                             {item?.totalPrice ? (
-                              <span>{item?.totalPrice}</span>
+                              <span> {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}</span>
                             ) : (
-                              <input
-                                type="number"
-                                value={price}
-                                onChange={handleChange}
-                                className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
-                              />
+                              <>
+
+                                <input
+                                  type="number"
+                                  value={price}
+                                  onChange={handleChange}
+                                  className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                                />
+                              </>
                             )}
                           </span>
                           {!item?.totalPrice && (
@@ -292,7 +322,7 @@ export default function BookingView() {
                               </p>
                             )}
 
-                            {}
+                            { }
                           </div>
                         </div>
                       </div>
@@ -310,7 +340,7 @@ export default function BookingView() {
                       >
                         <div className="relative">
                           {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
-                          0 ? (
+                            0 ? (
                             getPhotoUrls(venue.placeDetails?.photos[0]).map(
                               (url, imgIndex) => (
                                 <img
@@ -390,6 +420,7 @@ export default function BookingView() {
                             )}
                             {venue?.services_provider_price && (
                               <p className="text-white text-[15px]">
+                                {currencySymbol[item?.CurrencyCode]}
                                 {venue?.services_provider_price &&
                                   `${venue.services_provider_price}/person`}
                               </p>
