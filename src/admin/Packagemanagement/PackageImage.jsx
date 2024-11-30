@@ -2,31 +2,29 @@ import React, { useState } from 'react';
 import Listing from '../../Api/Listing';
 import toast from 'react-hot-toast';
 
-export default function PackageImage({ setFormData , handleSubmit}) {
+export default function PackageImage({ setFormData, formData}) {
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     setLoading(true);
-
     // Prepare FormData
     const formData = new FormData();
     formData.append("file", file);
-
     const main = new Listing();
     try {
       const res = await main.ImageUpload(formData);
       console.log("res",res)
       if (res?.data?.status) {
         toast.success(res.data.message);
+        const fileId = res?.data?.file_data?.fileId
+        console.log("fileId", fileId)
         const fileUrl = res?.data?.fileUrl;
-
         setFormData((prev) => ({
           ...prev,
           package_image: fileUrl,
-          image_filed:res?.data?.file_data?.fileId
+          image_filed:fileId
         }));
         // Set the image preview
         setImagePreview(fileUrl);
@@ -54,15 +52,22 @@ export default function PackageImage({ setFormData , handleSubmit}) {
       />
       {loading && <p className="mt-2 text-blue-400 text-sm">Uploading...</p>}
 
-      {imagePreview && (
+      {imagePreview ?(
         <div className="mt-4">
-          <p className="text-white text-sm mb-2">Uploaded Image:</p>
           <img
             src={imagePreview}
             alt="Uploaded Package"
             className="w-[400px] h-[300px] rounded-lg border border-gray-300"
           />
         </div>
+      ) :(
+        <div className="mt-4">
+        <img
+          src={formData}
+          alt="Uploaded Package"
+          className="w-[400px] h-[300px] rounded-lg border border-gray-300"
+        />
+      </div>
       )}
     </div>
   );

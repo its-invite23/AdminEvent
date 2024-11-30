@@ -18,7 +18,7 @@ export default function AddPackage() {
     package_image: "",
     package_services: [],
     Id: Id,
-    image_filed : "",
+    image_filed: "",
   });
   console.log("formData", formData)
 
@@ -61,7 +61,7 @@ export default function AddPackage() {
           services_provider_phone: "",
           services_provider_name: "",
           package_address: "",
-          services_image_filed : "",
+          services_image_filed: "",
           services_provider_categries: "",
           package_descrption: "",
           services_provider_price: "",
@@ -90,10 +90,8 @@ export default function AddPackage() {
           package_price_max,
           package_image,
         } = response.data.data;
-
-        // Check if package_services exists and extract necessary fields
         const serviceData = package_services && package_services.length > 0 ? package_services[0] : {};
-
+        console.log("serviceData", serviceData)
         setFormData({
           package_name: package_name || "",
           package_people: package_people || "",
@@ -159,7 +157,7 @@ export default function AddPackage() {
         const res = await main.packageUpdate({ Id, ...formData });
         if (res && res.data && res.data.status) {
           toast.success(res.data.message);
-          // navigate("/access-admin/package");
+          navigate("/access-admin/package");
         } else {
           toast.error(res.data.message);
         }
@@ -167,7 +165,7 @@ export default function AddPackage() {
         const res = await main.packageAdd(formData);
         if (res && res.data && res.data.status) {
           toast.success(res.data.message);
-          // navigate("/access-admin/package");
+          navigate("/access-admin/package");
         } else {
           toast.error(res.data.message);
         }
@@ -251,19 +249,7 @@ export default function AddPackage() {
                 />
               </div>
             </div>
-            {/* Image Upload */}
-            {/* <div className="mb-4">
-              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Image</label>
-              <input
-                type="file"
-                onChange={(e) => setFormData({ ...formData, package_image: e.target.files[0] })}
-                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-              />
-
-            </div> */}
-
-            <PackageImage setFormData={setFormData} />
-
+            <PackageImage setFormData={setFormData} formData={formData?.package_image} />
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">
@@ -370,19 +356,7 @@ export default function AddPackage() {
                     required
                   />
                 </div>
-                {/* <div className="mb-4">
-                  <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Image</label>
-                  <input
-                    type="file"
-                    name='services_provider_image'
-                    onChange={(e) => handleServiceChange(e, index)}
-                    value={packageData.services_provider_image}
-                    className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                    placeholder="Enter package image"
-                  />
-                </div> */}
-                <ServicepackageImage index={index} setFormData={setFormData} />
-
+                <ServicepackageImage index={index} setFormData={setFormData} showimage={packageData?.services_provider_image} />
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Description</label>
                   <input
@@ -425,8 +399,6 @@ export default function AddPackage() {
                 {loading ? "Loading..." : Id ? "Update Package" : "Add Package"}
               </button>
             </div>
-
-
           </form>
         )}
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 
-export default function ServicepackageImage({ index, setFormData , handleSubmit}) {
+export default function ServicepackageImage({ index, setFormData, showimage }) {
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const handleFileChange = async (e) => {
@@ -18,15 +18,13 @@ export default function ServicepackageImage({ index, setFormData , handleSubmit}
       const res = await main.ImageUpload(formData); // Upload image
       if (res?.data?.status) {
         toast.success(res.data.message);
-
         const fileUrl = res?.data?.fileUrl;
-
-        // Update the specific index in package_services
+        const fileId = res?.data?.file_data?.fileId
+        console.log("fileId", fileId)
         setFormData((prev) => {
           const updatedServices = [...prev.package_services];
           updatedServices[index].services_provider_image = fileUrl;
-          updatedServices[index].services_image_filed = res?.data?.file_data?.fileId
-
+          updatedServices[index].services_image_filed = fileId;
           return { ...prev, package_services: updatedServices };
         });
         setImagePreview(fileUrl); // Show preview
@@ -51,13 +49,21 @@ export default function ServicepackageImage({ index, setFormData , handleSubmit}
           }`}
       />
       {loading && <p className="mt-2 text-blue-400 text-sm">Uploading...</p>}
-      {imagePreview && (
+      {imagePreview ? (
         <div className="mt-2">
           <img
             src={imagePreview}
             alt="Uploaded Service"
             className="w-[400px] h-[300px] rounded-lg border border-gray-300"
 
+          />
+        </div>
+      ) : (
+        <div className="mt-2">
+          <img
+            src={showimage}
+            alt="Uploaded Service"
+            className="w-[400px] h-[300px] rounded-lg border border-gray-300"
           />
         </div>
       )}
