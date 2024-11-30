@@ -18,13 +18,11 @@ export default function BookingView() {
     4: "Luxury and premium options",
   };
   const [item, setItem] = useState("");
-  console.log("item", item);
   const fetchData = async () => {
     setLoading(true);
     try {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
-      console.log("Response:", response);
       setItem(response?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -40,7 +38,6 @@ export default function BookingView() {
 
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(item.totalPrice);
-  const [selectedPackage, setSelectedPackage] = useState();
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const handleChange = (e) => {
     const inputPrice = e.target.value;
@@ -115,7 +112,6 @@ export default function BookingView() {
     });
     response
       .then((res) => {
-        console.log("res", res);
         fetchData(res?.data?.data?._id);
         if (res && res?.data?.status) {
           toast.success(res.data.message);

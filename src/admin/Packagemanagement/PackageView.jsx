@@ -3,11 +3,9 @@ import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.jpg";
 import { IoStar } from "react-icons/io5";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
-import Delete from "../compontents/Delete";
-import { MdEdit } from "react-icons/md";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -15,13 +13,11 @@ export default function PackageView() {
 
   const [loading, setLoading] = useState(false);
   const [item, setLisitng] = useState("");
-  console.log("Lisitng", item);
   const fetchData = async () => {
     setLoading(true);
     const main = new Listing();
     try {
       const response = await main.packageGetId({ Id });
-      console.log("response", response);
       if (response && response.data) {
         setLisitng(response?.data?.data);
         setLoading(false);
@@ -69,7 +65,7 @@ export default function PackageView() {
                 <div>
                   <img
                     class="w-full object-cover max-h-[400px] rounded-[10px]"
-                    src={item?.package_image}
+                    src={item?.package_image ? item?.package_image : ViewImage}
                     alt="Sunset in the mountains"
                   />
                 </div>
@@ -118,7 +114,7 @@ export default function PackageView() {
                 >
                   <div className="relative">
                     <img
-                      src={venue?.services_provider_image
+                      src={venue?.services_provider_image ? venue?.services_provider_image : ViewImage
                       }
                       alt={venue.name}
                       className="h-64 w-full object-cover rounded-t-lg"

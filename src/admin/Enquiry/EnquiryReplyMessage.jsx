@@ -16,7 +16,6 @@ export default function EnquiryReplyMessage({ item, enquire_status, EnquiryList 
     reply_message: "",
     enquire_status: enquire_status
   });
-  console.log("formData", formData)
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -33,7 +32,6 @@ export default function EnquiryReplyMessage({ item, enquire_status, EnquiryList 
     const main = new Listing();
     const response = main.EnquiryReply(formData);
     response.then((res) => {
-      console.log("res", res)
       if (res && res?.data && res?.data?.status) {
         toast.success(res.data.message);
         setLoading(false);

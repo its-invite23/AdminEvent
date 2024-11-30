@@ -32,7 +32,6 @@ export default function Filter({ setLisitng }) {
     const main = new Listing();
     const response = main.userfilter(formData);
     response.then((res) => {
-      console.log("res", res)
       if (res && res?.data && res?.data?.status) {
         toast.success(res.data.message);
         setLisitng(res?.data?.users)

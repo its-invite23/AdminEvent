@@ -10,7 +10,6 @@ import moment from "moment";
 
 export default function UserList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing", listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -20,7 +19,6 @@ export default function UserList() {
       setLoading(true);
       const main = new Listing();
       const response = await main.profile(page, limit, { signal });
-      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.users);
       if (response?.data?.data?.users) {
         setLisitng((prevData) => {
           if (page === 1) {

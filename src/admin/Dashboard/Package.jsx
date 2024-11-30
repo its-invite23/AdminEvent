@@ -4,7 +4,6 @@
 
     function Package({ packages }) {
 
-        console.log("packages", packages)
         const truncateText = (text, wordLimit) => {
             if (!text) return '';
             const words = text.split(' ');

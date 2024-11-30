@@ -20,7 +20,6 @@ export default function AddPackage() {
     Id: Id,
     image_filed: "",
   });
-  console.log("formData", formData)
 
   const removePackage = (index) => {
     setFormData((prevState) => {
@@ -80,7 +79,6 @@ export default function AddPackage() {
     try {
       const response = await main.packageGetId({ Id });
 
-      console.log("response", response);
       if (response && response.data) {
         const {
           package_name,
@@ -91,7 +89,6 @@ export default function AddPackage() {
           package_image,
         } = response.data.data;
         const serviceData = package_services && package_services.length > 0 ? package_services[0] : {};
-        console.log("serviceData", serviceData)
         setFormData({
           package_name: package_name || "",
           package_people: package_people || "",
@@ -249,7 +246,7 @@ export default function AddPackage() {
                 />
               </div>
             </div>
-            <PackageImage setFormData={setFormData} formData={formData?.package_image} />
+            <PackageImage setFormData={setFormData} formData={formData} />
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">
@@ -356,7 +353,7 @@ export default function AddPackage() {
                     required
                   />
                 </div>
-                <ServicepackageImage index={index} setFormData={setFormData} showimage={packageData?.services_provider_image} />
+                <ServicepackageImage index={index} setFormData={setFormData} showimage={packageData} fetchData={fetchData} />
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Description</label>
                   <input

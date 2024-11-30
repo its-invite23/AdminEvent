@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsThreeDots } from 'react-icons/bs'
 import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
@@ -9,7 +8,6 @@ import { Link } from "react-router-dom";
 
 export default function PaymentList() {
   const [data, setdata] = useState("")
-  console.log("datadata", data)
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -20,7 +18,6 @@ export default function PaymentList() {
       setLoading(true);
       const main = new Listing();
       const response = await main.PaymentGet(page, limit, { signal });
-      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.payment);
       if (response?.data?.data) {
         setLisitng((prevData) => {
           if (page === 1) {

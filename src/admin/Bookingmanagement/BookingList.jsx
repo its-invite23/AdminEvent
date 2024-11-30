@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 export default function BookingList() {
   const [data, setdata] = useState("")
-  console.log("datadata", data)
   const [listing, setLisitng] = useState(data || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);

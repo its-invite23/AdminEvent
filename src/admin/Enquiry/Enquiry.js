@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../compontents/Header";
 import Listing from "../../Api/Listing";
 import LoadingSpinner from "../compontents/LoadingSpinner";
-import { Link } from "react-router-dom";
 import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
 import EnquiryReplyMessage from "./EnquiryReplyMessage";
@@ -18,7 +17,6 @@ export default function Enquiry() {
       setLoading(true);
       const main = new Listing();
       const response = await main.enquiryGet(page, limit, { signal });
-      console.log("response?.data?.data?.packagegetdata", response?.data?.data?.Enquiryget);
       if (response?.data?.data?.Enquiryget) {
         setLisitng((prevData) => {
           if (page === 1) {

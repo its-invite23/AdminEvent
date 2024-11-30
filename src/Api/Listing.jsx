@@ -9,6 +9,10 @@ class Listing extends Component {
     return Api.post("/cloud/upload" , data);
   }
   
+  async ImageDelete(data) {
+    return Api.post("/package/delete" , data);
+  }
+  
   async login(data) {
     return Api.post("/user/admin/login", data);
   }
