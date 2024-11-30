@@ -25,6 +25,8 @@ export default function ServicepackageImage({ index, setFormData , handleSubmit}
         setFormData((prev) => {
           const updatedServices = [...prev.package_services];
           updatedServices[index].services_provider_image = fileUrl;
+          updatedServices[index].services_image_filed = res?.data?.file_data?.fileId
+
           return { ...prev, package_services: updatedServices };
         });
         setImagePreview(fileUrl); // Show preview

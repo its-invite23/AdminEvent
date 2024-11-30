@@ -18,6 +18,7 @@ export default function AddPackage() {
     package_image: "",
     package_services: [],
     Id: Id,
+    image_filed : "",
   });
   console.log("formData", formData)
 
@@ -60,6 +61,7 @@ export default function AddPackage() {
           services_provider_phone: "",
           services_provider_name: "",
           package_address: "",
+          services_image_filed : "",
           services_provider_categries: "",
           package_descrption: "",
           services_provider_price: "",

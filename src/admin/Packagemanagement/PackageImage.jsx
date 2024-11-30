@@ -18,6 +18,7 @@ export default function PackageImage({ setFormData , handleSubmit}) {
     const main = new Listing();
     try {
       const res = await main.ImageUpload(formData);
+      console.log("res",res)
       if (res?.data?.status) {
         toast.success(res.data.message);
         const fileUrl = res?.data?.fileUrl;
@@ -25,6 +26,7 @@ export default function PackageImage({ setFormData , handleSubmit}) {
         setFormData((prev) => ({
           ...prev,
           package_image: fileUrl,
+          image_filed:res?.data?.file_data?.fileId
         }));
         // Set the image preview
         setImagePreview(fileUrl);
