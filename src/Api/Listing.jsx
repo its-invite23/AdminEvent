@@ -74,8 +74,8 @@ class Listing extends Component {
   }
 
 
-  async BookingGet() {
-    return Api.get(`/booking/booking-get`);
+  async BookingGet(page ,limit) {
+    return Api.get(`/booking/booking-get?page=${page}&limit=${limit}`);
   }
   // const [isOpen, setIsOpen] = useState(false);
   
@@ -94,8 +94,8 @@ class Listing extends Component {
     return Api.post(`/booking/booking-payment` , data);
   }
 
-  async PaymentGet() {
-    return Api.get(`/stripe/payment-get` );
+  async PaymentGet(page ,limit) {
+    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}` );
   }
 
   async PackageContactGet(id) {

@@ -10,12 +10,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
 export default function BookingView() {
-
   const currencySymbol = {
-    USD: <FaDollarSign size={18} />,
-    EUR: <FaEuroSign size={18} />,
-    AED: <TbCurrencyDirham size={18} />,
-    GBP: <FaPoundSign size={18} />,
+    USD: <FaDollarSign size={18}   className="inline" />,
+    EUR: <FaEuroSign size={18}  className="inline" />,
+    AED: <TbCurrencyDirham size={18}  className="inline" />,
+    GBP: <FaPoundSign size={18}  className="inline" />,
   };
   const [currency, setCurrency] = useState("USD"); // Default currency
   const [price, setPrice] = useState(""); // Price input

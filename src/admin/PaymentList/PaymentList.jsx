@@ -5,10 +5,18 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
 import { Link } from "react-router-dom";
-
+import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
+import { TbCurrencyDirham } from "react-icons/tb";
 export default function PaymentList() {
+  const currencySymbol = {
+    USD: <FaDollarSign size={18} className="inline" />,
+    EUR: <FaEuroSign size={18} className="inline" />,
+    AED: <TbCurrencyDirham size={18} className="inline" />,
+    GBP: <FaPoundSign size={18} className="inline" />,
+  };
   const [data, setdata] = useState("")
   const [listing, setLisitng] = useState([]);
+  console.log("listing", listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -48,6 +56,8 @@ export default function PaymentList() {
       setPage((prevPage) => prevPage + 1);
     }
   };
+
+
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"All Payment"} type={"payment"} data={data} setData={setdata} />
@@ -87,7 +97,11 @@ export default function PaymentList() {
                       </Link>
                     </td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.amount}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                      <span className="">
+                        {currencySymbol[data?.currency]}
+                      </span>
+                      {data?.amount}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.payment_type} </td>
                     <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       <button
@@ -122,7 +136,11 @@ export default function PaymentList() {
                           {item?.booking_id}
                         </Link></td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.amount}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                        <span className="">
+                          {currencySymbol[item?.currency]}
+                        </span>
+                        {item?.amount}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
                       <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                         <button
@@ -146,18 +164,25 @@ export default function PaymentList() {
                   ))}
                 </>
                 )}
-
-
-
-
               </table>
             ))
 
           }
 
         </div>
-
       </div>
+      {
+        hasMore && (
+          <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        )
+      }
     </div>
   )
 }
