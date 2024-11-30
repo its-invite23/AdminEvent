@@ -118,9 +118,9 @@ export default function UserList() {
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       Status
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    {/* <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       Action
-                    </th>
+                    </th> */}
 
                   </tr>
                 </thead>
@@ -177,9 +177,9 @@ export default function UserList() {
                         </button>
                       </td>
 
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      {/* <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         <Delete Id={item?._id} step={2} users={users} className="flex justify-center" />
-                      </td>
+                      </td> */}
                     </tr>
                   ))
                 }
