@@ -16,6 +16,8 @@ export default function AddPackage() {
     package_price_min: "",
     package_price_max: "",
     package_image: "",
+    package_description: "",
+    package_subtitle: "",
     package_services: [],
     Id: Id,
     image_filed: "",
@@ -87,12 +89,16 @@ export default function AddPackage() {
           package_price_min,
           package_price_max,
           package_image,
+          package_subtitle,
+          package_description,
         } = response.data.data;
         const serviceData = package_services && package_services.length > 0 ? package_services[0] : {};
         setFormData({
           package_name: package_name || "",
           package_people: package_people || "",
+          package_description: package_description || "",
           package_price_min: package_price_min || "",
+          package_subtitle: package_subtitle || "",
           package_services: package_services || [], // Directly store the array
           package_price_max: package_price_max || "",
           package_image: package_image || "",
@@ -206,7 +212,31 @@ export default function AddPackage() {
                 required
               />
             </div>
+            <div className="mb-4">
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Experience</label>
+              <input
+                type="text"
+                onChange={handleChange}
+                name="package_subtitle"
+                value={formData.package_subtitle}
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                placeholder="Enter package Experience"
+                required
+              />
+            </div>
 
+            <div className="mb-4">
+              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
+              <input
+                type="text"
+                onChange={handleChange}
+                name="package_description"
+                value={formData.package_description}
+                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
+                placeholder="Enter package Sub title"
+                required
+              />
+            </div>
             {/* Row for Minimum, Maximum Price and People */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
