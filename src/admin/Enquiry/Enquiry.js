@@ -5,6 +5,7 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
 import EnquiryReplyMessage from "./EnquiryReplyMessage";
+import ViewMessage from "../compontents/ViewMessage";
 
 export default function Enquiry() {
   const [listing, setLisitng] = useState([]);
@@ -12,10 +13,14 @@ export default function Enquiry() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
-  
-  const EnquiryList = async (signal) => {
+  const [loadingButton, setLoadingButton] = useState(false);
+
+  const EnquiryList = async (pg, signal) => {
     try {
-      setLoading(true);
+      if (pg == 1) {
+        setLoading(true);
+      }
+      setLoadingButton(true);
       const main = new Listing();
       const response = await main.enquiryGet(page, limit, { signal });
       if (response?.data?.data?.Enquiryget) {
@@ -27,11 +32,14 @@ export default function Enquiry() {
           }
         });
         setHasMore(response.data.data.nextPage !== null);
+        setLoading(false);
+        setLoadingButton(false);
       }
     } catch (error) {
       console.error("Error fetching package data:", error);
     } finally {
       setLoading(false);
+      setLoadingButton(false);
     }
   };
 
@@ -81,6 +89,8 @@ export default function Enquiry() {
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  type</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Enquiry Status</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Message</th>
+
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Action</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Comment</th>
                   </tr>
@@ -92,13 +102,14 @@ export default function Enquiry() {
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{item?.name}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{item?.email}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                      {item?.phone_code
+                      {item?.phone_code && (`+${item?.phone_code}`)
                       } {item?.phone_number}
                     </td>
 
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.attendees}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.eventname}</td>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.event_type}</td>
+
                     <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.enquire_status === 'pending' ? 'text-yellow-500' :
                       item?.enquire_status === 'active' ? 'text-green-500' :
                         item?.enquire_status === 'inactive' ? 'text-red-500' :
@@ -109,24 +120,27 @@ export default function Enquiry() {
                       {item?.enquire_status === "inactive" && "Rejected"}
 
                     </td>
-                    <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
-                        <div className="flex items-center justify-center w-full gap-[10px]">
-                          {/* success */}
-                          <div  className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
-                            <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"active"} />
-                            {/* <FaCheck className="text-[#4CAF50] text-[15px]" /> */}
-                          </div>
-                          {/* Cancel */}
-                          <div  className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
-                            <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"inactive"} />
-                          </div>
-                        </div>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">
+                      <ViewMessage text={item?.message} />
                     </td>
-                    <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
-                      {item?.reply_message && (
-                        item?.reply_message 
-                      )}
 
+                    <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
+                      <div className="flex items-center justify-center w-full gap-[10px]">
+                        {/* success */}
+                        <div className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
+                          <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"active"} />
+                          {/* <FaCheck className="text-[#4CAF50] text-[15px]" /> */}
+                        </div>
+                        {/* Cancel */}
+                        <div className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
+                          <EnquiryReplyMessage EnquiryList={EnquiryList} item={item} enquire_status={"inactive"} />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">
+                      {item?.reply_message &&
+                        <ViewMessage text={item?.reply_message} step={1} />
+                      }
                     </td>
                   </tr>
                 ))}
@@ -138,13 +152,15 @@ export default function Enquiry() {
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
         {
-          hasMore && (
-            <button
-              onClick={loadMore}
-              disabled={loading}
-              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-              {loading ? "Loading..." : "Load More"}
-            </button>
+          listing?.length > 0 && !loading && hasMore && (
+            <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+              <button
+                onClick={loadMore}
+                className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+                {loadingButton ? "Loading..." : "Load More"}
+
+              </button>
+            </div>
           )
         }
       </div>

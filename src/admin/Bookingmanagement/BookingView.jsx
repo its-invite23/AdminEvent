@@ -177,9 +177,9 @@ export default function BookingView() {
                 <button
                   className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
                     ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                    : item?.status === "approve"
+                    : item?.status === "approved"
                       ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                      : item?.status === "reject"
+                      : item?.status === "rejected"
                         ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
                         : ""
                     }`}
@@ -210,9 +210,9 @@ export default function BookingView() {
                         <button
                           className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
                             ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                            : item?.status === "approve"
+                            : item?.status === "approved"
                               ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                              : item?.status === "reject"
+                              : item?.status === "rejected"
                                 ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
                                 : ""
                             }`}
@@ -246,8 +246,8 @@ export default function BookingView() {
                               className="bg-[#000] min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]  focus:outline-none"
                             >
                               <option value="">Select an option</option>
-                              <option value="approve">Approve</option>
-                              <option value="reject">Reject</option>
+                              <option value="approved">Approve</option>
+                              <option value="rejected">Reject</option>
                             </select>
                           </div>
                           <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">

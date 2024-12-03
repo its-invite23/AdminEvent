@@ -14,9 +14,14 @@ export default function UserList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
-  const users = async (signal) => {
+  const [loadingButton, setLoadingButton] = useState(false);
+
+  const users = async (pg, signal) => {
     try {
-      setLoading(true);
+      if (pg == 1) {
+        setLoading(true);
+      }
+      setLoadingButton(true);
       const main = new Listing();
       const response = await main.profile(page, limit, { signal });
       if (response?.data?.data?.users) {
@@ -28,11 +33,15 @@ export default function UserList() {
           }
         });
         setHasMore(response.data.data.nextPage !== null);
+        setLoading(false);
+        setLoadingButton(false);
       }
     } catch (error) {
       console.error("Error fetching package data:", error);
     } finally {
       setLoading(false);
+      setLoadingButton(false);
+
     }
   };
 
@@ -60,7 +69,6 @@ export default function UserList() {
         if (res && res?.data?.status) {
           toast.success(res.data.message);
           users(page);
-
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -88,10 +96,10 @@ export default function UserList() {
               <table className="w-full table-auto whitespace-nowrap">
                 <thead className="mb-[15px]">
                   <tr>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
                       S.No.
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px] text-center ">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]  ">
                       Name
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
@@ -128,13 +136,23 @@ export default function UserList() {
                   listing &&
                   listing?.map((item, index) => (
                     <tr key={index}>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         {index + 1}
                       </td>
 
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.username}
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                        {/* Username */}
+                        <div>{item?.username}</div>
+
+
+                        <span
+                          className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 
+      ${item?.user_status === 'active' ? 'text-[#4CAF50]' : 'text-[#FF0000]'}`}
+                        >
+                          {item?.user_status}
+                        </span>
                       </td>
+
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
                         {item?.email}
                       </td>
@@ -192,13 +210,15 @@ export default function UserList() {
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
         {
-          hasMore && (
-            <button
-              onClick={loadMore}
-              disabled={loading}
-              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-              {loading ? "Loading..." : "Load More"}
-            </button>
+          listing?.length > 0 && !loading && hasMore && (
+            <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+              <button
+                onClick={loadMore}
+                className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+                {loadingButton ? "Loading..." : "Load More"}
+
+              </button>
+            </div>
           )
         }
       </div>

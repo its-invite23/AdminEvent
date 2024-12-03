@@ -21,9 +21,14 @@ export default function PaymentList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
-  const EnquiryList = async (signal) => {
+  const [loadingButton, setLoadingButton] = useState(false);
+
+  const EnquiryList = async (pg, signal) => {
     try {
-      setLoading(true);
+      if (pg == 1) {
+        setLoading(true);
+      }
+      setLoadingButton(true);
       const main = new Listing();
       const response = await main.PaymentGet(page, limit, { signal });
       if (response?.data?.data) {
@@ -35,11 +40,16 @@ export default function PaymentList() {
           }
         });
         setHasMore(response.data.data.nextPage !== null);
+        setLoadingButton(false);
+        setLoading(false);
+
       }
     } catch (error) {
       console.error("Error fetching package data:", error);
     } finally {
       setLoading(false);
+      setLoadingButton(false);
+
     }
   };
 
@@ -77,7 +87,7 @@ export default function PaymentList() {
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Transaction Date</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Payment Id</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Booking ID</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Booking Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Client Name</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Amount</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Payment Method</th>
@@ -90,13 +100,13 @@ export default function PaymentList() {
                     <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       {moment(data?.created_at).format('MMMM Do, YYYY')}
                     </td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?._id || "N/A"}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] hover:text-[#EB3465]  border-b border-[#ffffff1a] text-center  ">
-                      <Link to={`/access-admin/booking/${data?.booking_id}`} >
-                        {data?.booking_id}
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.payment_id || "N/A"}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <Link to={`/access-admin/booking/${data?.booking_id?._id}`} className="text-white">
+                        {data?.booking_id?.package_name}
                       </Link>
                     </td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] capitalize  border-b border-[#ffffff1a] text-center  ">{data?.userId?.username}</td>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                       <span className="">
                         {currencySymbol[data?.currency]}
@@ -130,18 +140,20 @@ export default function PaymentList() {
                       <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                         {moment(item?.created_at).format('MMMM Do, YYYY')}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?._id || "N/A"}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                        <Link to={`/access-admin/booking/${item?.booking_id}`} className="text-white">
-                          {item?.booking_id}
-                        </Link></td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.userId?.username}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_id || "N/A"}</td>
+                      <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        <Link to={`/access-admin/booking/${item?.booking_id?._id}`} className="text-white">
+                          {item?.booking_id?.package_name}
+                        </Link>
+                      </td>
+
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center capitalize  ">{item?.userId?.username}</td>
                       <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                         <span className="">
                           {currencySymbol[item?.currency]}
                         </span>
                         {item?.amount}</td>
-                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.payment_type} </td>
+                      <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center capitalize ">{item?.payment_type} </td>
                       <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                         <button
                           className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.payment_status
@@ -172,13 +184,13 @@ export default function PaymentList() {
         </div>
       </div>
       {
-        hasMore && (
+        listing?.length > 0 && !loading && hasMore && (
           <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
             <button
               onClick={loadMore}
-              disabled={loading}
               className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-              {loading ? "Loading..." : "Load More"}
+              {loadingButton ? "Loading..." : "Load More"}
+
             </button>
           </div>
         )

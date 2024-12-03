@@ -5,6 +5,7 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import ReplyMessage from "../compontents/ReplyMessage.jsx";
 
 import NoDataPage from "../compontents/NoDataPage";
+import ViewMessage from "../compontents/ViewMessage.jsx";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState([]);
@@ -12,9 +13,14 @@ export default function ContactList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
-  const ContactUsGet = async (signal) => {
+  const [loadingButton, setLoadingButton] = useState(false);
+
+  const ContactUsGet = async (pg, signal) => {
     try {
-      setLoading(true);
+      if (pg == 1) {
+        setLoading(true);
+      }
+      setLoadingButton(true);
       const main = new Listing();
       const response = await main.contactGet(page, limit, { signal });
       if (response?.data?.data?.Contactget) {
@@ -111,11 +117,11 @@ export default function ContactList() {
                         {item?.email}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.phone_code
+                        {item?.phone_code && (`+${item?.phone_code}`)
                         } {item?.phone_number}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.message}
+                        <ViewMessage text={item?.message} />
                       </td>
 
                       <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
@@ -126,10 +132,13 @@ export default function ContactList() {
                         {item?.contact_status}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                          <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
+                        <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
                       </td>
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.reply_message}
+                        {item?.reply_message &&
+                          <ViewMessage text={item?.reply_message} step={1} />
+                        }
+
                       </td>
                     </tr>
                   ))
@@ -141,16 +150,18 @@ export default function ContactList() {
         </div>
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
-      {
-        hasMore && (
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-            {loading ? "Loading..."  : "Load More"}
-          </button>
-        )
-      }
+        {
+          listing?.length > 0 && !loading && hasMore && (
+            <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+              <button
+                onClick={loadMore}
+                className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+                {loadingButton ? "Loading..." : "Load More"}
+
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   );

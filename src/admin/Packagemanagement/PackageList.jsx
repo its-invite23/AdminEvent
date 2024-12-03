@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { GrFormView } from "react-icons/gr";
 
 export default function PackageList() {
   const [data, setdata] = useState("")
@@ -138,7 +139,7 @@ export default function PackageList() {
                         {/* Package View Component */}
                         <div className="p-4">
                           <Link to={`/access-admin/package/${data?._id}`} className="">
-                            <BsThreeDotsVertical size={24} />
+                            <GrFormView size={24} />
                           </Link>
                         </div>
                         {/* <PackageView Id={item?._id} /> */}
@@ -190,7 +191,7 @@ export default function PackageList() {
                             {/* Package View Component */}
                             <div className="p-4">
                               <Link to={`/access-admin/package/${item?._id}`} className="">
-                                <BsThreeDotsVertical size={24} />
+                                <GrFormView size={24} />
                               </Link>
                             </div>
                             {/* <PackageView Id={item?._id} /> */}
@@ -220,7 +221,7 @@ export default function PackageList() {
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
         {
-          hasMore && (
+          hasMore && !loading &&(
             <button
               onClick={loadMore}
               disabled={loading}
