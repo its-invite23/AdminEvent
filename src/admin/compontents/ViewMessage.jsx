@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { IoCloseSharp } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 
-
-
-export default function ViewMessage({ text, step }) {
+export default function ViewMessage({ text }) {
     const [isOpen, setIsOpen] = useState(false);
     const toggleModal = () => {
         setIsOpen(!isOpen);
@@ -20,16 +18,21 @@ export default function ViewMessage({ text, step }) {
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9]">
                     <div className="relative bg-[#1B1B1B] rounded-lg p-[15px] lg:p-[20px] w-[96%] max-w-[500px]">
-                        <div className='flex flex-wrap justify-between'>
-                            <h3 className="text-[18px] font-semibold mb-4 ">{step === 1 ? "Comment" :"Message"}</h3>
-                            <IoCloseSharp size={30} className='cursor-pointer text-white  absolute top-[32px] right-[15px]' onClick={toggleModal} />
+                        <div className='flex justify-between items-center gap-4'>
+                            <h3 className="text-[24px] font-bold ">Message</h3>
+                            <IoCloseSharp
+                                size={24}
+                                className='cursor-pointer text-white  '
+                                onClick={toggleModal}
+                            />
                         </div>
-                        <p className='text-[22px] text-left text-white '>
-                        {step === 1 ? "Comment" :"Message"}:        {text}
-                        </p>
+
+                        <h6 className="break-all mt-5  text-left whitespace-pre-wrap">
+                            {text}
+                        </h6>
                     </div>
                 </div>
             )}
         </div>
-    )
+    );
 }

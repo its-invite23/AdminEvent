@@ -78,7 +78,9 @@ class Listing extends Component {
     return Api.get(`/booking/booking-get?page=${page}&limit=${limit}`);
   }
   // const [isOpen, setIsOpen] = useState(false);
-  
+  async bookingfilter(data) {
+    return Api.post("/booking/booking-filter", data);
+  }
 
   async BookingGetID(id) {
     return Api.get(`/booking/getByID/${id}`);

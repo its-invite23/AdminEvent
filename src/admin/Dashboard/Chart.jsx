@@ -25,7 +25,6 @@ function Chart() {
         const main = new Listing();
         main.chartGet()
           .then((r) => {
-            console.log("respose ", r)
             setLoading(false);
             setData(r?.data);
           })

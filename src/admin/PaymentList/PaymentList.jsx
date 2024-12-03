@@ -16,7 +16,6 @@ export default function PaymentList() {
   };
   const [data, setdata] = useState("")
   const [listing, setLisitng] = useState([]);
-  console.log("listing", listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);

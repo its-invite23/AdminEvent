@@ -20,7 +20,6 @@ export default function ServicepackageImage({ index, setFormData, showimage, fet
         toast.success(res.data.message);
         const fileUrl = res?.data?.fileUrl;
         const fileId = res?.data?.file_data?.fileId
-        console.log("fileId", fileId)
         setFormData((prev) => {
           const updatedServices = [...prev.package_services];
           updatedServices[index].services_provider_image = fileUrl;
@@ -42,7 +41,7 @@ export default function ServicepackageImage({ index, setFormData, showimage, fet
     setLoading(true);
     const main = new Listing();
     try {
-      const res = await main.ImageDelete({ fileName: showimage?.services_provider_image, fileId: showimage?.services_image_filed }); console.log("res", res);
+      const res = await main.ImageDelete({ fileName: showimage?.services_provider_image, fileId: showimage?.services_image_filed }); 
       if (res?.data) {
         fetchData(showimage?.id)
         toast.success(res.data.message);
@@ -55,7 +54,6 @@ export default function ServicepackageImage({ index, setFormData, showimage, fet
     finally { setLoading(false); }
   };
 
-  console.log("imagePreview.length", imagePreview)
   return (
 
     <div className="mb-4">

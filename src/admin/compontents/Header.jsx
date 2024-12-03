@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { IoMdSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
-import Listing from '../../Api/Listing';
-import toast from 'react-hot-toast';
 
 export default function Header({ title, type, setData }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [Id, setId] = useState("")
   const [isActive, setIsActive] = useState(false);
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -18,31 +14,6 @@ export default function Header({ title, type, setData }) {
     setIsOpen(!isOpen);
   };
 
-
-  const handleChange = (e) => {
-    setId(e.target.value);
-  };
-
-  const handlesearch = () => {
-    const main = new Listing();
-    const response = main.SearchData({
-      _id: Id,
-      type: type,
-    });
-    response
-      .then((res) => {
-        if (res && res?.data?.status) {
-          toast.success(res.data.message);
-          setData(res?.data?.data);
-        } else {
-          toast.error(res.data?.message || "Something went wrong.");
-        }
-      })
-      .catch((error) => {
-        console.log("error", error?.response?.data?.message);
-        toast.error(error?.response?.data?.message || "An error occurred.");
-      });
-  };
 
 
   return (
@@ -56,19 +27,6 @@ export default function Header({ title, type, setData }) {
             <HiOutlineMenu size={32} />
           </button>
           <h2 className='text-white font-manrope font-[500] md:text-[20px] lg:text-[25px] xl:text-[32px] pr-[70px] hidden md:block'>{title ? title : "Dashboard"}</h2>
-          {type && (
-            <div className='relative w-full max-w-[370px]'>
-              <IoMdSearch onClick={handlesearch} size={24} className="absolute top-[10px] right-[10px]  text-white cursor-pointer" />
-              <input
-                type="text"
-                onChange={handleChange}
-                name="Id"
-                value={Id}
-                className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[40px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
-                placeholder="Search By Id"
-              />
-            </div>
-          )}
         </div>
         <div className='relative'>
           <button onClick={handleToggle} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
