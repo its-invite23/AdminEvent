@@ -95,6 +95,12 @@ export default function PackageView() {
                   </span>
                   
                 </div>
+                <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
+                  <span className=" inline-flex  capitalize  font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
+                  {item.package_description}
+                  </span>
+                  
+                </div>
                 <div className="w-full flex flex-wrap justify-start flex-row  items-center gap-[10px]">
 
                   <span className="inline-block bg-gray-200 rounded-full px-3 py-[9px] text-sm font-semibold text-gray-700">

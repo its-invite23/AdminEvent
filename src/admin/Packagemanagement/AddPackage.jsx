@@ -233,7 +233,7 @@ export default function AddPackage() {
                 name="package_description"
                 value={formData.package_description}
                 className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                placeholder="Enter package Sub title"
+                 placeholder="Enter description"
                 required
               />
             </div>
