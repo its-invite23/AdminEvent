@@ -74,8 +74,8 @@ class Listing extends Component {
   }
 
 
-  async BookingGet(page ,limit) {
-    return Api.get(`/booking/booking-get?page=${page}&limit=${limit}`);
+  async BookingGet(page ,limit ,name) {
+    return Api.get(`/booking/booking-get?page=${page}&limit=${limit}&search=${name}`);
   }
   // const [isOpen, setIsOpen] = useState(false);
   async bookingfilter(data) {
