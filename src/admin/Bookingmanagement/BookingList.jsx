@@ -60,11 +60,11 @@ export default function BookingList() {
     e.preventDefault();
     setLoading(true);
     const main = new Listing();
-    const response = main.bookingfilter({ package_name: Id });
+    const response = main.bookingfilter({ name: Id });
     response.then((res) => {
       if (res && res?.data && res?.data?.status) {
-        setLisitng(res?.data?.filterdata)
-        setHasMore(response.data.data.nextPage !== null);
+        setLisitng(res?.data?.data);
+        // setHasMore(response.data.data.nextPage !== null);
         setLoadingButton(false);
         setLoading(false);
       }

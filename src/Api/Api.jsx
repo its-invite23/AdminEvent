@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = process.env.REACT_APP_URL || "https://eventbackend-fyb5.onrender.com";
+const API_URL = process.env.REACT_APP_URL || "http://localhost:5000";
 
 function getToken() {
   if (typeof window !== 'undefined') {
