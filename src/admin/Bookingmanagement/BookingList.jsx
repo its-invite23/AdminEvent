@@ -23,60 +23,52 @@ export default function BookingList() {
     AED: <TbCurrencyDirham size={18} className="inline" />,
     GBP: <FaPoundSign size={18} className="inline" />,
   };
-  const bookignGet = async (pg, signal) => {
+
+  const bookignGet = async (pg = 1, signal) => {
     try {
-      if (pg == 1) {
-        setLoading(true);
-      }
+      setLoading(pg === 1); // Show loading spinner for the first page
       setLoadingButton(true);
+  
       const main = new Listing();
-      const response = await main.BookingGet(page, limit, { signal });
+      const response = await main.BookingGet(pg, limit, Id || "", signal);
+  
       if (response?.data?.data?.bookingdata) {
         setLisitng((prevData) => {
-          if (page === 1) {
-            return response.data.data.bookingdata;
+          if (pg === 1) {
+            return response.data.data.bookingdata; // Replace data for new search
           } else {
-            return [...prevData, ...response.data.data.bookingdata];
+            return [...prevData, ...response.data.data.bookingdata]; // Append data for pagination
           }
         });
         setHasMore(response.data.data.nextPage !== null);
-        setLoadingButton(false);
-        setLoading(false);
+      } else {
+        console.warn("Unexpected response format:", response);
+        toast.error("Unexpected error occurred.");
       }
     } catch (error) {
-      console.error("Error fetching package data:", error);
+      console.error("Error fetching bookings:", error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.message || "Failed to fetch data.");
     } finally {
-      setLoadingButton(false);
       setLoading(false);
+      setLoadingButton(false);
     }
   };
-
 
   const handleChange = (e) => {
     setId(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const main = new Listing();
-    const response = main.bookingfilter({ name: Id });
-    response.then((res) => {
-      if (res && res?.data && res?.data?.status) {
-        setLisitng(res?.data?.data);
-        // setHasMore(response.data.data.nextPage !== null);
-        setLoadingButton(false);
-        setLoading(false);
-      }
-      setLoading(false);
-    })
-      .catch((error) => {
-        console.log("error", error?.response?.data?.message);
-        toast.error(error?.response?.data?.message);
-        // console.log("error", error);
-        setLoading(false);
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    setPage(1); // Reset to page 1
+    try {
+      await bookignGet(1); // Call fetch function for the first page
+    } catch (error) {
+      console.error("Error during search:", error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.message || "Failed to fetch data.");
+    }
   };
+  
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
