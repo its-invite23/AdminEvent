@@ -114,7 +114,6 @@ export default function BookingList() {
             />
           </div>
         </div>
-
         <div className="overflow-auto">
           {loading ? (
             <LoadingSpinner />

@@ -7,6 +7,8 @@ import NoDataPage from "../compontents/NoDataPage"
 import { Link } from "react-router-dom";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
+import { IoMdSearch } from "react-icons/io";
+
 export default function PaymentList() {
   const currencySymbol = {
     USD: <FaDollarSign size={18} className="inline" />,
@@ -21,6 +23,7 @@ export default function PaymentList() {
   const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
+  const [search, setSearch] = useState('');
 
   const EnquiryList = async (pg, signal) => {
     try {
@@ -29,7 +32,7 @@ export default function PaymentList() {
       }
       setLoadingButton(true);
       const main = new Listing();
-      const response = await main.PaymentGet(page, limit, { signal });
+      const response = await main.PaymentGet(page, limit, search, { signal });
       if (response?.data?.data) {
         setLisitng((prevData) => {
           if (page === 1) {
@@ -66,12 +69,32 @@ export default function PaymentList() {
     }
   };
 
+  const handleSearchChange = (e) => { 
+    const searchTerm = e.target.value; setSearch(searchTerm);
+     EnquiryList(searchTerm, 1);  };
 
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"All Payment"} type={"payment"} data={data} setData={setdata} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
-        <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">All Payments</h2>
+      <div className="flex flex-wrap justify-between items-center">
+          <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
+            All Bookings
+          </h2>
+          <div className="relative w-full max-w-[370px]">
+            <IoMdSearch
+              // onClick={handleSubmit}
+              size={24}
+              className="absolute top-[10px] right-[10px] text-white cursor-pointer"
+            />
+             <input
+              type="text"
+              value={search} onChange={handleSearchChange}
+              className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[40px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
+              placeholder="Search By Event Type"
+            />
+          </div>
+        </div>
         <div className="overflow-auto">
           {loading ? (
             <LoadingSpinner />
