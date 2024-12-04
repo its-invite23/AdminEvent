@@ -13,7 +13,6 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 
 export default function PackageList() {
-  const [data, setdata] = useState("")
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -108,49 +107,7 @@ export default function PackageList() {
                 </tr>
               </thead>
               <tbody>
-                {data ? (
-                  <tr key={1}>
-                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{1}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?._id}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?.package_name}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{data?.package_people}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${data?.package_price_min}- ${data?.package_price_max}</td>
-                    <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                      <button
-                        onClick={() => handleActiveStatues(data?._id, data?.package_status, data?.package_availability)} // Updated to use arrow function
-                        className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
-                                                    ${data?.package_status === 'active'
-                            ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
-                            : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
-                      >
-                        {data?.package_status}
-                      </button>
-                    </td>
-                    <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(data?.created_at).format('DD-MMM-YYYY')}</td>
-
-                    <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                      <div className='flex justify-between items-center gap-[5px]'>
-                        {/* Package View Component */}
-                        <div className="p-4">
-                          <Link to={`/access-admin/package/${data?._id}`} className="">
-                            <MdOutlineRemoveRedEye size={24} />
-                          </Link>
-                        </div>
-                        {/* <PackageView Id={item?._id} /> */}
-                        {/* Edit Button */}
-                        <Link to={`/access-admin/access-package-edit/${data?._id}`}>
-                          <button className='font-[manrope] font-[600] text-white text-[18px]'>
-                            <MdEdit size={24} className='text-green-600 hover:text-green-700' />
-                          </button>
-                        </Link>
-                        {/* Delete Button */}
-                        <Delete Id={data?._id} step={1} PackageGet={fetchData} />
-                      </div>
-
-                    </td>
-
-                  </tr>
-                ) : (<>
+                <>
                   {listing?.length < 0 ? (
                     <NoDataPage />
                   ) : (
@@ -174,7 +131,7 @@ export default function PackageList() {
                           </button>
                         </td>
                         <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
-                       
+
                         <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                           <div className='flex justify-between items-center gap-[5px]'>
                             {/* Package View Component */}
@@ -198,10 +155,8 @@ export default function PackageList() {
 
                       </tr>
                     ))
-                  )} </>)}
-
-                {
-                }
+                  )}
+                </>
               </tbody>
             </table>
           )}

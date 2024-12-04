@@ -17,7 +17,6 @@ export default function PaymentList() {
     AED: <TbCurrencyDirham size={18} className="inline" />,
     GBP: <FaPoundSign size={18} className="inline" />,
   };
-  const [data, setdata] = useState("")
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
