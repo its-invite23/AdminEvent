@@ -209,8 +209,6 @@ export default function UserList() {
                       <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         {/* Username */}
                         <div>{item?.username}</div>
-
-
                         <span
                           className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 
       ${item?.user_status === 'active' ? 'text-[#4CAF50]' : 'text-[#FF0000]'}`}

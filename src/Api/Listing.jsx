@@ -96,8 +96,8 @@ class Listing extends Component {
     return Api.post(`/booking/booking-payment` , data);
   }
 
-  async PaymentGet(page ,limit) {
-    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}` );
+  async PaymentGet(page ,limit ,name) {
+    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}&search=${name}` );
   }
 
   async PackageContactGet(id) {

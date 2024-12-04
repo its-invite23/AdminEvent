@@ -9,8 +9,8 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { IoAddSharp } from "react-icons/io5";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { GrFormView } from "react-icons/gr";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+
 
 export default function PackageList() {
   const [data, setdata] = useState("")
@@ -75,7 +75,7 @@ export default function PackageList() {
 
   return (
     <div className='w-full max-w-[100%]'>
-      <Header title={"All package"} type={"package"} data={data} setData={setdata} />
+      <Header title={"All package"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-col">
           <div className='flex items-center justify-between mb-[20px]'>
@@ -99,13 +99,11 @@ export default function PackageList() {
               <thead className="mb-[15px]">
                 <tr>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Id</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Name</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Attendees</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Budget Range</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Status</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Created At</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Availability</th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Actions</th>
                 </tr>
               </thead>
@@ -129,17 +127,13 @@ export default function PackageList() {
                       </button>
                     </td>
                     <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(data?.created_at).format('DD-MMM-YYYY')}</td>
-                    <td
-                      className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
-                                                ${data?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
-                      {data?.package_availability === "outOfStock" ? "out Of Stock" : (data?.package_availability)}
-                    </td>
+
                     <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       <div className='flex justify-between items-center gap-[5px]'>
                         {/* Package View Component */}
                         <div className="p-4">
                           <Link to={`/access-admin/package/${data?._id}`} className="">
-                            <GrFormView size={24} />
+                            <MdOutlineRemoveRedEye size={24} />
                           </Link>
                         </div>
                         {/* <PackageView Id={item?._id} /> */}
@@ -165,7 +159,6 @@ export default function PackageList() {
                     listing.map((item, index) => (
                       <tr key={index}>
                         <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
-                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?._id}</td>
                         <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
                         <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
                         <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">${item?.package_price_min}- ${item?.package_price_max}</td>
@@ -181,17 +174,13 @@ export default function PackageList() {
                           </button>
                         </td>
                         <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
-                        <td
-                          className={`font-manrope font-[600] capitalize text-[16px]  px-[10px] py-[16px] border-b border-[#ffffff1a] text-center 
-                                                   ${item?.package_availability === 'outOfStock' ? 'text-[#FF0000]' : 'text-[#4CAF50]'}`}>
-                          {item?.package_availability === "outOfStock" ? "out Of Stock" : (item?.package_availability)}
-                        </td>
+                       
                         <td className=" font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a]">
                           <div className='flex justify-between items-center gap-[5px]'>
                             {/* Package View Component */}
                             <div className="p-4">
                               <Link to={`/access-admin/package/${item?._id}`} className="">
-                                <GrFormView size={24} />
+                                <MdOutlineRemoveRedEye size={24} />
                               </Link>
                             </div>
                             {/* <PackageView Id={item?._id} /> */}
@@ -221,7 +210,7 @@ export default function PackageList() {
       </div>
       <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
         {
-          hasMore && !loading &&(
+          hasMore && !loading && (
             <button
               onClick={loadMore}
               disabled={loading}

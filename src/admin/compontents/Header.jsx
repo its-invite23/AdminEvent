@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
 
-export default function Header({ title, type, setData }) {
+export default function Header({ title }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const handleToggle = () => {
@@ -33,11 +33,7 @@ export default function Header({ title, type, setData }) {
             <FaUser className='text-white text-[13px] sm:text-[15px]' />
           </button>
 
-          {/* <div className={`absolute top-[50px] md:top-[55px] right-[0] min-w-[160px] bg-[#1b1b1b] border border-[#2b2b2b] p-[15px] rounded-[6px] hidden ${isActive ? '!flex !flex-col' : ''}`}>
-      <Link to={'/'} className='py-[8px] px-[8px] border-b border-b-[#2b2b2b] text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Profile</Link>
-      <Link to={'/'} className='py-[8px] px-[8px] border-b border-b-[#2b2b2b] text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Setting</Link>
-      <Link to={'/'} className='py-[8px] px-[8px]  text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Logout</Link>
-    </div> */}
+
 
         </div>
         <div>

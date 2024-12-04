@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
 import { IoMdSearch } from "react-icons/io";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+
 import toast from 'react-hot-toast';
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
@@ -28,10 +30,10 @@ export default function BookingList() {
     try {
       setLoading(pg === 1); // Show loading spinner for the first page
       setLoadingButton(true);
-  
+
       const main = new Listing();
       const response = await main.BookingGet(pg, limit, Id || "", signal);
-  
+
       if (response?.data?.data?.bookingdata) {
         setLisitng((prevData) => {
           if (pg === 1) {
@@ -59,7 +61,7 @@ export default function BookingList() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setPage(1); // Reset to page 1
     try {
       await bookignGet(1); // Call fetch function for the first page
@@ -68,7 +70,7 @@ export default function BookingList() {
       toast.error(error?.response?.data?.message || "Failed to fetch data.");
     }
   };
-  
+
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -84,7 +86,7 @@ export default function BookingList() {
 
   return (
     <div className="w-full max-w-[100%]">
-      <Header title={"All Booking"} type={"booking"} />
+      <Header title={"All Booking"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-wrap justify-between items-center">
           <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
@@ -102,7 +104,7 @@ export default function BookingList() {
               name="Id"
               value={Id}
               className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[40px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
-              placeholder="Search By Event Type"
+              placeholder="Search by client or package name"
             />
           </div>
         </div>
@@ -132,9 +134,7 @@ export default function BookingList() {
                   <th className="max-w-[200px] whitespace-nowrap border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase  p-[10px] text-center">
                     Location
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
-                    Booking Status
-                  </th>
+
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
                     Actions
                   </th>
@@ -153,9 +153,30 @@ export default function BookingList() {
                             {index + 1}
                           </td>
 
-                          <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                            {item?.package_name}
+                          <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                            {/* Username */}
+                            <div className="mb-2 ">
+                              <Link
+                                to={`/access-admin/booking/${item?._id}`}
+                                className="text-white hover:text-pink-500"
+                              >
+                                {item?.package_name}
+                              </Link>
+                            </div>
+                            <span
+                              className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 ${item?.status === "pending"
+                                ? " bg-[#B8A9551A] text-[#B8A955]"
+                                : item?.status === "approved"
+                                  ? " bg-[#4CAF501A] text-[#4CAF50]"
+                                  : item?.status === "rejected"
+                                    ? " bg-[#EB34651A] text-[#EB3465]"
+                                    : ""
+                                }`}
+                            >
+                              {item?.status}
+                            </span>
                           </td>
+
                           <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                             {item?.userId?.username}
                           </td>
@@ -177,20 +198,6 @@ export default function BookingList() {
                               {item?.location}
                             </span>
                           </td>
-                          <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                            <button
-                              className={`min-w-[110px] capitalize  m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
-                                ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                                : item?.status === "approved"
-                                  ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                                  : item?.status === "rejected"
-                                    ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                                    : ""
-                                }`}
-                            >
-                              {item?.status}
-                            </button>
-                          </td>
 
                           <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
                             {/* <button className='text-center'>
@@ -198,9 +205,7 @@ export default function BookingList() {
                           </button> */}
                             <div className="p-4">
                               <Link to={`/access-admin/booking/${item?._id}`} className="">
-                                <button className=" border capitalize  m-auto  font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]">
-                                  View
-                                </button>
+                                <MdOutlineRemoveRedEye size={24} />
                               </Link>
                             </div>
                           </td>
