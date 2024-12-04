@@ -304,8 +304,8 @@ export default function BookingView() {
                         <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                           {/* Right Section: Payment Generator Button */}
                           <div>
-                            {!item?.payment_genrator_link ? (
-                              item?.status === "approve" &&
+                            {item?.payment_genrator_link === false ? (
+                              item?.status === "approved" &&
                               item?.totalPrice !== 0 && (
                                 <button
                                   onClick={() => handlepayment(item?._id)}
