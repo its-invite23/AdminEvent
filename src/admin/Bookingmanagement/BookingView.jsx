@@ -446,16 +446,19 @@ export default function BookingView() {
 
                           {venue?.types && (
                             <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                              {venue?.types?.map((category, index) => (
-                                <span
-                                  key={index}
-                                  className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
-                                >
-                                  {category}
-                                </span>
-                              ))}
+                              {venue?.types
+                                ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
+                                .map((category, index) => (
+                                  <span
+                                    key={index}
+                                    className="bg-black text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
+                                  >
+                                    {category}
+                                  </span>
+                                ))}
                             </p>
                           )}
+
 
                           <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
                             <span className="text-[#4CAF50]"> Address: </span>{" "}
