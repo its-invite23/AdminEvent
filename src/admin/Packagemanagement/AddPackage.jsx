@@ -34,7 +34,6 @@ export default function AddPackage() {
       };
     });
   };
-
   const handleServiceChange = (e, index) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
@@ -425,7 +424,6 @@ export default function AddPackage() {
               </div>
             ))}
             <div className="flex justify-end mb-5">
-
               <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer">Add New Services</button>
             </div>
             <div className="flex justify-center mb-5">
