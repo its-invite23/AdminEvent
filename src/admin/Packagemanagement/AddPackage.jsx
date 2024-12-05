@@ -320,12 +320,19 @@ export default function AddPackage() {
                   <div>
                     <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Number</label>
                     <input
-                      type="tel"
-                      onChange={(e) => handleServiceChange(e, index)}
+                      type="text"
                       name="services_provider_phone"
                       value={packageData.services_provider_phone}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                       placeholder="Enter services provider number"
+                      onChange={(e) => {
+                        if (
+                          e.target.value.length <= 10 &&
+                          /^[0-9]*$/.test(e.target.value)
+                        ) {
+                          handleServiceChange(e, index);
+                        }
+                      }}
                       pattern="\d{10}"
                       maxlength="10"
                       minlength="10"
