@@ -20,6 +20,18 @@ text-overflow: ellipsis;
 
 
   
- 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #1B1B1B inset !important; /* Change white to match your background */
+  -webkit-text-fill-color: #fff !important; /* Text color */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* For other browsers if needed */
+input,
+textarea {
+  background-color: transparent !important;
+}
   
 /*end*/
