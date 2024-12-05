@@ -102,7 +102,7 @@ export default function BookingList() {
               onChange={handleChange}
               name="Id"
               value={Id}
-              className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[40px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
+              className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[20px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
               placeholder="Search by client or package name"
             />
           </div>
