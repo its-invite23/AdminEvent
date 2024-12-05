@@ -84,7 +84,7 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email.."
-              className="bg-zinc-900 w-full px-4 py-4 rounded-lg text-base placeholder:text-[#A9A4A8] text-[#A9A4A8]"
+              className="bg-zinc-900 w-full px-4 py-4 rounded-lg text-base placeholder:text-[#fff] text-[#fff]"
               required
             />
           </div>

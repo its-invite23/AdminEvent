@@ -8,7 +8,6 @@ import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
 import { IoMdSearch } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-
 import toast from 'react-hot-toast';
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
@@ -164,12 +163,12 @@ export default function BookingList() {
                               </Link>
                             </div>
                             <span
-                              className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 ${item?.status === "pending"
-                                ? " bg-[#B8A9551A] text-[#B8A955]"
+                              className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center  mt-2 ${item?.status === "pending"
+                                ? "  text-[#B8A955]"
                                 : item?.status === "approved"
-                                  ? " bg-[#4CAF501A] text-[#4CAF50]"
+                                  ? "  text-[#4CAF50]"
                                   : item?.status === "rejected"
-                                    ? " bg-[#EB34651A] text-[#EB3465]"
+                                    ? "  text-[#EB3465]"
                                     : ""
                                 }`}
                             >

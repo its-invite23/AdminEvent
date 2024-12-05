@@ -187,7 +187,7 @@ export default function UserList() {
                       Contact
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      Enquiry Count
+                      Booking Count
                     </th>
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
                       Status

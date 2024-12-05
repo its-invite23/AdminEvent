@@ -136,11 +136,11 @@ export default function PaymentList() {
 
                     <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
-                      <div className="mb-2 ">
+                      <div className="mb-1 ">
                         {item?.payment_id || "N/A"}
                       </div>
                       <span
-                        className="capitalize min-w-[110px] m-auto font-[manrope] text-white font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2"
+                        className="capitalize min-w-[110px] m-auto font-[manrope] text-white font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
                       >
                         {item?.payment_type}
                       </span>
@@ -148,35 +148,38 @@ export default function PaymentList() {
 
                     <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
-                      <div className="mb-2 ">
                         <Link
                           to={`/access-admin/booking/${item?.booking_id?._id}`}
                           className="text-white hover:text-pink-500"
                         >
                           {item?.booking_id?.package_name}
                         </Link>
+                    </td>
+
+
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center capitalize  ">{item?.userId?.username}</td>
+
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      {/* Username */}
+                      <div className="mb-1">
+                      <span className="">
+                        {currencySymbol[item?.currency]}
+                      </span>
+                      {item?.amount}
                       </div>
                       <span
-                        className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 ${item?.payment_status === "pending"
-                          ? " bg-[#B8A9551A] text-[#B8A955]"
+                        className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center ${item?.payment_status === "pending"
+                          ? "  text-[#B8A955]"
                           : item?.payment_status === "success"
-                            ? " bg-[#4CAF501A] text-[#4CAF50]"
+                            ? " text-[#4CAF50]"
                             : item?.payment_status === "failed"
-                              ? " bg-[#EB34651A] text-[#EB3465]"
+                              ? " text-[#EB3465]"
                               : ""
                           }`}
                       >
                         {item?.payment_status}
                       </span>
                     </td>
-
-
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center capitalize  ">{item?.userId?.username}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                      <span className="">
-                        {currencySymbol[item?.currency]}
-                      </span>
-                      {item?.amount}</td>
                   </tr>
                 ))}
 
