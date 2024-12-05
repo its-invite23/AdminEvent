@@ -212,7 +212,7 @@ export default function AddPackage() {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Experience</label>
               <input
                 type="text"
@@ -223,7 +223,7 @@ export default function AddPackage() {
                 placeholder="Enter package Experience"
                 required
               />
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
