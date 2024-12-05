@@ -276,7 +276,6 @@ export default function BookingView() {
                               <span> {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}</span>
                             ) : (
                               <>
-
                                 <input
                                   type="number"
                                   value={price}
