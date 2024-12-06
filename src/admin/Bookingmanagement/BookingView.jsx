@@ -280,7 +280,7 @@ export default function BookingView() {
                               )}
                             </span>
                           </div>
-                          <div className="flex flex-wrap flex-row items-center gap-4">
+                          <div className="flex flex-wrap mt-5 mb-4  flex-row items-center gap-4">
                             <div className="flex items-center gap-2">
                               <button
                                 onClick={() => handleActiveStatues(item?._id, "approved")}
