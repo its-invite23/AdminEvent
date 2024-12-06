@@ -19,7 +19,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
     };
     const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('admintoken');
         navigate('/');
     };
     return (

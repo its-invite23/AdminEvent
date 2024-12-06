@@ -17,7 +17,7 @@ export default function Header({ title }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('admintoken');
     navigate('/');
 };
 
