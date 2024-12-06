@@ -127,14 +127,14 @@ export default function ContactList() {
                             <ViewMessage text={item.message} />
                       </td>
 
-                      <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-left   border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
+                      <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b   border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
                         item?.contact_status === 'read' ? 'text-green-500' :
                           item?.contact_status === 'unread' ? 'text-red-500' :
                             'text-white'
                         }`}>
                         {item?.contact_status}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left  ">
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]   ">
                         <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
                       </td>
                       <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">

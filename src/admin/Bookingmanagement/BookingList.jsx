@@ -11,6 +11,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import toast from 'react-hot-toast';
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
@@ -59,11 +60,18 @@ export default function BookingList() {
     setId(e.target.value);
   };
 
+  useEffect(() => {
+    if (Id && Id.length >= 3) {
+      handleSubmit(); 
+    } else if (!Id || Id?.length === 0) {
+      bookignGet(page); 
+    }
+  }, [Id]);
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setPage(1); // Reset to page 1
+    setPage(1);
     try {
-      await bookignGet(1); // Call fetch function for the first page
+      await bookignGet(1); 
     } catch (error) {
       console.error("Error during search:", error?.response?.data?.message || error.message);
       toast.error(error?.response?.data?.message || "Failed to fetch data.");

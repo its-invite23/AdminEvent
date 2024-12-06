@@ -95,14 +95,23 @@ export default function UserList() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log("namne" ,name, value)
     setFormData({
       ...formData,
       [name]: value,
     });
+   
   };
+  useEffect(() => {
+    if (formData.username && formData.username.length >= 3) {
+      handleSubmit(); 
+    } else if (!formData.username || formData.username.length === 0) {
+      users(page); 
+    }
+  }, [formData.username]);
+  
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     setLoading(true);
     const main = new Listing();
     const response = main.userfilter(formData);

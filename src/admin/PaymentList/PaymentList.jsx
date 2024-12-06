@@ -20,7 +20,7 @@ export default function PaymentList() {
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(25);
+  const [limit, setLimit] = useState(30);
   const [hasMore, setHasMore] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
@@ -72,11 +72,19 @@ export default function PaymentList() {
     setId(e.target.value);
   };
 
+  
+  useEffect(() => {
+    if (Id && Id.length >= 3) {
+      handleSubmit(); 
+    } else if (!Id || Id?.length === 0) {
+      EnquiryList(page); 
+    }
+  }, [Id]);
+
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setPage(1); // Reset to page 1
     try {
-      await EnquiryList(1); // Call fetch function for the first page
+      await EnquiryList(page); // Call fetch function for the first page
     } catch (error) {
       console.error("Error during search:", error?.response?.data?.message || error.message);
       toast.error(error?.response?.data?.message || "Failed to fetch data.");
