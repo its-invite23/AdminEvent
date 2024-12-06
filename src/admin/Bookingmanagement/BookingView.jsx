@@ -243,7 +243,7 @@ export default function BookingView() {
                       {item?.status === "pending" && (
 
                         <div className="w-full mb-[10px]">
-                          <div className="flex flex-wrap flex-row mt-5 items-center gap-4">
+                          <div className="flex flex-wrap mb-5  flex-row mt-5 items-center gap-4">
                             {!item?.CurrencyCode && (
                               <div className="flex items-center">
                                 <select
@@ -280,8 +280,8 @@ export default function BookingView() {
                               )}
                             </span>
                           </div>
-                          <div className="flex flex-wrap mt-5 mb-4  flex-row items-center gap-4">
-                            <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap  flex-row items-center gap-4">
+                            <div className="flex items-center gap-2  mt-5 mb-4">
                               <button
                                 onClick={() => handleActiveStatues(item?._id, "approved")}
                                 className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
