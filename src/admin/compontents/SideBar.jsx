@@ -43,7 +43,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                         <Link
                             to="/access-admin"
 
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={handleLinkClick} // Toggle sidebar on click
@@ -57,7 +57,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/user"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/user") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/user") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -71,7 +71,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/booking"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/booking") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/booking") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -85,7 +85,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/payment"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/payment") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex  font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/payment") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -98,7 +98,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/package"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex  font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/package") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -112,7 +112,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/enquiry"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/enquiry") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex  font-manrope items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/enquiry") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -126,7 +126,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     <li className="flex mb-[5px]">
                         <Link
                             to="/access-admin/contact"
-                            className={`flex items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/contact") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
+                            className={`flex font-manrope  items-center w-full text-base p-[10px] rounded-[10px] ${isActive("/access-admin/contact") ? "bg-[#363636] text-pink-500" : "text-white"} hover:bg-[#363636]`}
                         >
                             <i
                                 onClick={toggleSidebar}
@@ -138,7 +138,7 @@ function SideBar({ isOpen, setIsOpen, toggleSidebar }) {
                     </li>
                 </ul>
                 <div className="absolute bottom-[40px] left-[35px]">
-                    <Link to="/" className="flex items-center text-[18px] text-white" onClick={handleLogout}>
+                    <Link to="/" className="flex font-manrope items-center text-[18px] text-white" onClick={handleLogout}>
                         <i onClick={toggleSidebar} className="text-[#EB3465] pr-[8px]">
                             <IoLogOutSharp size={25} />
                         </i>

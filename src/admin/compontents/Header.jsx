@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { FaUser } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
+import { AiOutlineLogout } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ title }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,12 +10,16 @@ export default function Header({ title }) {
   const handleToggle = () => {
     setIsActive(!isActive);
   };
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+};
 
   return (
     <>
@@ -30,7 +35,7 @@ export default function Header({ title }) {
         </div>
         <div className='relative'>
           <button onClick={handleToggle} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
-            <FaUser className='text-white text-[13px] sm:text-[15px]' />
+            <AiOutlineLogout  size={24} className='text-white  sm:text-[15px] hover:text-pink-500' />
           </button>
 
 

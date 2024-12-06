@@ -16,7 +16,7 @@ export default function BookingView() {
     AED: <TbCurrencyDirham size={18} className="inline" />,
     GBP: <FaPoundSign size={18} className="inline" />,
   };
-  const [currency, setCurrency] = useState("USD"); // Default currency
+  const [currency, setCurrency] = useState("AED"); // Default currency
   const [price, setPrice] = useState(""); // Price input
 
   const handleCurrencyChange = (e) => {
@@ -35,6 +35,7 @@ export default function BookingView() {
     4: "Luxury and premium options",
   };
   const [item, setItem] = useState("");
+  console.log("item", item)
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -63,12 +64,17 @@ export default function BookingView() {
       toast.error("Invalid ID or status. Please check your input.");
       return;
     }
+    if (!price) {
+      toast.error("Please Enter Price");
+      return;
+    }
     setLoading(true);
     const main = new Listing();
     const response = main.BookingStatus({ _id: Id, status: status });
     response
       .then((res) => {
         fetchData(res?.data?.data?._id);
+        handlePriceChange(res?.data?.data?._id)
         if (res && res?.data) {
           toast.success(res.data.message);
         } else {
@@ -84,14 +90,6 @@ export default function BookingView() {
   };
 
   const handlePriceChange = (Id) => {
-    if (!Id) {
-      toast.error("Invalid ID or status. Please check your input.");
-      return;
-    }
-    if (!price) {
-      toast.error("Please Enter Price");
-      return;
-    }
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPriceUpdate({ _id: Id, price, currency });
@@ -235,70 +233,74 @@ export default function BookingView() {
                         </span>
                       </div>
 
-                      <div className="w-full mb-[10px]">
-                        <div className="flex flex-wrap flex-row  items-center gap-4">
-                          <div className="flex items-center">
-                            <select
-                              onChange={(e) =>
-                                handleActiveStatues(item?._id, e.target.value)
-                              }
-                              value={item?.package_status}
-                              className="bg-[#000] min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]  focus:outline-none"
-                            >
-                              <option value="">Select an option</option>
-                              <option value="approved">Approve</option>
-                              <option value="rejected">Reject</option>
-                            </select>
-                          </div>
-                          <span className="min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]">
-                            Number of Attendees: {item.attendees}
-                          </span>
-                        </div>
-                        <div className="flex flex-wrap flex-row mt-5   items-center gap-4">
-                          {!item?.CurrencyCode && <div className="flex items-center">
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Number of Attendees:
+                        <span className="text-white text-[17px]  ">
+                          {item.attendees}
+                        </span>
+                      </div>
 
-                            <select
-                              value={currency}
-                              onChange={handleCurrencyChange}
-                              className="bg-[#000] min-w-[110px]  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px]  focus:outline-none"
-                            >
-                              <option value="USD">USD</option>
-                              <option value="EUR">EUR</option>
-                              <option value="AED">AED</option>
-                              <option value="GBP">GBP</option>
-                            </select>
-                          </div>
-                          }
+                      {item?.status === "pending" && (
 
-                          <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
-                            Total Price:
-                            {item?.totalPrice ? (
-                              <span> {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}</span>
-                            ) : (
-                              <>
-                                <input
-                                  type="number"
-                                  value={price}
-                                  onChange={handleChange}
-                                  className="cursor-pointer  text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
-                                />
-                              </>
+                        <div className="w-full mb-[10px]">
+                          <div className="flex flex-wrap flex-row mt-5 items-center gap-4">
+                            {!item?.CurrencyCode && (
+                              <div className="flex items-center">
+                                <select
+                                  value={currency}
+                                  onChange={handleCurrencyChange}
+                                  className="bg-[#000] min-w-[110px] capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px] focus:outline-none"
+                                >
+                                  <option value="USD">USD</option>
+                                  <option value="EUR">EUR</option>
+                                  <option value="AED">AED</option>
+                                  <option value="GBP">GBP</option>
+                                </select>
+                              </div>
                             )}
-                          </span>
-                          {!item?.totalPrice && (
-                            <div className="flex items-center justify-center py-4">
+                            <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
+                              Total Price:
+                              {item?.totalPrice ? (
+                                <span>
+                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+                                </span>
+                              ) : (
+                                <>
+                                  <span className="capitalize  font-bold font-[manrope]  text-[16px] text-white">
+
+                                    <TbCurrencyDirham size={18} className="inline " />
+                                  </span>
+                                  <input
+                                    type="number"
+                                    value={price}
+                                    onChange={handleChange}
+                                    className="cursor-pointer text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                                  />
+                                </>
+                              )}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap flex-row items-center gap-4">
+                            <div className="flex items-center gap-2">
                               <button
-                                className="bg-[#ff0062] hover:bg-[#4400c3]  text-white py-2 px-4 rounded"
-                                onClick={() => {
-                                  handlePriceChange(item?._id);
-                                }}
+                                onClick={() => handleActiveStatues(item?._id, "approved")}
+                                className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
                               >
-                                Update Price
+                                Approve
+                              </button>
+                              <button
+                                onClick={() => handleActiveStatues(item?._id, "rejected")}
+                                className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                              >
+                                Reject
                               </button>
                             </div>
-                          )}
+
+                          </div>
+
                         </div>
-                      </div>
+                      )}
+
                       <div className="w-full mb-[10px]">
                         <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                           {/* Right Section: Payment Generator Button */}

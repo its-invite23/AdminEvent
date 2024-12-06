@@ -81,36 +81,40 @@ export default function Enquiry() {
                 <thead className="mb-[15px]">
                   <tr>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S.No.</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Date</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Email</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Phone Number</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Number of attendees</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  Name</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Event  type</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Enquiry Status</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Message</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Date</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name & Phone Number</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Email</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">No. of attendees</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Event Name & Type</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Enquiry Status</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Message</th>
 
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Action</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Comment</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Action</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Comment</th>
                   </tr>
                 </thead>
                 {listing && listing?.map((item, index) => (
                   <tr key={index}>
                     <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{index + 1}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]">{item?.name}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center ">{item?.email}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
+                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left   px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      {/* Username */}
+                      <div className="mb-2 ">
+                        {item?.name}
+                      </div>
                       {item?.phone_code && (`+${item?.phone_code}`)
                       } {item?.phone_number}
                     </td>
-
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">{item?.attendees}</td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">{item?.eventname}</td>
-                    <td className="capitalize font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center  ">{item?.event_type}</td>
-
-                    <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.enquire_status === 'pending' ? 'text-yellow-500' :
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">{item?.email}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left    ">{item?.attendees}</td>
+                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left   px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      {/* Username */}
+                      <div className="mb-2 ">
+                        {item?.eventname}
+                      </div>
+                      {item?.event_type}
+                    </td>
+                    <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-left   border-[#ffffff1a] ${item?.enquire_status === 'pending' ? 'text-yellow-500' :
                       item?.enquire_status === 'active' ? 'text-green-500' :
                         item?.enquire_status === 'inactive' ? 'text-red-500' :
                           'text-white'
@@ -120,11 +124,11 @@ export default function Enquiry() {
                       {item?.enquire_status === "inactive" && "Rejected"}
 
                     </td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">
-                      <ViewMessage text={item?.message} />
-                    </td>
 
-                    <td className=" text-center font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
+                    <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <ViewMessage text={item.message} />
+                    </td>
+                    <td className=" text-left   font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  ">
                       <div className="flex items-center justify-center w-full gap-[10px]">
                         {/* success */}
                         <div className="flex items-center justify-center rounded-[60px] w-[30px] h-[30px] bg-[#ffffff1a]">
@@ -137,10 +141,8 @@ export default function Enquiry() {
                         </div>
                       </div>
                     </td>
-                    <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px]  border-b border-[#ffffff1a]  text-center">
-                      {item?.reply_message &&
-                        <ViewMessage text={item?.reply_message} step={1} />
-                      }
+                    <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <ViewMessage text={item.reply_message} />
                     </td>
                   </tr>
                 ))}
@@ -158,7 +160,6 @@ export default function Enquiry() {
                 onClick={loadMore}
                 className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
                 {loadingButton ? "Loading..." : "Load More"}
-
               </button>
             </div>
           )

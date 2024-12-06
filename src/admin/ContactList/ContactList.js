@@ -32,11 +32,15 @@ export default function ContactList() {
           }
         });
         setHasMore(response.data.data.nextPage !== null);
+        setLoadingButton(false);
+
       }
     } catch (error) {
       console.error("Error fetching package data:", error);
     } finally {
       setLoading(false);
+      setLoadingButton(false);
+
     }
   };
 
@@ -78,24 +82,21 @@ export default function ContactList() {
                     S. No.
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
-                    Name
+                    Name & Phone Number
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Email
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
-                    Phone Number
-                  </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Message
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Message Status
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Actions
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Comment
                   </th>
                 </tr>
@@ -110,36 +111,36 @@ export default function ContactList() {
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
                         {index + 1}
                       </td>
-                      <td className="capitalize font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] ">
-                        {item?.name}
-                      </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.email}
-                      </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                        {/* Username */}
+                        <div className="mb-2 ">
+                          {item?.name}
+                        </div>
                         {item?.phone_code && (`+${item?.phone_code}`)
                         } {item?.phone_number}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        <ViewMessage text={item?.message} />
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left  ">
+                        {item?.email}
                       </td>
 
-                      <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-center border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
+                      <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                            <ViewMessage text={item.message} />
+                      </td>
+
+                      <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b text-left   border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
                         item?.contact_status === 'read' ? 'text-green-500' :
                           item?.contact_status === 'unread' ? 'text-red-500' :
                             'text-white'
                         }`}>
                         {item?.contact_status}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left  ">
                         <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.reply_message &&
-                          <ViewMessage text={item?.reply_message} step={1} />
-                        }
-
+                      <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                            <ViewMessage text={item.reply_message} />
                       </td>
+
                     </tr>
                   ))
                 )}

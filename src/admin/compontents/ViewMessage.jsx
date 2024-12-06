@@ -10,9 +10,9 @@ export default function ViewMessage({ text }) {
 
     return (
         <div className="flex flex-col">
-            <button className='gap-[10px] m-auto font-[manrope] font-[600] text-[18px] hover:text-[#fff000] ' onClick={toggleModal}>
-                <AiOutlineMessage size={24} />
-            </button>
+            <p className='gap-[10px] line-clamp-1 m-auto font-[manrope] font-[600] text-[17px] hover:text-[#fff000] ' onClick={toggleModal}>
+            {text}
+            </p>
 
             {/* Modal */}
             {isOpen && (
