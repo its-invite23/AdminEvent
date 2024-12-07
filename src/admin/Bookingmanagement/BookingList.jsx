@@ -11,7 +11,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import toast from 'react-hot-toast';
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
+  // console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
