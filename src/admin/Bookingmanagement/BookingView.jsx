@@ -9,6 +9,7 @@ import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
+import PaymentButton from "./PaymentButton";
 export default function BookingView() {
   const currencySymbol = {
     USD: <FaDollarSign size={18} className="inline" />,
@@ -42,6 +43,7 @@ export default function BookingView() {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
       setItem(response?.data?.data);
+      setPrice(response?.data?.data?.totalPrice)
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -152,6 +154,27 @@ export default function BookingView() {
     return []; // Return an empty array if photos is invalid or empty
   };
 
+  const [payment, setpayment] = useState("")
+  console.log("payment", payment)
+  const fechtpaymentdata = async () => {
+    setLoading(true);
+    try {
+      const main = new Listing();
+      const response = await main.paymentgetid(Id);
+      console.log("response", response)
+      setpayment(response?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (Id) {
+      fechtpaymentdata(Id);
+    }
+  }, [Id]);
+
   return (
     <>
       {loading ? (
@@ -203,7 +226,7 @@ export default function BookingView() {
                     <div className="w-[100%] md:w-[55%] lg:w-[55%] pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                         <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
-                          Package Name: {item.package_name}
+                          Package Name : {item.package_name}
                         </span>
                         <button
                           className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
@@ -220,25 +243,34 @@ export default function BookingView() {
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Date:{" "}
+                        Date :{" "}
                         <span className=" text-[17px] ">
                           {item?.bookingDate}
                           {/* {moment(item?.bookingDate).format("MMMM Do, YYYY")} */}
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Location:{" "}
+                        Location :{" "}
                         <span className="text-white text-[17px]  ">
                           {item?.location}
                         </span>
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Number of Attendees:
+                        Number of Attendees :
                         <span className="text-white text-[17px]  ">
                           {item.attendees}
                         </span>
                       </div>
+
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Total Price :{" "}
+                        <span className="text-white text-[17px]  ">
+                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+
+                        </span>
+                      </div>
+
 
                       {item?.status === "pending" && (
 
@@ -258,14 +290,8 @@ export default function BookingView() {
                                 </select>
                               </div>
                             )}
-                            <span className="capitalize border font-[manrope] font-[600] text-[16px] text-white px-[15px] py-[6px] rounded-[60px] flex items-center">
-                              Total Price:
-                              {item?.totalPrice ? (
-                                <span>
-                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
-                                </span>
-                              ) : (
-                                <>
+                                {!item?.totalPrice && (
+                                  <>
                                   <span className="capitalize  font-bold font-[manrope]  text-[16px] text-white">
 
                                     <TbCurrencyDirham size={18} className="inline " />
@@ -276,9 +302,9 @@ export default function BookingView() {
                                     onChange={handleChange}
                                     className="cursor-pointer text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
                                   />
-                                </>
-                              )}
-                            </span>
+                                  </>
+                                )}
+                               
                           </div>
                           <div className="flex flex-wrap  flex-row items-center gap-4">
                             <div className="flex items-center gap-2  mt-5 mb-4">
@@ -304,8 +330,8 @@ export default function BookingView() {
                       <div className="w-full mb-[10px]">
                         <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                           {/* Right Section: Payment Generator Button */}
-                          <div>
-                            {item?.payment_genrator_link === false ? (
+                          {/* <div>
+                            {payment?.payment_status !== "success" ? (
                               item?.status === "approved" &&
                               item?.totalPrice !== 0 && (
                                 <button
@@ -316,17 +342,54 @@ export default function BookingView() {
                                 </button>
                               )
                             ) : (
-                              <p className="text-green-700 font-bold text-[17px]">
-                                Payment already generated. User data has been
-                                managed.
-                              </p>
+                              <button
+                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                              >
+                                Payment successfully done.
+                              </button>
+
                             )}
 
                             { }
-                          </div>
+                          </div> */}
+                          <PaymentButton  item ={item} payment = {payment} handlepayment={handlepayment} />
                         </div>
                       </div>
+
+                      <div>
+
+
+                        <p className="w-full mb-[10px] text-white text-[17px] font-bold">
+                          User Detail :{" "}
+                        </p>
+
+
+                        <div className="w-full mb-[10px] text-white font-semibold">
+                          Name   :{" "}
+                          <span className="text-white text-[17px]  ">
+                            {item?.userId?.username}
+                          </span>
+                        </div>
+
+                        <div className="w-full mb-[10px] text-white font-semibold">
+                          Email   :{" "}
+                          <span className="text-white text-[17px]  ">
+                            {item?.userId?.email}
+                          </span>
+                        </div>
+
+                        <div className="w-full mb-[10px] text-white font-semibold">
+                          Phone Number   :{" "}
+                          <span className="text-white text-[17px]  gap-2">
+                            {item?.userId?.phone_code}
+                            {item?.userId?.phone_number}
+                          </span>
+                        </div>
+
+                      </div>
                     </div>
+
+
                   </div>
 
                   <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">

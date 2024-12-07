@@ -85,6 +85,10 @@ class Listing extends Component {
   async BookingGetID(id) {
     return Api.get(`/booking/getByID/${id}`);
   }
+
+  async paymentgetid(id) {
+    return Api.get(`/booking/payment/${id}`);
+  }
   async BookingStatus(data) {
     return Api.post(`/booking/booking-status` , data);
   }

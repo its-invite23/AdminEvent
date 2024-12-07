@@ -17,7 +17,7 @@ export default function Header({ title }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('admintoken');
+    localStorage &&  localStorage.removeItem('admintoken');
     navigate('/');
 };
 
@@ -34,8 +34,8 @@ export default function Header({ title }) {
           <h2 className='text-white font-manrope font-[500] md:text-[20px] lg:text-[25px] xl:text-[32px] pr-[70px] hidden md:block'>{title ? title : "Dashboard"}</h2>
         </div>
         <div className='relative'>
-          <button onClick={handleToggle} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
-            <AiOutlineLogout  size={24} className='text-white  sm:text-[15px] hover:text-pink-500' />
+          <button onClick={handleLogout} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
+            <AiOutlineLogout   size={24} className='text-white  sm:text-[15px] hover:text-pink-500' />
           </button>
 
 
