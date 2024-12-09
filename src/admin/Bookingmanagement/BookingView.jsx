@@ -3,7 +3,7 @@ import { IoStar } from "react-icons/io5";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.jpg";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
@@ -12,7 +12,7 @@ import { TbCurrencyDirham } from "react-icons/tb";
 import { FaPhoneAlt } from "react-icons/fa";
 import { BsFillTelephoneForwardFill } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-
+import { FaEnvelope } from "react-icons/fa";
 
 
 import VenuePhotos from "./VenuePhotos";
@@ -377,19 +377,11 @@ export default function BookingView() {
                             <h2 className="text-xl font-semibold text-white">
                               {venue.services_provider_name || venue?.name}
                             </h2>
-                            {venue.services_provider_phone && (
-                              <p className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
-                                {venue.services_provider_phone}
-                              </p>
-                            )}
+                            {venue.services_provider_phone && ( <Link to={`tel:${venue.services_provider_phone}`} className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link> )}
                           </div>
 
                           <div className="flex flex-wrap items-center justify-start md:justify-between mb-[15px]">
-                            {venue.services_provider_email && (
-                              <p className="w-[100%] md:w-[40%] text-white text-sm">
-                                {venue.services_provider_email}
-                              </p>
-                            )}
+                          {venue.services_provider_email && ( <Link to={`mailto:${venue.services_provider_email}`} className="flex items-center gap-2 w-[100%] md:w-[40%] text-white text-sm" > <FaEnvelope size={14} className="inline" /> {venue.services_provider_email} </Link> )}
                             {venue.services_provider_categries && (
                               <p className="flex items-center gap-2 md:mt-0 mt-3 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs break-words whitespace-normal text-white text-[13px] capitalize">
                                 {venue.services_provider_categries}
