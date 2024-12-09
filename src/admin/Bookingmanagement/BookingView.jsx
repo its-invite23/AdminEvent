@@ -290,21 +290,21 @@ export default function BookingView() {
                                 </select>
                               </div>
                             )}
-                                {!item?.totalPrice && (
-                                  <>
-                                  <span className="capitalize  font-bold font-[manrope]  text-[16px] text-white">
+                            {!item?.totalPrice && (
+                              <>
+                                <span className="capitalize  font-bold font-[manrope]  text-[16px] text-white">
 
-                                    <TbCurrencyDirham size={18} className="inline " />
-                                  </span>
-                                  <input
-                                    type="number"
-                                    value={price}
-                                    onChange={handleChange}
-                                    className="cursor-pointer text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
-                                  />
-                                  </>
-                                )}
-                               
+                                  <TbCurrencyDirham size={18} className="inline " />
+                                </span>
+                                <input
+                                  type="number"
+                                  value={price}
+                                  onChange={handleChange}
+                                  className="cursor-pointer text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
+                                />
+                              </>
+                            )}
+
                           </div>
                           <div className="flex flex-wrap  flex-row items-center gap-4">
                             <div className="flex items-center gap-2  mt-5 mb-4">
@@ -330,7 +330,7 @@ export default function BookingView() {
                       <div className="w-full mb-[10px]">
                         <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                           {/* Right Section: Payment Generator Button */}
-                          {/* <div>
+                          <div>
                             {payment?.payment_status !== "success" ? (
                               item?.status === "approved" &&
                               item?.totalPrice !== 0 && (
@@ -351,8 +351,7 @@ export default function BookingView() {
                             )}
 
                             { }
-                          </div> */}
-                          <PaymentButton  item ={item} payment = {payment} handlepayment={handlepayment} />
+                          </div>
                         </div>
                       </div>
 
