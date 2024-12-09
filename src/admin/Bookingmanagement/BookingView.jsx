@@ -9,7 +9,6 @@ import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
-import PaymentButton from "./PaymentButton";
 export default function BookingView() {
   const currencySymbol = {
     USD: <FaDollarSign size={18} className="inline" />,

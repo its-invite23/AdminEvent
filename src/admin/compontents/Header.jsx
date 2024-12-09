@@ -6,21 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header({ title }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const handleToggle = () => {
-    setIsActive(!isActive);
-  };
   const navigate = useNavigate();
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
   const handleLogout = () => {
-    localStorage && localStorage.removeItem('token');
+    localStorage && localStorage.removeItem('admintoken');
     navigate('/');
   };
-
   return (
     <>
       <div className='sticky z-[1] top-0 mb-[20px] flex items-center justify-between gap-[5px] md:gap-[20px]  w-full bg-[#1B1B1B] p-[10px] md:p-[20px]  rounded-[10px] md:rounded-[15px] border border-[#2b2b2b]'>
