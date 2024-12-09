@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { IoStar } from "react-icons/io5";
-import ViewImage from "../../asstes/event.jpg";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
+import ViewImage from "../../asstes/event.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
+import VenuePhotos from "./VenuePhotos";
 export default function BookingView() {
   const currencySymbol = {
     USD: <FaDollarSign size={18} className="inline" />,
@@ -56,7 +57,6 @@ export default function BookingView() {
 
   const [loading, setLoading] = useState(false);
 
-  const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
   const handleActiveStatues = (Id, status) => {
@@ -138,19 +138,7 @@ export default function BookingView() {
       });
   };
 
-  const getPhotoUrls = (photos) => {
-    if (Array.isArray(photos) && photos.length > 0) {
-      return photos
-        .map((photo) => {
-          if (photo?.photo_reference) {
-            return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${apikey}`;
-          }
-          return null; // Skip invalid entries
-        })
-        .filter(Boolean); // Filter out null or undefined
-    }
-    return []; // Return an empty array if photos is invalid or empty
-  };
+  
 
   const [payment, setpayment] = useState("")
   const fechtpaymentdata = async () => {
@@ -396,10 +384,11 @@ export default function BookingView() {
                         className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col  border border-[#9999]"
                         key={index}
                       >
-                        <div className="relative">
-                          {getPhotoUrls(venue.placeDetails?.photos[0])?.length >
+                        <VenuePhotos venue={venue}/>
+                        {/* <div className="relative">
+                          {getPhotoUrls(venue?.photos[0])?.length >
                             0 ? (
-                            getPhotoUrls(venue.placeDetails?.photos[0]).map(
+                            getPhotoUrls(venue?.photos[0]).map(
                               (url, imgIndex) => (
                                 <img
                                   key={imgIndex || ViewImage}
@@ -416,7 +405,7 @@ export default function BookingView() {
                               className="h-[250px] w-full object-cover"
                             />
                           )}
-                        </div>
+                        </div> */}
 
                         <div className=" px-[10px] md:px-[20px] py-[20px]">
                           <div className="flex justify-between items-center mb-[20px]">

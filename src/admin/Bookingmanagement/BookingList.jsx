@@ -15,7 +15,7 @@ export default function BookingList() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(25);
+  const [limit, setLimit] = useState(15);
   const [hasMore, setHasMore] = useState(true);
 
   const currencySymbol = {
