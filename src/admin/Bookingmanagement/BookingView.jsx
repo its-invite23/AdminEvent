@@ -35,7 +35,6 @@ export default function BookingView() {
     4: "Luxury and premium options",
   };
   const [item, setItem] = useState("");
-  console.log("item", item)
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -154,13 +153,11 @@ export default function BookingView() {
   };
 
   const [payment, setpayment] = useState("")
-  console.log("payment", payment)
   const fechtpaymentdata = async () => {
     setLoading(true);
     try {
       const main = new Listing();
       const response = await main.paymentgetid(Id);
-      console.log("response", response)
       setpayment(response?.data?.data);
       setLoading(false);
     } catch (error) {
