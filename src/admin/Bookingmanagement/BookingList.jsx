@@ -61,16 +61,16 @@ export default function BookingList() {
 
   useEffect(() => {
     if (Id && Id.length >= 3) {
-      handleSubmit(); 
+      handleSubmit();
     } else if (!Id || Id?.length === 0) {
-      bookignGet(page); 
+      bookignGet(page);
     }
   }, [Id]);
 
   const handleSubmit = async (e) => {
     setPage(1);
     try {
-      await bookignGet(1); 
+      await bookignGet(1);
     } catch (error) {
       console.error("Error during search:", error?.response?.data?.message || error.message);
       toast.error(error?.response?.data?.message || "Failed to fetch data.");
@@ -121,29 +121,26 @@ export default function BookingList() {
             <table className="w-full table-auto whitespace-nowrap">
               <thead className="mb-[15px]">
                 <tr>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px]">
                     S. No.
                   </th>
 
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px] ">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px] ">
                     Event Type
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
-                    Client Name
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
+                   Name & Price
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
                     No.of Attendees
                   </th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
                     Total Price
                   </th>
-                  <th className="max-w-[200px] whitespace-nowrap border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase  p-[10px] text-center">
-                    Location
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
+                    Action
                   </th>
-
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] ">
-                    Actions
-                  </th>
+                  
                 </tr>
               </thead>
               {
@@ -155,11 +152,11 @@ export default function BookingList() {
                       listing &&
                       listing?.map((item, index) => (
                         <tr>
-                          <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
                             {index + 1}
                           </td>
 
-                          <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                          <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a]">
                             {/* Username */}
                             <div className="mb-2 ">
                               <Link
@@ -170,7 +167,7 @@ export default function BookingList() {
                               </Link>
                             </div>
                             <span
-                              className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center  mt-2 ${item?.status === "pending"
+                              className={`capitalize  font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left   mt-2 ${item?.status === "pending"
                                 ? "  text-[#B8A955]"
                                 : item?.status === "approved"
                                   ? "  text-[#4CAF50]"
@@ -183,30 +180,34 @@ export default function BookingList() {
                             </span>
                           </td>
 
-                          <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                            {item?.userId?.username}
-                          </td>
-                          <td className="font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                          <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+  {/* Username */}
+  <div className="text-left">{item?.userId?.username}</div>
+  <span
+    className="capitalize font-manrope font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  py-[6px] rounded-[60px] mt-2"
+  >
+    {item?.totalPrice && (
+      <span className="text-left">
+        {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+      </span>
+    )}
+  </span>
+</td>
+
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
                             {item?.attendees}
                           </td>
-                          <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center ">
-                            {item?.totalPrice && (
-                              <span className="">
-                                {currencySymbol[item?.CurrencyCode]}
-                              </span>
-                            )}
-                            {item?.totalPrice}
 
-                          </td>
-                          <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+
+                          <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
                             <span className="address">
 
                               {item?.location}
                             </span>
                           </td>
 
-                          <td className=" font-manrope font-[600] text-white text-[16px] text-center px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
-                            {/* <button className='text-center'>
+                          <td className=" font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
+                            {/* <button className='text-left '>
                             <BsThreeDots size={24} />
                           </button> */}
                             <div className="p-4">

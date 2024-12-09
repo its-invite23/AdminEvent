@@ -170,37 +170,34 @@ export default function UserList() {
               <table className="w-full table-auto whitespace-nowrap">
                 <thead className="mb-[15px]">
                   <tr>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px]">
                       S.No.
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]  ">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px]  ">
                       Name
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      Email
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
+                      Email & Contact
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      DOB
-                    </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Country
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       city
                     </th>
-                    <th className=" w-[380px] min-w-[380px]  border-b border-[#ffffff59] font-manrope text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    <th className=" w-[380px] min-w-[380px]  border-b border-[#ffffff59] font-manrope text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Address
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
-                      Contact
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
+                      DOB
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Booking Count
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Status
                     </th>
-                    {/* <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">
+                    {/* <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Action
                     </th> */}
 
@@ -210,55 +207,58 @@ export default function UserList() {
                   listing &&
                   listing?.map((item, index) => (
                     <tr key={index}>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         {index + 1}
                       </td>
 
-                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         {/* Username */}
                         <div>{item?.username}</div>
                         <span
-                          className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] mt-2 
+                          className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  mt-2  
       ${item?.user_status === 'active' ? 'text-[#4CAF50]' : 'text-[#FF0000]'}`}
                         >
                           {item?.user_status}
                         </span>
                       </td>
 
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.email}
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                        {/* Username */}
+                        <div>{item?.email}</div>
+                        <span
+                          className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[15px] py-[6px] rounded-[60px] mt-2 `}
+                        >       {item?.phone_code
+                        } {item?.phone_number}
+                          
+                        </span>
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {
-                          item?.DOB ? (
-                            moment(item?.DOB).format('DD MMM YYYY')
-                          ) : ("N/A")
-                        }
-                      </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.country
                         }
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.city}
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         <div className="felx  justify-center  whitespace-normal break-words">
                           {item?.address}
                         </div>
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
-                        {item?.phone_code
-                        } {item?.phone_number}
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
+                      {
+                            item?.DOB ? (
+                              moment(item?.DOB).format('DD MMM YYYY')
+                            ) : ("N/A")
+                          }
                       </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.enquiry_count}
                       </td>
 
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      <td className="font-manrope text-left font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         <button
                           onClick={() => handleActiveStatues(item?._id, item?.user_status)} // Updated to use arrow function
-                          className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
+                          className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center  px-[15px] py-[6px] rounded-[60px] 
                                            ${item?.user_status === 'active'
                               ? 'border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]'
                               : 'border-[#FF0000] bg-[#FF00001A] text-[#FF0000]'}`}
@@ -267,7 +267,7 @@ export default function UserList() {
                         </button>
                       </td>
 
-                      {/* <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                      {/* <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         <Delete Id={item?._id} step={2} users={users} className="flex justify-center" />
                       </td> */}
                     </tr>

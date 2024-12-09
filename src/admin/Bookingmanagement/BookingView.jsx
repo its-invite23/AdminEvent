@@ -9,6 +9,12 @@ import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
+import { FaPhoneAlt } from "react-icons/fa";
+import { BsFillTelephoneForwardFill } from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
+
+
+
 import VenuePhotos from "./VenuePhotos";
 export default function BookingView() {
   const currencySymbol = {
@@ -138,7 +144,7 @@ export default function BookingView() {
       });
   };
 
-  
+
 
   const [payment, setpayment] = useState("")
   const fechtpaymentdata = async () => {
@@ -246,52 +252,34 @@ export default function BookingView() {
                           {item.attendees}
                         </span>
                       </div>
+                      {item?.totalPrice !== 0 && (
 
-                      <div className="w-full mb-[10px] text-white font-semibold">
-                        Total Price :{" "}
-                        <span className="text-white text-[17px]  ">
-                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+                        <div className="w-full mb-[10px] text-white font-semibold">
+                          Total Price :{" "}
+                          <span className="text-white text-[17px]  ">
 
-                        </span>
-                      </div>
+                            {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+
+                          </span>
+                        </div>
+                      )}
 
 
                       {item?.status === "pending" && (
-
                         <div className="w-full mb-[10px]">
                           <div className="flex flex-wrap mb-5  flex-row mt-5 items-center gap-4">
-                            {!item?.CurrencyCode && (
-                              <div className="flex items-center">
-                                <select
-                                  value={currency}
-                                  onChange={handleCurrencyChange}
-                                  className="bg-[#000] min-w-[110px] capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[8px] rounded-[60px] focus:outline-none"
-                                >
-                                  <option value="USD">USD</option>
-                                  <option value="EUR">EUR</option>
-                                  <option value="AED">AED</option>
-                                  <option value="GBP">GBP</option>
-                                </select>
-                              </div>
-                            )}
                             {!item?.totalPrice && (
-                              <>
-                                <span className="capitalize  font-bold font-[manrope]  text-[16px] text-white">
-
-                                  <TbCurrencyDirham size={18} className="inline " />
-                                </span>
-                                <input
-                                  type="number"
-                                  value={price}
-                                  onChange={handleChange}
-                                  className="cursor-pointer text-white ml-2 w-[60%] bg-transparent outline-none pl-1 py-1 text-sm font-semibold text-white text-left rounded"
-                                />
-                              </>
+                              <div className="min-w-[110px] inline-flex items-center capitalize border font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]"> <span className="flex items-center gap-1">
+                                <span className="text-[16px]">Total Price:</span>
+                                <TbCurrencyDirham size={24} className="inline" title="AED Currency" />
+                              </span>
+                                <input type="number" value={price} onChange={handleChange} className="cursor-pointer text-white ml-2 bg-transparent outline-none  font-semibold text-left" />
+                              </div>
                             )}
 
                           </div>
                           <div className="flex flex-wrap  flex-row items-center gap-4">
-                            <div className="flex items-center gap-2  mt-5 mb-4">
+                            <div className="flex items-center gap-2">
                               <button
                                 onClick={() => handleActiveStatues(item?._id, "approved")}
                                 className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
@@ -310,8 +298,7 @@ export default function BookingView() {
 
                         </div>
                       )}
-
-                      <div className="w-full mb-[10px]">
+                      <div className="w-full ">
                         <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                           {/* Right Section: Payment Generator Button */}
                           <div>
@@ -384,30 +371,8 @@ export default function BookingView() {
                         className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col  border border-[#9999]"
                         key={index}
                       >
-                        <VenuePhotos venue={venue}/>
-                        {/* <div className="relative">
-                          {getPhotoUrls(venue?.photos[0])?.length >
-                            0 ? (
-                            getPhotoUrls(venue?.photos[0]).map(
-                              (url, imgIndex) => (
-                                <img
-                                  key={imgIndex || ViewImage}
-                                  src={url}
-                                  alt={venue.name || "Venue Photo"}
-                                  className="h-[250px] w-full object-cover"
-                                />
-                              )
-                            )
-                          ) : (
-                            <img
-                              src={ViewImage} // Replace with your default image path
-                              alt="Default Placeholder"
-                              className="h-[250px] w-full object-cover"
-                            />
-                          )}
-                        </div> */}
-
-                        <div className=" px-[10px] md:px-[20px] py-[20px]">
+                        <VenuePhotos venue={venue} />
+                        <div className=" px-[10px] md:px-[10px] py-[10px]">
                           <div className="flex justify-between items-center mb-[20px]">
                             <h2 className="text-xl font-semibold text-white">
                               {venue.services_provider_name || venue?.name}
@@ -432,34 +397,12 @@ export default function BookingView() {
                             )}
                           </div>
 
-                          <div className="flex flex-wrap items-center justify-between">
-                            {venue.placeDetails?.international_phone_number && (
-                              <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[15px] mb-[15px]">
-                                <p className="font-bold">
-                                  International Phone:
-                                </p>
-                                <p className="text-[#0fc036] text-[13px] font-[700]">
-                                  {
-                                    venue.placeDetails
-                                      ?.international_phone_number
-                                  }
-                                </p>
-                              </div>
-                            )}
-                            {venue.placeDetails?.formatted_phone_number && (
-                              <div className="w-full  flex flex-wrap items-center gap-[10px] text-white text-[14px] mb-[15px]">
-                                <p className="font-bold">
-                                  Formatted Phone Number:
-                                </p>
-                                <p className="text-[#0fc036] text-[13px] font-[700]">
-                                  {venue.placeDetails?.formatted_phone_number}
-                                </p>
-                              </div>
-                            )}
-                          </div>
+                          <div className="flex flex-wrap items-center justify-between"> {venue.placeDetails?.international_phone_number && (<div className="flex items-center gap-2 text-white text-[15px] mb-[15px]"> <p className="font-bold"> <FaPhoneAlt size={12} /> </p> <a href={`tel:${venue.placeDetails.international_phone_number}`} className="text-[#0fc036] text-[13px] font-[700] flex items-center gap-[10px]" > {venue.placeDetails.international_phone_number} </a> </div>)} {venue.placeDetails?.formatted_phone_number && (<div className="flex items-center gap-2 text-white text-[15px] mb-[15px]"> <p className="font-bold"> <BsFillTelephoneForwardFill size={12} /> </p> <a href={`tel:${venue.placeDetails.formatted_phone_number}`} className="text-[#0fc036] text-[13px] font-[700] flex items-center gap-[10px]" > {venue.placeDetails.formatted_phone_number} </a> </div>)} </div>
                           <div className="flex flex-wrap items-center justify-between gap-[10px] mb-[15px]">
                             {venue?.price_level && (
+
                               <p className="text-white text-[15px]">
+                                <span> Price Level: </span>
                                 {venue?.price_level
                                   ? priceText[venue?.price_level]
                                   : "N/A"}
@@ -484,7 +427,7 @@ export default function BookingView() {
                               (category, index) => (
                                 <span
                                   key={index}
-                                  className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
+                                  className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
                                 >
                                   {category}
                                 </span>
@@ -499,7 +442,7 @@ export default function BookingView() {
                                 .map((category, index) => (
                                   <span
                                     key={index}
-                                    className="bg-black text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
+                                    className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
                                   >
                                     {category}
                                   </span>
@@ -508,12 +451,7 @@ export default function BookingView() {
                           )}
 
 
-                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                            <span className="text-[#4CAF50]"> Address: </span>{" "}
-                            {venue.package_address
-                              ? venue.package_address
-                              : venue?.vicinity}
-                          </p>
+                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden mb-5 flex gap-2 hover:text-[#4CAF50]">  <FaMapMarkerAlt size={24} />  {" "} {venue.package_address ? venue.package_address : venue?.vicinity} </p>
                           <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
                             {venue?.package_descrption}{" "}
                           </p>
