@@ -95,6 +95,7 @@ export default function UserList() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // console.log("namne" ,name, value)
     setFormData({
       ...formData,
       [name]: value,

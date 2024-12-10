@@ -42,6 +42,7 @@ export default function BookingView() {
     4: "Luxury and premium options",
   };
   const [item, setItem] = useState("");
+  // console.log("item", item)
   const fetchData = async () => {
     setLoading(true);
     try {
