@@ -13,6 +13,7 @@ export default function AdminLayout({ children }) {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
+      console.log("token",token)
       if (!token) {
         throw new Error("No token found");
       }
