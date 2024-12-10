@@ -237,8 +237,8 @@ export default function AddPackage() {
               />
             </div>
             {/* Row for Minimum, Maximum Price and People */}
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div>
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {/* <div>
                 <label className="block w-full font-manrope font-[400] text-white text-[14px] md:text-[16px] xl:text-[18px] mb-[10px]">Package Minimum Price</label>
                 <input
                   type="number"
@@ -261,7 +261,7 @@ export default function AddPackage() {
                   placeholder="Enter maximum price"
                   required
                 />
-              </div>
+              </div> */}
               <div>
                 <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package People</label>
                 <input
@@ -274,8 +274,8 @@ export default function AddPackage() {
                   required
                 />
               </div>
-            </div>
             <PackageImage setFormData={setFormData} formData={formData} />
+            </div>
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">

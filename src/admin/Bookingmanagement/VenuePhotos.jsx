@@ -23,8 +23,6 @@ const VenuePhotos = ({ venue }) => {
   const photos = venue?.placeDetails?.photos || [];
   const photoUrls = getPhotoUrls(photos);
 
-  console.log("Photos Array:", photos); // Log the photos array for debugging
-  console.log("Photo URLs:", photoUrls); // Add logging to debug
 
   return (
     <div className="relative">
