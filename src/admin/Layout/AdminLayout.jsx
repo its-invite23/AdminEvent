@@ -12,38 +12,44 @@ export default function AdminLayout({ children }) {
   const fetchData = async (signal) => {
     setLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
       const main = new Listing();
       const response = await main.profileVerify({ signal });
+      console.log("API Response:", response);
+
       if (response.data) {
         setContent(response.data.data);
       }
     } catch (error) {
-      localStorage && localStorage.removeItem("token");
-      toast.error("Please log in first.");
-      navigate("/");
-
+      console.error("Fetch error:", error);
+      if (error.response?.status === 401 || error.message === "No token found") {
+        localStorage.removeItem("token");
+        toast.error("Session expired. Please log in again.");
+        navigate("/");
+      } 
     } finally {
       setLoading(false);
     }
-  }
-
+  };
 
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
     fetchData(signal);
-    return () => controller.abort();
+    return () => {
+      console.log("Aborting fetch...");
+      controller.abort();
+    };
   }, []);
+
   return (
     <div className='flex bg-black min-h-screen h-full p-[10px] md:p-[25px] pl-[10px] md:pl-[15px] xl:pl-[330px]'>
-
       <SideBar />
-
       {children}
-
-
     </div>
-
   );
 }
-

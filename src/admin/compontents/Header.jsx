@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
-import { FaUser } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import SideBar from './SideBar';
+import { AiOutlineLogout } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-export default function Header({ title, type, setData }) {
+export default function Header({ title }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const handleToggle = () => {
-    setIsActive(!isActive);
-  };
-
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
-
-
+  const handleLogout = () => {
+    localStorage && localStorage.removeItem('admintoken');
+    navigate('/');
+  };
   return (
     <>
       <div className='sticky z-[1] top-0 mb-[20px] flex items-center justify-between gap-[5px] md:gap-[20px]  w-full bg-[#1B1B1B] p-[10px] md:p-[20px]  rounded-[10px] md:rounded-[15px] border border-[#2b2b2b]'>
@@ -29,15 +27,11 @@ export default function Header({ title, type, setData }) {
           <h2 className='text-white font-manrope font-[500] md:text-[20px] lg:text-[25px] xl:text-[32px] pr-[70px] hidden md:block'>{title ? title : "Dashboard"}</h2>
         </div>
         <div className='relative'>
-          <button onClick={handleToggle} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
-            <FaUser className='text-white text-[13px] sm:text-[15px]' />
+          <button onClick={handleLogout} className='flex items-center justify-center w-[40px] h-[40px] sm:w-[45px] sm:h-[45px]  md:w-[50px] md:h-[50px] bg-[#ffffff0d] rounded-[80px]'>
+            <AiOutlineLogout size={24} className='text-white  sm:text-[15px] hover:text-pink-500' />
           </button>
 
-          {/* <div className={`absolute top-[50px] md:top-[55px] right-[0] min-w-[160px] bg-[#1b1b1b] border border-[#2b2b2b] p-[15px] rounded-[6px] hidden ${isActive ? '!flex !flex-col' : ''}`}>
-      <Link to={'/'} className='py-[8px] px-[8px] border-b border-b-[#2b2b2b] text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Profile</Link>
-      <Link to={'/'} className='py-[8px] px-[8px] border-b border-b-[#2b2b2b] text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Setting</Link>
-      <Link to={'/'} className='py-[8px] px-[8px]  text-[15px] text-right text-[#fff] hover:bg-[#272727e8] hover-text-[#fff]'>Logout</Link>
-    </div> */}
+
 
         </div>
         <div>

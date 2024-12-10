@@ -1,7 +1,7 @@
     import { MdCake } from "react-icons/md";
     import { Link } from "react-router-dom";
-    import { AiOutlineDash } from "react-icons/ai";
-    import { GrFormView } from "react-icons/gr";
+    import { MdOutlineRemoveRedEye } from "react-icons/md";
+
 
     function Package({ packages }) {
 
@@ -40,7 +40,7 @@
 
                             <div className="w-[10%] text-center flex items-center justify-center">
                                 <Link to={`/access-admin/package/${item?._id}`}>
-                                    <GrFormView size={24} className="text-white " />
+                                    <MdOutlineRemoveRedEye size={24} className="text-white " />
                                 </Link>
                             </div>
                         </div>

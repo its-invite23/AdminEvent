@@ -85,6 +85,10 @@ class Listing extends Component {
   async BookingGetID(id) {
     return Api.get(`/booking/getByID/${id}`);
   }
+
+  async paymentgetid(id) {
+    return Api.get(`/booking/payment/${id}`);
+  }
   async BookingStatus(data) {
     return Api.post(`/booking/booking-status` , data);
   }
@@ -96,8 +100,8 @@ class Listing extends Component {
     return Api.post(`/booking/booking-payment` , data);
   }
 
-  async PaymentGet(page ,limit) {
-    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}` );
+  async PaymentGet(page ,limit ,name) {
+    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}&search=${name}` );
   }
 
   async PackageContactGet(id) {

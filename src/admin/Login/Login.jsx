@@ -37,7 +37,7 @@ export default function Login() {
       .then((res) => {
         if (res && res?.data && res?.data?.status) {
           toast.success(res.data.message);
-          localStorage && localStorage.setItem("token", res?.data?.token);
+          localStorage && localStorage.setItem("admintoken", res?.data?.token);
           navigate("/access-admin");
           setLoading(false);
         } else {
@@ -84,7 +84,7 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email.."
-              className="bg-zinc-900 w-full px-4 py-4 rounded-lg text-base placeholder:text-[#A9A4A8] text-[#A9A4A8]"
+              className=" placeholder:text-[#998e8e] bg-[#1B1B1B]  w-full px-5 py-5 rounded-lg text-base text-white outline-none"
               required
             />
           </div>
@@ -95,13 +95,13 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter password.."
-              className="bg-zinc-900 w-full px-4 py-4 pe-14 rounded-lg text-base text-[#A9A4A8] placeholder:text-[#A9A4A8]"
+              className=" placeholder:text-[#998e8e] bg-[#1B1B1B] w-full px-5 py-5 rounded-lg text-base text-white outline-none"
               required
             />
 
             <button
               type="button" // Prevent form submission
-              className="absolute top-4 right-5"
+              className="absolute top-5 right-5 "
               onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
             >
               {showPassword ? (

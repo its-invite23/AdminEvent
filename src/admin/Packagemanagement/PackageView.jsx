@@ -6,6 +6,7 @@ import { IoStar } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -169,8 +170,8 @@ export default function PackageView() {
                       ))}
                     </p>
 
-                    <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                      <span className="text-[#4CAF50]"> Address: </span>{" "}
+                    <p className="text-[#fff] text-[16px] flex gap-3 mt-2 whitespace-normal overflow-hidden">
+                      <span className="text-[#4CAF50]"><FaMapMarkerAlt size={24}/></span>{" "}
                       {venue.package_address
                         ? venue.package_address
                         : venue?.vicinity}

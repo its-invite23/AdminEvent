@@ -57,9 +57,12 @@ export default function ReplyMessage({ item, ContactUsGet }) {
         className={`gap-[10px] font-[manrope] font-semibold text-white text-[18px] ${item?.reply_message ? 'text-gray-400' : 'hover:text-[#EB3465]'
           }`}
         onClick={toggleModal}
-        disabled={!!item?.reply_message}
       >
-        <FaRegMessage />
+      {item?.reply_message ? (
+        <span className= "text-green-600 text-[18px] text-left font-bold cursor-not-allowed"> Done</span>
+      ) : (
+          <FaRegMessage />
+      ) }
       </button>
 
       {isOpen && (

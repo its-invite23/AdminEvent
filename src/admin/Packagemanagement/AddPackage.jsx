@@ -34,7 +34,6 @@ export default function AddPackage() {
       };
     });
   };
-
   const handleServiceChange = (e, index) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
@@ -212,7 +211,7 @@ export default function AddPackage() {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Experience</label>
               <input
                 type="text"
@@ -223,7 +222,7 @@ export default function AddPackage() {
                 placeholder="Enter package Experience"
                 required
               />
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
@@ -320,12 +319,19 @@ export default function AddPackage() {
                   <div>
                     <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Number</label>
                     <input
-                      type="tel"
-                      onChange={(e) => handleServiceChange(e, index)}
+                      type="text"
                       name="services_provider_phone"
                       value={packageData.services_provider_phone}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
                       placeholder="Enter services provider number"
+                      onChange={(e) => {
+                        if (
+                          e.target.value.length <= 10 &&
+                          /^[0-9]*$/.test(e.target.value)
+                        ) {
+                          handleServiceChange(e, index);
+                        }
+                      }}
                       pattern="\d{10}"
                       maxlength="10"
                       minlength="10"
@@ -418,7 +424,6 @@ export default function AddPackage() {
               </div>
             ))}
             <div className="flex justify-end mb-5">
-
               <button type="button" onClick={addNewPackage} className="mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center ${loading && 'opacity-50 cursor-pointer">Add New Services</button>
             </div>
             <div className="flex justify-center mb-5">
