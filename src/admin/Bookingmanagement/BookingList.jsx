@@ -129,18 +129,18 @@ export default function BookingList() {
                     Event Type
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
-                   Name & Price
+                    Name & Price
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
                     No.of Attendees
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
-                    Total Price
+                    Loaction
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] ">
                     Action
                   </th>
-                  
+
                 </tr>
               </thead>
               {
@@ -181,18 +181,18 @@ export default function BookingList() {
                           </td>
 
                           <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
-  {/* Username */}
-  <div className="text-left">{item?.userId?.username}</div>
-  <span
-    className="capitalize font-manrope font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  py-[6px] rounded-[60px] mt-2"
-  >
-    {item?.totalPrice && (
-      <span className="text-left">
-        {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
-      </span>
-    )}
-  </span>
-</td>
+                            {/* Username */}
+                            <div className="text-left">{item?.userId?.username}</div>
+                            <span
+                              className="capitalize font-manrope font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  py-[6px] rounded-[60px] mt-2"
+                            >
+                              {item?.totalPrice && (
+                                <span className="text-left">
+                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+                                </span>
+                              )}
+                            </span>
+                          </td>
 
                           <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
                             {item?.attendees}
