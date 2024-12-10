@@ -11,7 +11,7 @@ export default function Header({ title }) {
     setIsOpen(!isOpen);
   };
   const handleLogout = () => {
-    localStorage && localStorage.removeItem('admintoken');
+    localStorage && localStorage.removeItem('token');
     navigate('/');
   };
   return (
