@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
-import ViewImage from "../../asstes/event.jpg";
+import ViewImage from "../../asstes/event.png";
 import { IoStar } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
@@ -94,13 +94,13 @@ export default function PackageView() {
                   <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
                     Package Subtitle: {item.package_subtitle}
                   </span>
-                  
+
                 </div>
                 <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                   <span className=" inline-flex  capitalize  font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
-                  {item.package_description}
+                    {item.package_description}
                   </span>
-                  
+
                 </div>
                 <div className="w-full flex flex-wrap justify-start flex-row  items-center gap-[10px]">
 
@@ -171,7 +171,7 @@ export default function PackageView() {
                     </p>
 
                     <p className="text-[#fff] text-[16px] flex gap-3 mt-2 whitespace-normal overflow-hidden">
-                      <span className="text-[#4CAF50]"><FaMapMarkerAlt size={24}/></span>{" "}
+                      <span className="text-[#4CAF50]"><FaMapMarkerAlt size={24} /></span>{" "}
                       {venue.package_address
                         ? venue.package_address
                         : venue?.vicinity}

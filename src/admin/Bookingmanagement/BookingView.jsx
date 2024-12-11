@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoStar } from "react-icons/io5";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
-import ViewImage from "../../asstes/event.jpg";
+import ViewImage from "../../asstes/event.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
@@ -29,7 +29,7 @@ export default function BookingView() {
   const navigate = useNavigate();
   const currencies = ["USD", "AED", "GBP", "EUR"];
   const [item, setItem] = useState("");
-  // console.log("item", item)
+  console.log("item", item)
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -137,17 +137,85 @@ export default function BookingView() {
   }, [Id]);
 
 
-  const handlePriceChange = (venue, price) => {
-    if (!price) return;
-    console.log("venue", venue)
+  const [inputs, setInputs] = useState(
+    item?.package?.map(venue => ({
+      id: venue.place_id,
+      price: venue.services_provider_price || venue.price_level || ""
+    })) || []
+  );
+  let pricelevel = null
+  const totalPriceLevel = item?.package?.reduce((total, venue) => {
+    if (venue?.price_level) {
+
+      pricelevel = total + (venue?.price_level ? parseFloat(venue.price_level) : 0);
+    } else {
+      pricelevel = total + (venue?.services_provider_price
+        ? parseFloat(venue.services_provider_price
+        ) : 0);
+
+    }
+
+
+    return pricelevel;
+  }, 0);
+
+  const handleInputChange = (venue, value) => {
+    setInputs(prevInputs =>
+      prevInputs.map(input =>
+        input.id === venue.place_id ? { ...input, price: value } : input
+      )
+    );
+  };
+  useEffect(() => {
+    if (item?.package) {
+      setInputs(
+        item.package.map(venue => ({
+          id: venue.place_id,
+          price: venue.services_provider_price || venue.price_level || ""
+        }))
+      );
+    }
+  }, [item]);
+  const handlePriceChange = (venue) => {
+    const updatedInput = inputs?.find(input => input.id === venue.place_id);
+    if (!updatedInput) return;
+    const { price } = updatedInput;
+    const updatedTotalPriceLevel = item?.package?.reduce((total, currentVenue) => {
+      const venuePrice =
+        currentVenue.place_id === venue.place_id
+          ? parseFloat(price || 0)  // Use updated price for the current venue
+          : currentVenue.price_level
+            ? parseFloat(currentVenue.price_level) 
+            : parseFloat(currentVenue.services_provider_price || 0) ;
+
+      return total + (venuePrice || 0); // Add the calculated price for the venue to the total
+    }, 0);
+
+    console.log("Updated Total Price Level:", updatedTotalPriceLevel);
+
+    setLoading(true);
+
     const main = new Listing();
-    main
-      .BookingPriceUpdate({ _id: Id, place_id: venue?.place_id, price, })
+    main.BookingPriceUpdate({
+      _id: Id,
+      place_id: venue.place_id,
+      price,
+      totalPrice: updatedTotalPriceLevel*item?.attendees,
+    })
       .then((res) => {
         if (res && res?.data?.status) {
+          fetchData(res?.data?.data?._id);
           toast.success(res.data.message);
 
-        } else { toast.error(res.data?.message || "Something went wrong."); }
+          // Update inputs with the response price if needed
+          setInputs(prevInputs =>
+            prevInputs.map(input =>
+              input.id === venue.place_id ? { ...input, price: res.data.price } : input
+            )
+          );
+        } else {
+          toast.error(res.data?.message || "Something went wrong.");
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -157,10 +225,8 @@ export default function BookingView() {
       });
   };
 
-  const totalPriceLevel = item?.package?.reduce((total, venue) => {
-    return total + (venue?.price_level ? parseFloat(venue.price_level) : 0);
-  }, 0);
-  console.log("totalPriceLevel", totalPriceLevel)
+
+
   return (
     <>
       {loading ? (
@@ -240,10 +306,22 @@ export default function BookingView() {
                           {item?.location}
                         </span>
                       </div>
+                      <div className="w-full mb-2.5 text-white font-semibold">
+                        <span className="text-green-500 text-lg">
+                          Please review the price and currency before confirming the booking. You can make changes if necessary.
+                        </span>
+                      </div>
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Total Price (totalPrice* Number of Attendees):{" "}
+                        <span className="text-white text-[17px]  ">
+                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+
+                        </span>
+                      </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Total Price :{" "}
                         <span className="text-white text-[17px]  ">
-                          {currencySymbol[item?.CurrencyCode]} {totalPriceLevel}
+                          {currencySymbol[item?.CurrencyCode]} {pricelevel}
 
                         </span>
                       </div>
@@ -288,67 +366,36 @@ export default function BookingView() {
 
                         </div>
                       )}
-
-
-
-                      {item?.status === "pending" && (
-                        <div className="w-full mb-[10px]">
-                          <div className="flex flex-wrap  flex-row items-center gap-4">
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() => handleActiveStatues(item?._id, "approved")}
-                                className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                              >
-                                Approve
-                              </button>
-                              <button
-                                onClick={() => handleActiveStatues(item?._id, "rejected")}
-                                className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                              >
-                                Reject
-                              </button>
+                      {item?.status === "approved" ? (
+                        <></>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5">
+                          {item?.package?.map((venue, index) => (<div key={index}
+                            className="flex flex-wrap gap-4 mb-3 p-2">
+                            <label className="text-white">
+                              <span className="text-green-500">{venue.services_provider_name || venue?.name}  </span>
+                              Manage Price (Per Person)</label>
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-2">
+                                <p className="text-white"> {currencySymbol[item?.CurrencyCode]} </p>
+                                <input
+                                  type="number"
+                                  className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
+                                  placeholder="Enter Price"
+                                  value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
+                                  onChange={(e) => handleInputChange(venue, e.target.value)}
+                                />
+                                <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-full p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
+                                  <FaEdit size={16} /> </button>
+                              </div>
                             </div>
-
                           </div>
-
-                        </div>
+                          ))} </div>
                       )}
-                      <div className="w-full ">
-                        <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-                          {/* Right Section: Payment Generator Button */}
-                          <div>
-                            {payment?.payment_status !== "success" ? (
-                              item?.status === "approved" &&
-                              item?.totalPrice !== 0 && (
-                                <button
-                                  onClick={() => handlepayment(item?._id)}
-                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                                >
-                                  Payment Generator
-                                </button>
-                              )
-                            ) : (
-                              <button
-                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
-                              >
-                                Payment successfully done.
-                              </button>
-
-                            )}
-
-                            { }
-                          </div>
-                        </div>
-                      </div>
-
                       <div>
-
-
                         <p className="w-full mb-[10px] text-white text-[17px] font-bold">
                           User Detail :{" "}
                         </p>
-
-
                         <div className="w-full mb-[10px] text-white font-semibold">
                           Name   :{" "}
                           <span className="text-white text-[17px]  ">
@@ -426,24 +473,6 @@ export default function BookingView() {
                               </p>
                             )}
 
-                            <div key={venue.place_id} className="flex flex-wrap gap-4 mb-3 p-2">
-                              <label className="text-white">Manage Price (Per Person)</label>
-                              <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-2">
-                                  <p className="text-white">
-                                    {currencySymbol[item?.CurrencyCode]}
-                                  </p>
-                                  <input
-                                    type="number"
-                                    className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
-                                    placeholder="Enter Price"
-                                    name="price"
-                                    value={venue.services_provider_price || venue?.price_level || ""}
-                                    onChange={(e) => handlePriceChange(venue, e.target.value)}
-                                  />
-                                </div>
-                              </div>
-                            </div>
 
                             <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
                               <IoStar size={11} className="text-[#ffff00]" />
@@ -489,6 +518,57 @@ export default function BookingView() {
 
                       </div>
                     ))}
+                  </div>
+
+                  {item?.status === "pending" && (
+                    <div className="w-full mb-[10px] mt-[30px]">
+                      <div className="flex flex-wrap  flex-row items-center justify-center gap-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleActiveStatues(item?._id, "approved")}
+                            className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => handleActiveStatues(item?._id, "rejected")}
+                            className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                          >
+                            Reject
+                          </button>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )}
+
+
+                  <div className="w-full ">
+                    <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
+                      {/* Right Section: Payment Generator Button */}
+                      <div>
+                        {payment?.payment_status !== "success" ? (
+                          item?.status === "approved" &&
+                          item?.totalPrice !== 0 && (
+                            <button
+                              onClick={() => handlepayment(item?._id)}
+                              className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                            >
+                              Payment Generator
+                            </button>
+                          )
+                        ) : (
+                          <button
+                            className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                          >
+                            Payment successfully done.
+                          </button>
+
+                        )}
+
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

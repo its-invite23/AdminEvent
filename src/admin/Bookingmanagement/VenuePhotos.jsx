@@ -1,9 +1,8 @@
 import React from "react";
-import ViewImage from "../../asstes/event.jpg";
+import ViewImage from "../../asstes/event.png";
  // Ensure correct path to default image
 
 const VenuePhotos = ({ venue }) => {
-
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const getPhotoUrls = (photos) => {
@@ -34,7 +33,7 @@ const VenuePhotos = ({ venue }) => {
         />
       ) : (
         <img
-          src={ViewImage} // Ensure correct path to default image
+          src={venue?.services_provider_image || ViewImage} // Ensure correct path to default image
           alt="Default Placeholder"
           className="h-[250px] w-full object-cover"
         />

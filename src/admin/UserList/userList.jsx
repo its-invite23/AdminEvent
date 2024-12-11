@@ -198,10 +198,6 @@ export default function UserList() {
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Status
                     </th>
-                    {/* <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
-                      Action
-                    </th> */}
-
                   </tr>
                 </thead>
                 {
@@ -229,8 +225,8 @@ export default function UserList() {
                         <span
                           className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[15px] py-[6px] rounded-[60px] mt-2 `}
                         >       {item?.phone_code
-                        } {item?.phone_number}
-                          
+                          } {item?.phone_number}
+
                         </span>
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
@@ -246,11 +242,11 @@ export default function UserList() {
                         </div>
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
-                      {
-                            item?.DOB ? (
-                              moment(item?.DOB).format('DD MMM YYYY')
-                            ) : ("N/A")
-                          }
+                        {
+                          item?.DOB ? (
+                            moment(item?.DOB).format('DD MMM YYYY')
+                          ) : ("N/A")
+                        }
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.enquiry_count}
@@ -267,10 +263,6 @@ export default function UserList() {
                           {item?.user_status}
                         </button>
                       </td>
-
-                      {/* <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
-                        <Delete Id={item?._id} step={2} users={users} className="flex justify-center" />
-                      </td> */}
                     </tr>
                   ))
                 }

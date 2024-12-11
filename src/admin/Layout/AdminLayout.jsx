@@ -13,14 +13,12 @@ export default function AdminLayout({ children }) {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      console.log("token",token)
       if (!token) {
         throw new Error("No token found");
       }
 
       const main = new Listing();
       const response = await main.profileVerify({ signal });
-      console.log("API Response:", response);
 
       if (response.data) {
         setContent(response.data.data);
