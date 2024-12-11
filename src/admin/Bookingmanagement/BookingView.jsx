@@ -185,8 +185,8 @@ export default function BookingView() {
         currentVenue.place_id === venue.place_id
           ? parseFloat(price || 0)  // Use updated price for the current venue
           : currentVenue.price_level
-            ? parseFloat(currentVenue.price_level) 
-            : parseFloat(currentVenue.services_provider_price || 0) ;
+            ? parseFloat(currentVenue.price_level)
+            : parseFloat(currentVenue.services_provider_price || 0);
 
       return total + (venuePrice || 0); // Add the calculated price for the venue to the total
     }, 0);
@@ -200,7 +200,7 @@ export default function BookingView() {
       _id: Id,
       place_id: venue.place_id,
       price,
-      totalPrice: updatedTotalPriceLevel*item?.attendees,
+      totalPrice: updatedTotalPriceLevel * item?.attendees,
     })
       .then((res) => {
         if (res && res?.data?.status) {
