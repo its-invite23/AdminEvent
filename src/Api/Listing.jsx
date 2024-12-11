@@ -96,6 +96,10 @@ class Listing extends Component {
     return Api.post(`/booking/update-price` , data);
   }
 
+  
+  async CurrencyChange(currency) {
+    return Api.get(`/currency/get-rate/${currency}` );
+  }
   async BookingPayment(data) {
     return Api.post(`/booking/booking-payment` , data);
   }

@@ -22,12 +22,14 @@ export default function BookingView() {
     AED: <TbCurrencyDirham size={18} className="inline" />,
     GBP: <FaPoundSign size={18} className="inline" />,
   };
-  const [currency, setCurrency] = useState("AED"); // Default currency
-  const [price, setPrice] = useState(""); // Price input
+  const [currencyprice, setCurrencyPrice] = useState("");
+  const currencies = ["USD", "AED", "GBP", "EUR"];
 
+  const [currency, setCurrency] = useState("AED"); // Default currency
+  console.log("currency", currency)
+  const [price, setPrice] = useState(""); // Price input
   const { Id } = useParams();
   const navigate = useNavigate();
-  const currencies = ["USD", "AED", "GBP", "EUR"];
   const [item, setItem] = useState("");
   console.log("item", item)
   const fetchData = async () => {
@@ -71,6 +73,7 @@ export default function BookingView() {
       .then((res) => {
         fetchData(res?.data?.data?._id);
         if (res && res?.data) {
+          handlePriceChange();
           toast.success(res.data.message);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
@@ -140,13 +143,12 @@ export default function BookingView() {
   const [inputs, setInputs] = useState(
     item?.package?.map(venue => ({
       id: venue.place_id,
-      price: venue.services_provider_price || venue.price_level || ""
+      price: venue.services_provider_price * currencyprice || venue.price_level * currencyprice || ""
     })) || []
   );
   let pricelevel = null
   const totalPriceLevel = item?.package?.reduce((total, venue) => {
     if (venue?.price_level) {
-
       pricelevel = total + (venue?.price_level ? parseFloat(venue.price_level) : 0);
     } else {
       pricelevel = total + (venue?.services_provider_price
@@ -191,7 +193,6 @@ export default function BookingView() {
       return total + (venuePrice || 0); // Add the calculated price for the venue to the total
     }, 0);
 
-    console.log("Updated Total Price Level:", updatedTotalPriceLevel);
 
     setLoading(true);
 
@@ -199,8 +200,9 @@ export default function BookingView() {
     main.BookingPriceUpdate({
       _id: Id,
       place_id: venue.place_id,
-      price,
-      totalPrice: updatedTotalPriceLevel * item?.attendees,
+      price: price * currencyprice,
+      totalPrice: updatedTotalPriceLevel * item?.attendees * currencyprice,
+      currency: currency
     })
       .then((res) => {
         if (res && res?.data?.status) {
@@ -224,7 +226,23 @@ export default function BookingView() {
         setLoading(false);
       });
   };
+  console.log("currencyprice", currencyprice)
+  const fectcurrency = async () => {
+    try {
+      const main = new Listing();
+      const response = await main.CurrencyChange(currency); // API call with selected currency
+      console.log("response", response);
+      setCurrencyPrice(response?.data?.data); // Update state with the fetched data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
+  useEffect(() => {
+    if (currency) {
+      fectcurrency(); // Trigger API call when currency changes
+    }
+  }, [currency]); //
 
 
   return (
@@ -307,24 +325,25 @@ export default function BookingView() {
                         </span>
                       </div>
                       <div className="w-full mb-2.5 text-white font-semibold">
-                        <span className="text-green-500 text-lg">
+                        <span className="text-red-500 text-lg">
                           Please review the price and currency before confirming the booking. You can make changes if necessary.
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Total Price (totalPrice* Number of Attendees):{" "}
+                        Price :{" "}
                         <span className="text-white text-[17px]  ">
-                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+                          {currencySymbol[currency]} {pricelevel * currencyprice}
 
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Total Price :{" "}
-                        <span className="text-white text-[17px]  ">
-                          {currencySymbol[item?.CurrencyCode]} {pricelevel}
+                        Total Price (totalPrice* Number of Attendees):{" "}
+                        <span className="text-white text-[17px] flex mt-3  ">
+                          {currencySymbol[currency]} {item?.totalPrice * currencyprice}
 
                         </span>
                       </div>
+
                       {item?.status === "approved" ? (
                         <div className="w-full mb-[10px] text-white font-semibold">
                           Number of attendees:{" "}
@@ -344,17 +363,17 @@ export default function BookingView() {
                         <div className="w-full mb-[10px] text-white font-semibold">
                           Select Currency :{" "}
                           <span className="text-white text-[17px]  ">
-                            {item?.CurrencyCode}
+                            {item?.currency}
                           </span>
                         </div>
                       ) : (
-                        <div className=" inline-flex items-center  mt-3  mb-3 capitalize border font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]">
-                          <span className="flex items-center gap-1">
+                        <>
+                          <div className=" inline-flex items-center  mt-3  mb-3 capitalize  font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]">
                             <span className="text-[16px]">Select Currency :</span>
-                          </span>
-
+                          </div>
                           <select
-                            className="bg-black"
+                            value={currency}
+                            className="px-3 py-2 rounded bg-gray-700 border border-white text-white "
                             onChange={(e) => (setCurrency(e.target.value))}
                           >
                             {currencies.map((currency, idx) => (
@@ -363,8 +382,7 @@ export default function BookingView() {
                               </option>
                             ))}
                           </select>
-
-                        </div>
+                        </>
                       )}
                       {item?.status === "approved" ? (
                         <></>
@@ -373,11 +391,17 @@ export default function BookingView() {
                           {item?.package?.map((venue, index) => (<div key={index}
                             className="flex flex-wrap gap-4 mb-3 p-2">
                             <label className="text-white">
-                              <span className="text-green-500">{venue.services_provider_name || venue?.name}  </span>
+                              <span className="text-green-500 capitalize">{venue.services_provider_name || venue?.name}  </span>
                               Manage Price (Per Person)</label>
+                            <p className="text-white text-[15px]">
+                              Convert Currency Price:-
+                              <span className="flex mt-1"> 
+                              {currencySymbol[currency]}  {venue?.services_provider_price? venue?.services_provider_price*currencyprice :venue?.price_level*currencyprice }
+                              </span>
+                              </p>
                             <div className="flex items-center gap-4">
                               <div className="flex items-center gap-2">
-                                <p className="text-white"> {currencySymbol[item?.CurrencyCode]} </p>
+                                <p className="text-white">  {currencySymbol[item?.CurrencyCode]}</p>
                                 <input
                                   type="number"
                                   className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
@@ -398,7 +422,7 @@ export default function BookingView() {
                         </p>
                         <div className="w-full mb-[10px] text-white font-semibold">
                           Name   :{" "}
-                          <span className="text-white text-[17px]  ">
+                          <span className="text-white capitalize text-[17px]  ">
                             {item?.userId?.username}
                           </span>
                         </div>
@@ -436,7 +460,7 @@ export default function BookingView() {
                         <VenuePhotos venue={venue} />
                         <div className=" px-[10px] md:px-[10px] py-[10px]">
                           <div className="flex justify-between items-center mb-[20px]">
-                            <h2 className="text-xl font-semibold text-white">
+                            <h2 className="text-xl font-semibold capitalize text-white">
                               {venue.services_provider_name || venue?.name}
                             </h2>
                             {venue.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link>)}

@@ -6,7 +6,7 @@ import { IoStar } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaDollarSign, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -108,7 +108,7 @@ export default function PackageView() {
                     Person: {item.package_people}
                   </span>
                   <span className="inline-block bg-gray-200 rounded-full px-3 py-[9px] text-sm font-semibold text-gray-700">
-                    Total Price: ${item.package_price_max}-
+                    Total Price: ${item.totalprice}-
                     {item?.package_price_min}
                   </span>
                 </div>
@@ -136,7 +136,7 @@ export default function PackageView() {
                   <div className=" px-[10px] md:px-[20px] py-[20px]">
                     {/* Provider Name */}
                     <div className="flex justify-between items-center">
-                      <h2 className="text-xl font-semibold text-white">
+                      <h2 className="text-xl font-semibold capitalize text-white">
                         {venue.services_provider_name}
                       </h2>
                       <p className="text-white text-sm">
@@ -151,7 +151,11 @@ export default function PackageView() {
                         <IoStar size={12} className="text-[#ffff00] " />
                         {venue.services_provider_rating}
                       </div>
-
+                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
+                      <FaDollarSign size={18} className="inline" />
+                        {venue.services_provider_price}
+                      </div>
+                      
                       <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
                         {venue.services_provider_categries}
                       </div>
