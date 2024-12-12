@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IoStar } from "react-icons/io5";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.png";
@@ -7,44 +6,34 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaDollarSign, FaEdit, FaEuroSign, FaPoundSign } from "react-icons/fa";
+import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
-import { FaPhoneAlt } from "react-icons/fa";
-import { BsFillTelephoneForwardFill } from "react-icons/bs";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
-
+import Loaction from "./Loaction";
 import VenuePhotos from "./VenuePhotos";
+import moment from "moment";
+import Valuedata from "../compontents/Valuedata";
 export default function BookingView() {
-  const currencySymbol = {
-    USD: <FaDollarSign size={18} className="inline" />,
-    EUR: <FaEuroSign size={18} className="inline" />,
-    AED: <TbCurrencyDirham size={18} className="inline" />,
-    GBP: <FaPoundSign size={18} className="inline" />,
-  };
-  const [currencyprice, setCurrencyPrice] = useState("");
-  const currencies = ["USD", "AED", "GBP", "EUR"];
 
-  const [currency, setCurrency] = useState("AED"); // Default currency
-  console.log("currency", currency)
+  const [loading, setLoading] = useState(false);
+  const [attend, setAttend] = useState("")
+  const [currencyprice, setCurrencyPrice] = useState("");
+  const [currency, setCurrency] = useState("USD"); // Default currency
   const [price, setPrice] = useState(""); // Price input
-  const { Id } = useParams();
-  const navigate = useNavigate();
   const [item, setItem] = useState("");
-  console.log("item", item)
+  const [payment, setpayment] = useState("")
+  const { Id } = useParams();
+  const currencies = ["USD", "AED", "GBP", "EUR"];
+  const navigate = useNavigate();
   const fetchData = async () => {
-    setLoading(true);
     try {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
       setItem(response?.data?.data);
       setPrice(response?.data?.data?.totalPrice)
       setAttend(response?.data?.data?.attendees)
-      setCurrency(response?.data?.data?.CurrencyCode)
-      setLoading(false);
+      // setCurrency(response?.data?.data?.CurrencyCode)
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
     }
   };
   useEffect(() => {
@@ -52,10 +41,6 @@ export default function BookingView() {
       fetchData(Id);
     }
   }, [Id]);
-
-  const [loading, setLoading] = useState(false);
-
-  const [attend, setAttend] = useState("")
 
   const handleActiveStatues = (Id, status) => {
     if (!Id || !status) {
@@ -66,19 +51,16 @@ export default function BookingView() {
       toast.error("Please Enter Price");
       return;
     }
-    setLoading(true);
     const main = new Listing();
     const response = main.BookingStatus({ _id: Id, status: status, attendees: attend, CurrencyCode: currency });
     response
       .then((res) => {
         fetchData(res?.data?.data?._id);
         if (res && res?.data) {
-          handlePriceChange();
           toast.success(res.data.message);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
-        setLoading(false);
       })
       .catch((error) => {
         console.log("error", error?.response?.data?.message);
@@ -99,6 +81,8 @@ export default function BookingView() {
     const response = main.BookingPayment({
       _id: Id,
       payment_genrator_link: true,
+      currency: item?.CurrencyCode,
+      totalPrice : totalPriceData
     });
     response
       .then((res) => {
@@ -119,7 +103,6 @@ export default function BookingView() {
 
 
 
-  const [payment, setpayment] = useState("")
 
   const fechtpaymentdata = async () => {
     setLoading(true);
@@ -139,6 +122,21 @@ export default function BookingView() {
     }
   }, [Id]);
 
+  let totalprice = null
+  const totalPriceLevel = item?.package?.reduce((total, venue) => {
+    if (venue?.price_level) {
+      totalprice = total + (venue?.price_level ? parseFloat(venue.price_level) : 0);
+    } else {
+      totalprice = total + (venue?.services_provider_price
+        ? parseFloat(venue.services_provider_price
+        ) : 0);
+
+    }
+
+
+
+    return totalprice;
+  }, 0);
 
   const [inputs, setInputs] = useState(
     item?.package?.map(venue => ({
@@ -146,28 +144,53 @@ export default function BookingView() {
       price: venue.services_provider_price * currencyprice || venue.price_level * currencyprice || ""
     })) || []
   );
-  let pricelevel = null
-  const totalPriceLevel = item?.package?.reduce((total, venue) => {
-    if (venue?.price_level) {
-      pricelevel = total + (venue?.price_level ? parseFloat(venue.price_level) : 0);
-    } else {
-      pricelevel = total + (venue?.services_provider_price
-        ? parseFloat(venue.services_provider_price
-        ) : 0);
-
-    }
 
 
-    return pricelevel;
-  }, 0);
 
-  const handleInputChange = (venue, value) => {
-    setInputs(prevInputs =>
-      prevInputs.map(input =>
-        input.id === venue.place_id ? { ...input, price: value } : input
-      )
-    );
+  const handlePriceChange = (venue, updatedPrice) => {
+    const updatedInput = inputs?.find(input => input.id === venue.place_id);
+    if (!updatedInput) return;
+    const price = updatedPrice || updatedInput.price;
+    const updatedTotalPriceLevel = item?.package?.reduce((total, currentVenue) => {
+      const venuePrice =
+        currentVenue.place_id === venue.place_id
+          ? parseFloat(price || 0)
+          : currentVenue.price_level
+            ? parseFloat(currentVenue.price_level)
+            : parseFloat(currentVenue.services_provider_price || 0);
+
+      return total + (venuePrice || 0);
+    }, 0);
+
+    const main = new Listing();
+    main.BookingPriceUpdate({
+      _id: Id,
+      place_id: venue.place_id,
+      price: price,
+      totalPrice: updatedTotalPriceLevel * item?.attendees,
+      currency: currency,
+      attendens: attend
+    })
+      .then((res) => {
+        if (res && res?.data?.status) {
+          fetchData(res?.data?.data?._id);
+          toast.success(res.data.message);
+          setInputs(prevInputs =>
+            prevInputs.map(input =>
+              input.id === venue.place_id ? { ...input, price: res.data.price } : input
+            )
+          );
+        } else {
+          toast.error(res.data?.message || "Something went wrong.");
+        }
+      })
+      .catch((error) => {
+        console.log("error", error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || "An error occurred.");
+        setLoading(false);
+      });
   };
+
   useEffect(() => {
     if (item?.package) {
       setInputs(
@@ -178,60 +201,10 @@ export default function BookingView() {
       );
     }
   }, [item]);
-  const handlePriceChange = (venue) => {
-    const updatedInput = inputs?.find(input => input.id === venue.place_id);
-    if (!updatedInput) return;
-    const { price } = updatedInput;
-    const updatedTotalPriceLevel = item?.package?.reduce((total, currentVenue) => {
-      const venuePrice =
-        currentVenue.place_id === venue.place_id
-          ? parseFloat(price || 0)  // Use updated price for the current venue
-          : currentVenue.price_level
-            ? parseFloat(currentVenue.price_level)
-            : parseFloat(currentVenue.services_provider_price || 0);
-
-      return total + (venuePrice || 0); // Add the calculated price for the venue to the total
-    }, 0);
-
-
-    setLoading(true);
-
-    const main = new Listing();
-    main.BookingPriceUpdate({
-      _id: Id,
-      place_id: venue.place_id,
-      price: price * currencyprice,
-      totalPrice: updatedTotalPriceLevel * item?.attendees * currencyprice,
-      currency: currency
-    })
-      .then((res) => {
-        if (res && res?.data?.status) {
-          fetchData(res?.data?.data?._id);
-          toast.success(res.data.message);
-
-          // Update inputs with the response price if needed
-          setInputs(prevInputs =>
-            prevInputs.map(input =>
-              input.id === venue.place_id ? { ...input, price: res.data.price } : input
-            )
-          );
-        } else {
-          toast.error(res.data?.message || "Something went wrong.");
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("error", error?.response?.data?.message);
-        toast.error(error?.response?.data?.message || "An error occurred.");
-        setLoading(false);
-      });
-  };
-  console.log("currencyprice", currencyprice)
   const fectcurrency = async () => {
     try {
       const main = new Listing();
       const response = await main.CurrencyChange(currency); // API call with selected currency
-      console.log("response", response);
       setCurrencyPrice(response?.data?.data); // Update state with the fetched data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -244,7 +217,7 @@ export default function BookingView() {
     }
   }, [currency]); //
 
-
+  const totalPriceData = totalprice * item?.attendees * currencyprice
   return (
     <>
       {loading ? (
@@ -262,8 +235,22 @@ export default function BookingView() {
                     className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[15px] py-[8px] text-white rounded-[5px] text-center  cursor-pointer">
                     <IoIosArrowBack size={20} />
                   </button> Back
+
                 </h3>
-               
+                <div className="ps-6">
+                  <label className="text-gray-300 mb-2 block">Choose Currency</label>
+                  <select
+                    defaultValue={currency}
+                    className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full"
+                    onChange={(e) => (setCurrency(e.target.value))} >
+                    {currencies.map((currency, idx) => (
+                      <option key={idx} value={currency}>
+                        {currency}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
               </div>
               {loading ? (
                 <LoadingSpinner />
@@ -286,23 +273,10 @@ export default function BookingView() {
                           {item.package_name}
                         </h2>
                       </div>
-                        {/* <button
-                          className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
-                            ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                            : item?.status === "approved"
-                              ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                              : item?.status === "rejected"
-                                ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                                : ""
-                            }`}
-                        >
-                          {item?.status}
-                        </button> */}
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Booking Date :{" "}
                         <span className=" text-[17px] ">
-                          {item?.bookingDate}
-                          {/* {moment(item?.bookingDate).format("MMMM Do, YYYY")} */}
+                          {moment(item?.bookingDate).format("D MMM YYYY")}
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
@@ -312,7 +286,7 @@ export default function BookingView() {
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Booking Status : 
+                        Booking Status :
                         <button className={`px-3 py-1 ms-2 rounded-[30px] capitalize  ${item?.status === "pending"
                           ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                           : item?.status === "approved"
@@ -321,44 +295,44 @@ export default function BookingView() {
                               ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
                               : ""
                           }`}>
-                        {item?.status}
+                          {item?.status}
                         </button>
-                        
+
                       </div>
-                      
-                      
+
+
 
                       <p className="w-full mb-[10px] text-gray-200 border-t border-gray-800 mt-4 pt-4 text-[17px] font-bold">
-                          User Info : 
-                        </p>
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Name : 
-                          <span className="text-white capitalize text-[17px]  ">
-                            {item?.userId?.username}
-                          </span>
-                        </div>
+                        User Info :
+                      </p>
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Name :
+                        <span className="text-white capitalize text-[17px]  ">
+                          {item?.userId?.username}
+                        </span>
+                      </div>
 
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Email : 
-                          <span className="text-white text-[17px]  ">
-                            {item?.userId?.email}
-                          </span>
-                        </div>
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Email :
+                        <span className="text-white text-[17px]  ">
+                          {item?.userId?.email}
+                        </span>
+                      </div>
 
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Phone Number : 
-                          <span className="text-white text-[17px]  gap-2">
-                            {item?.userId?.phone_code}
-                            {item?.userId?.phone_number}
-                          </span>
-                        </div>
-
-                      
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Phone Number :
+                        <span className="text-white text-[17px]  gap-2">
+                          {item?.userId?.phone_code}
+                          {item?.userId?.phone_number}
+                        </span>
+                      </div>
 
 
-                      
+
+
+
                       <div>
-                      
+
 
                       </div>
                     </div>
@@ -376,84 +350,39 @@ export default function BookingView() {
                         key={index} >
                         <VenuePhotos venue={venue} />
                         <div className="p-6">
-                            <h2 className="text-xl font-semibold capitalize text-white">
-                              {venue.services_provider_name || venue?.name}
-                            </h2>
+                          <h2 className="text-xl font-semibold capitalize text-white">
+                            {venue.services_provider_name || venue?.name}
+                          </h2>
 
-                            {venue?.services_provider_price && (
-                              <p className="text-white font-bold my-2 text-[20px]">
-                                ${venue.services_provider_price} per person
-                              </p>
-                            )} 
-
-                          <ul>
-                            <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link>)}</li>
-                          </ul>
-
-                          <div className="flex flex-wrap items-center justify-start md:justify-between mb-[15px]">
-                            {venue.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center gap-2 w-[100%] md:w-[40%] text-white text-sm" > <FaEnvelope size={14} className="inline" /> {venue.services_provider_email} </Link>)}
-                            {venue.services_provider_categries && (
-                              <p className="flex items-center gap-2 md:mt-0 mt-3 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs break-words whitespace-normal text-white text-[13px] capitalize">
-                                {venue.services_provider_categries}
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="flex flex-wrap items-center justify-between"> {venue.placeDetails?.international_phone_number && (<div className="flex items-center gap-2 text-white text-[15px] mb-[15px]"> <p className="font-bold"> <FaPhoneAlt size={12} /> </p> <a href={`tel:${venue.placeDetails.international_phone_number}`} className="text-[#0fc036] text-[13px] font-[700] flex items-center gap-[10px]" > {venue.placeDetails.international_phone_number} </a> </div>)} {venue.placeDetails?.formatted_phone_number && (<div className="flex items-center gap-2 text-white text-[15px] mb-[15px]"> <p className="font-bold"> <BsFillTelephoneForwardFill size={12} /> </p> <a href={`tel:${venue.placeDetails.formatted_phone_number}`} className="text-[#0fc036] text-[13px] font-[700] flex items-center gap-[10px]" > {venue.placeDetails.formatted_phone_number} </a> </div>)} </div>
-                          <div className="flex flex-wrap items-center justify-between gap-[10px] mb-[15px]">
-                            {venue?.price_level && (
-
-                              <p className="text-white text-[15px]">
-                                <span> Price Level: </span>
-                                {currencySymbol[item?.CurrencyCode]}
-                                {venue?.price_level
-                                  ? venue?.price_level
-                                  : "N/A"}
-                              </p>
-                            )}
-
-
-                            
-
-
-                            <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
-                              <IoStar size={11} className="text-[#ffff00]" />
-                              {venue.services_provider_rating || venue?.rating}
-                            </div>
-                          </div>
-
-                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                            {venue.package_categories?.map(
-                              (category, index) => (
-                                <span
-                                  key={index}
-                                  className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
-                                >
-                                  {category}
-                                </span>
-                              )
-                            )}
-                          </p>
-
-                          {venue?.types && (
-                            <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                              {venue?.types
-                                ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
-                                .map((category, index) => (
-                                  <span
-                                    key={index}
-                                    className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
-                                  >
-                                    {category}
-                                  </span>
-                                ))}
+                          {venue?.services_provider_price && (
+                            <p className="text-white font-bold my-2 text-[20px]">
+                              ${venue.services_provider_price} per person
                             </p>
                           )}
 
+                          {venue?.price_level && (
+                            <p className="text-white font-bold my-2 text-[20px]">
+                              ${venue?.price_level} per person
+                            </p>
+                          )}
 
-                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden mb-5 flex gap-2 hover:text-[#4CAF50]">  <FaMapMarkerAlt size={24} />  {" "} {venue.package_address ? venue.package_address : venue?.vicinity} </p>
+                          {venue.services_provider_name && (
+                            <ul>
+                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Email :</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
+                              <Loaction venue={venue} />
+                            </ul>
+                          )}
+
+                          {venue.name && (
+                            <ul>
+                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.placeDetails?.international_phone_number && (<Link to={`tel:${venue?.placeDetails?.international_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue?.placeDetails?.international_phone_number} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue.placeDetails.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
+                              <Loaction venue={venue} />
+                            </ul>
+                          )}
                           <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                            {venue?.package_descrption}{" "}
+                            {venue?.package_descrption || venue?.placeDetails?.editorial_summary?.overview}{" "}
                           </p>
                         </div>
                       </div>
@@ -462,117 +391,120 @@ export default function BookingView() {
 
                   <div className="w-full pt-8 pb-2">
 
-                        <div className="flex max-w-[600px]">
-                            <div className="w-full">
-                              <label className="text-gray-300 mb-2 block">Choose No. of attendees</label>
-                              <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full" />
-                            </div>
-
-                            {/* <div className="w-full ps-6">
-                              <label className="text-gray-300 mb-2 block">Choose Currency</label>
-                              <select 
-                                defaultValue={currency}
-                                className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full"
-                                onChange={(e) => (setCurrency(e.target.value))} >
-                                {currencies.map((currency, idx) => (
-                                  <option key={idx} value={currency}>
-                                    {currency}
-                                  </option>
-                                ))}
-                              </select>
-                            </div> */}
-                        </div>
-                        </div>
-
-                        <div className="w-full">
-                          {item?.package?.map((venue, index) => (<div key={index}
-                            className="border border-gray-700 p-6 rounded-xl flex-wrap  mb-3 p-2">
-
-                              <div className="flex justify-between">
-                                <h2 className="text-white text-2xl capitalize">
-                                  {venue.services_provider_name || venue?.name}
-                                </h2>
-                                <div className="flex items-center gap-4">
-                                  <div className="flex items-center flex">
-                                    <p className="text-white whitespace-nowrap pe-3">Price (USD) </p>
-                                    <input
-                                      type="number"
-                                      className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
-                                      placeholder="Enter Price"
-                                      value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
-                                      onChange={(e) => handleInputChange(venue, e.target.value)}
-                                    />
-                                    <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-lg px-4 p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
-                                      Update
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-                          </div>
-                          ))}
-                        </div>
-
-                        <ul className="bg-[#0006] p-6 rounded-xl">
-                          <li className="text-white mt-2">
-                            <strong>Raj Hotel</strong> : 12*300
-                          </li>
-                          <li className="text-white mt-2">
-                            <strong>Sodhani Sweets</strong> : 12*300
-                          </li>
-                          <li className="text-white mt-2">
-                            <strong>Total Price :</strong> :  787855
-                          </li>
-                        </ul>
-                        
-                      {item?.status === "pending" && (
-                        <div className="w-full mb-[10px] mt-[30px]">
-                          <div className="flex flex-wrap flex-row items-center">
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() => handleActiveStatues(item?._id, "approved")}
-                                className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                              >
-                                Approve
-                              </button>
-                              <button
-                                onClick={() => handleActiveStatues(item?._id, "rejected")}
-                                className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                              >
-                                Reject
-                              </button>
-                            </div>
-
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="w-full ">
-                        <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-                          {/* Right Section: Payment Generator Button */}
-                          <div>
-                            {payment?.payment_status !== "success" ? (
-                              item?.status === "approved" &&
-                              item?.totalPrice !== 0 && (
-                                <button
-                                  onClick={() => handlepayment(item?._id)}
-                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                                >
-                                  Payment Generator
-                                </button>
-                              )
-                            ) : (
-                              <button
-                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
-                              >
-                                Payment successfully done.
-                              </button>
-
-                            )}
-
-                          </div>
-                        </div>
+                    <div className="flex max-w-[600px]">
+                      <div className="w-full">
+                        <label className="text-gray-300 mb-2 block">Choose No. of attendees</label>
+                        <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full" />
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full">
+                    {item?.package?.map((venue, index) => (<div key={index}
+                      className="border border-gray-700 p-6 rounded-xl flex-wrap  mb-3 p-2">
+
+                      <div className="flex justify-between">
+                        <h2 className="text-white text-2xl capitalize">
+                          {venue.services_provider_name || venue?.name}
+                        </h2>
+
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center flex">
+                            <p className="text-white whitespace-nowrap pe-3">Price (USD)</p>
+                            <input
+                              type="number"
+                              className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
+                              placeholder="Enter Price"
+                              value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
+                              onChange={(e) => {
+                                const value = e.target.value; // Get the raw input value
+                                if (value === "" || parseFloat(value) < 2) {
+                                  // Handle empty input or invalid values
+                                  handlePriceChange(venue, null); // Pass `null` to indicate removal
+                                } else {
+                                  // Handle valid input (>= 2)
+                                  handlePriceChange(venue, parseFloat(value));
+                                }
+                              }}
+                            />
+                          </div>
+                        </div>
+
+
+
+                      </div>
+
+                    </div>
+                    ))}
+                  </div>
+
+                  <ul className="bg-[#0006] p-6 rounded-xl">
+                    {item?.package?.map((venue, index) => {
+                      const price = venue?.price_level ? parseFloat(venue?.price_level).toFixed(2) : parseFloat(venue?.services_provider_price).toFixed(2);
+                      const totalPrice = (price * currencyprice).toFixed(2);
+                      return (
+                        <li key={index} className="text-white mt-2">
+                          <strong className="capitalize">{venue.services_provider_name || venue?.name}</strong> :
+                          <Valuedata amount={totalPrice} currency={currency} /> * {item?.attendees}
+                        </li>
+                      );
+                    })}
+
+
+                    <li className="text-white mt-2">
+                      <strong>Total Price :</strong>
+                      <Valuedata amount={totalPriceData} currency={currency} />
+                    </li>
+                  </ul>
+
+                  {item?.status === "pending" && (
+                    <div className="w-full mb-[10px] mt-[30px]">
+                      <div className="flex flex-wrap flex-row items-center">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleActiveStatues(item?._id, "approved")}
+                            className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => handleActiveStatues(item?._id, "rejected")}
+                            className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                          >
+                            Reject
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="w-full ">
+                    <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
+                      {/* Right Section: Payment Generator Button */}
+                      <div>
+                        {payment?.payment_status !== "success" ? (
+                          item?.status === "approved" &&
+                          item?.totalPrice !== 0 && (
+                            <button
+                              onClick={() => handlepayment(item?._id)}
+                              className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                            >
+                              Payment Generator
+                            </button>
+                          )
+                        ) : (
+                          <button
+                            className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                          >
+                            Payment successfully done.
+                          </button>
+
+                        )}
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
