@@ -295,10 +295,11 @@ export default function BookingView() {
 
                     <div className="w-[100%] md:w-[55%] lg:w-[55%] pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
-                        <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
-                          Package Name : {item.package_name}
-                        </span>
-                        <button
+                        <h2 className="w-full text-2xl font-bold text-white">
+                          {item.package_name}
+                        </h2>
+                      </div>
+                        {/* <button
                           className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
                             ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                             : item?.status === "approved"
@@ -309,10 +310,9 @@ export default function BookingView() {
                             }`}
                         >
                           {item?.status}
-                        </button>
-                      </div>
+                        </button> */}
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Date :{" "}
+                        Booking Date :{" "}
                         <span className=" text-[17px] ">
                           {item?.bookingDate}
                           {/* {moment(item?.bookingDate).format("MMMM Do, YYYY")} */}
@@ -324,100 +324,22 @@ export default function BookingView() {
                           {item?.location}
                         </span>
                       </div>
-                      <div className="w-full mb-2.5 text-white font-semibold">
-                        <span className="text-red-500 text-lg">
-                          Please review the price and currency before confirming the booking. You can make changes if necessary.
-                        </span>
-                      </div>
+                      
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Price :{" "}
-                        <span className="text-white text-[17px]  ">
+                        {/* <span className="text-white text-[17px]  ">
                           {currencySymbol[item?.CurrencyCode]} {pricelevel }
-
-                        </span>
+                        </span> */}
+                        {pricelevel}
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Total Price (totalPrice* Number of Attendees):{" "}
                         <span className="text-white text-[17px] flex mt-3  ">
                           {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
-
                         </span>
                       </div>
 
-                      {item?.status === "approved" ? (
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Number of attendees:{" "}
-                          <span className="text-white text-[17px]  ">
-                            {item?.attendees}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className=" inline-flex items-center capitalize border font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]"> <span className="flex items-center gap-1">
-                          <span className="text-[16px]">Number of attendees:</span>
-                        </span>
-                          <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="cursor-pointer text-white ml-2 bg-transparent outline-none  font-semibold text-left" />
-                        </div>
-                      )}
-
-                      {item?.status === "approved" ? (
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Select Currency :{" "}
-                          <span className="text-white text-[17px]  ">
-                            {item?.currency}
-                          </span>
-                        </div>
-                      ) : (
-                        <>
-                          <div className=" inline-flex items-center  mt-3  mb-3 capitalize  font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]">
-                            <span className="text-[16px]">Select Currency :</span>
-                          </div>
-                          <select
-                            value={currency}
-                            className="px-3 py-2 rounded bg-gray-700 border border-white text-white "
-                            onChange={(e) => (setCurrency(e.target.value))}
-                          >
-                            {currencies.map((currency, idx) => (
-                              <option key={idx} value={currency}>
-                                {currency}
-                              </option>
-                            ))}
-                          </select>
-                        </>
-                      )}
-                      {item?.status === "approved" ? (
-                        <></>
-                      ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5">
-                          {item?.package?.map((venue, index) => (<div key={index}
-                            className="flex flex-wrap gap-4 mb-3 p-2">
-                            <label className="text-white">
-                              <span className="text-green-500 capitalize">{venue.services_provider_name || venue?.name}  </span>
-                              Manage Price (Per Person)</label>
-                            <p className="text-white text-[15px]">
-                              Convert Currency Price:-
-                              <span className="flex mt-1"> 
-                              {currencySymbol[currency]}  {venue?.services_provider_price? venue?.services_provider_price*currencyprice :venue?.price_level*currencyprice }
-                              </span>
-                              </p>
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-2">
-                                <p className="text-white">  {currencySymbol[item?.CurrencyCode]}</p>
-                                <input
-                                  type="number"
-                                  className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
-                                  placeholder="Enter Price"
-                                  value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
-                                  onChange={(e) => handleInputChange(venue, e.target.value)}
-                                />
-                                <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-full p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
-                                  <FaEdit size={16} /> </button>
-                              </div>
-                            </div>
-                          </div>
-                          ))} </div>
-                      )}
-                      <div>
-                        <p className="w-full mb-[10px] text-white text-[17px] font-bold">
+                      <p className="w-full mb-[10px] text-gray-200 border-t border-gray-800 mt-4 pt-4 text-[17px] font-bold">
                           User Detail :{" "}
                         </p>
                         <div className="w-full mb-[10px] text-white font-semibold">
@@ -442,6 +364,13 @@ export default function BookingView() {
                           </span>
                         </div>
 
+                      
+
+
+                      
+                      <div>
+                      
+
                       </div>
                     </div>
 
@@ -463,8 +392,11 @@ export default function BookingView() {
                             <h2 className="text-xl font-semibold capitalize text-white">
                               {venue.services_provider_name || venue?.name}
                             </h2>
-                            {venue.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link>)}
                           </div>
+
+                          <ul>
+                            <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link>)}</li>
+                          </ul>
 
                           <div className="flex flex-wrap items-center justify-start md:justify-between mb-[15px]">
                             {venue.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center gap-2 w-[100%] md:w-[40%] text-white text-sm" > <FaEnvelope size={14} className="inline" /> {venue.services_provider_email} </Link>)}
@@ -543,6 +475,72 @@ export default function BookingView() {
                       </div>
                     ))}
                   </div>
+
+                  
+
+                  <div className="w-full py-8">
+                  
+                        <div className="w-full">
+                          {item?.package?.map((venue, index) => (<div key={index}
+                            className="flex flex-wrap gap-4 mb-3 p-2">
+                            <label className="text-white">
+                              <span className="text-green-500 capitalize">{venue.services_provider_name || venue?.name}  </span>
+                              Manage Price (Per Person)</label>
+                            <p className="text-white text-[15px]">
+                              Convert Currency Price:-
+                              <span className="flex mt-1"> 
+                              {currencySymbol[currency]}  {venue?.services_provider_price? venue?.services_provider_price*currencyprice :venue?.price_level*currencyprice }
+                              </span>
+                              </p>
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-2">
+                                <p className="text-white">  {currencySymbol[item?.CurrencyCode]}</p>
+                                <input
+                                  type="number"
+                                  className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
+                                  placeholder="Enter Price"
+                                  value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
+                                  onChange={(e) => handleInputChange(venue, e.target.value)}
+                                />
+                                <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-full p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
+                                  <FaEdit size={16} /> </button>
+                              </div>
+                            </div>
+                          </div>
+                          ))}
+                        </div>
+                       
+
+                        {item?.status === "approved" ? (
+                        <div className="w-full mb-[10px] text-white font-semibold">
+                          Number of attendees:{" "}
+                          <span className="text-white text-[17px]  ">
+                            {item?.attendees}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className=" inline-flex items-center capitalize border font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]"> <span className="flex items-center gap-1">
+                          <span className="text-[16px]">Number of attendees:</span>
+                        </span>
+                          <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="cursor-pointer text-white ml-2 bg-transparent outline-none  font-semibold text-left" />
+                        </div>
+                      )}
+
+                    <div className=" inline-flex items-center  mt-3  mb-3 capitalize  font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]">
+                          <span className="text-[16px]">Select Currency :</span>
+                        </div>
+                        <select
+                          value={currency}
+                          className="px-3 py-2 rounded bg-gray-700 border border-white text-white "
+                          onChange={(e) => (setCurrency(e.target.value))}
+                        >
+                          {currencies.map((currency, idx) => (
+                            <option key={idx} value={currency}>
+                              {currency}
+                            </option>
+                          ))}
+                        </select>
+                    </div>
 
                   {item?.status === "pending" && (
                     <div className="w-full mb-[10px] mt-[30px]">
