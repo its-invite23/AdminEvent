@@ -332,14 +332,14 @@ export default function BookingView() {
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Price :{" "}
                         <span className="text-white text-[17px]  ">
-                          {currencySymbol[currency]} {pricelevel * currencyprice}
+                          {currencySymbol[item?.CurrencyCode]} {pricelevel }
 
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Total Price (totalPrice* Number of Attendees):{" "}
                         <span className="text-white text-[17px] flex mt-3  ">
-                          {currencySymbol[currency]} {item?.totalPrice * currencyprice}
+                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
 
                         </span>
                       </div>
