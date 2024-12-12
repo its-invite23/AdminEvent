@@ -255,28 +255,15 @@ export default function BookingView() {
           <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
             <div className="flex flex-col">
               <div className="flex items-center justify-between mb-[20px]">
-                <h3 className="text-[30px] font-semibold text-white mb-[5px]">
+                <h3 className="text-[25px] font-semibold text-white mb-[5px]">
                   <button
                     type="button"
                     onClick={() => navigate(-1)}
-                    className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[20px] py-[10px] text-white rounded-[5px] text-center  cursor-pointer"
-                  >
-                    <IoIosArrowBack size={24} />
-                  </button>
-                  Booking View
+                    className="ml-4 mr-4 mt-5 mb-5 bg-[#EB3465] hover:bg-[#fb3a6e] font-manrope font-[700] text-[14px] px-[15px] py-[8px] text-white rounded-[5px] text-center  cursor-pointer">
+                    <IoIosArrowBack size={20} />
+                  </button> Back
                 </h3>
-                <button
-                  className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.status === "pending"
-                    ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
-                    : item?.status === "approved"
-                      ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
-                      : item?.status === "rejected"
-                        ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
-                        : ""
-                    }`}
-                >
-                  {item?.status}
-                </button>
+               
               </div>
               {loading ? (
                 <LoadingSpinner />
@@ -324,40 +311,42 @@ export default function BookingView() {
                           {item?.location}
                         </span>
                       </div>
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                        Booking Status : 
+                        <button className={`px-3 py-1 ms-2 rounded-[30px] capitalize  ${item?.status === "pending"
+                          ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
+                          : item?.status === "approved"
+                            ? "border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]"
+                            : item?.status === "rejected"
+                              ? "border-[#EB3465] bg-[#EB34651A] text-[#EB3465]"
+                              : ""
+                          }`}>
+                        {item?.status}
+                        </button>
+                        
+                      </div>
                       
-                      <div className="w-full mb-[10px] text-white font-semibold">
-                        Price :{" "}
-                        {/* <span className="text-white text-[17px]  ">
-                          {currencySymbol[item?.CurrencyCode]} {pricelevel }
-                        </span> */}
-                        {pricelevel}
-                      </div>
-                      <div className="w-full mb-[10px] text-white font-semibold">
-                        Total Price (totalPrice* Number of Attendees):{" "}
-                        <span className="text-white text-[17px] flex mt-3  ">
-                          {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
-                        </span>
-                      </div>
+                      
 
                       <p className="w-full mb-[10px] text-gray-200 border-t border-gray-800 mt-4 pt-4 text-[17px] font-bold">
-                          User Detail :{" "}
+                          User Info : 
                         </p>
                         <div className="w-full mb-[10px] text-white font-semibold">
-                          Name   :{" "}
+                          Name : 
                           <span className="text-white capitalize text-[17px]  ">
                             {item?.userId?.username}
                           </span>
                         </div>
 
                         <div className="w-full mb-[10px] text-white font-semibold">
-                          Email   :{" "}
+                          Email : 
                           <span className="text-white text-[17px]  ">
                             {item?.userId?.email}
                           </span>
                         </div>
 
                         <div className="w-full mb-[10px] text-white font-semibold">
-                          Phone Number   :{" "}
+                          Phone Number : 
                           <span className="text-white text-[17px]  gap-2">
                             {item?.userId?.phone_code}
                             {item?.userId?.phone_number}
@@ -377,22 +366,25 @@ export default function BookingView() {
 
                   </div>
 
-                  <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
-                    Services Provider Details
+                  <h3 className="sm:text-[20px] lg:text-[23px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
+                    Choosed Services Providers
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                     {item?.package?.map((venue, index) => (
                       <div
-                        className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col  border border-[#9999]"
-                        key={index}
-                      >
+                        className="bg-[#1B1B1B] shadow-lg rounded-xl overflow-hidden flex flex-col border border-gray-700"
+                        key={index} >
                         <VenuePhotos venue={venue} />
-                        <div className=" px-[10px] md:px-[10px] py-[10px]">
-                          <div className="flex justify-between items-center mb-[20px]">
+                        <div className="p-6">
                             <h2 className="text-xl font-semibold capitalize text-white">
                               {venue.services_provider_name || venue?.name}
                             </h2>
-                          </div>
+
+                            {venue?.services_provider_price && (
+                              <p className="text-white font-bold my-2 text-[20px]">
+                                ${venue.services_provider_price} per person
+                              </p>
+                            )} 
 
                           <ul>
                             <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white" > <FaPhoneAlt size={12} className="inline" /> {venue.services_provider_phone} </Link>)}</li>
@@ -421,13 +413,7 @@ export default function BookingView() {
                             )}
 
 
-                            {venue?.services_provider_price && (
-                              <p className="text-white text-[15px]">
-                                {currencySymbol[item?.CurrencyCode]}
-                                {venue?.services_provider_price &&
-                                  `${venue.services_provider_price}/person`}
-                              </p>
-                            )}
+                            
 
 
                             <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
@@ -470,128 +456,123 @@ export default function BookingView() {
                             {venue?.package_descrption}{" "}
                           </p>
                         </div>
-
-
                       </div>
                     ))}
                   </div>
 
-                  
+                  <div className="w-full pt-8 pb-2">
 
-                  <div className="w-full py-8">
-                  
+                        <div className="flex max-w-[600px]">
+                            <div className="w-full">
+                              <label className="text-gray-300 mb-2 block">Choose No. of attendees</label>
+                              <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full" />
+                            </div>
+
+                            {/* <div className="w-full ps-6">
+                              <label className="text-gray-300 mb-2 block">Choose Currency</label>
+                              <select 
+                                defaultValue={currency}
+                                className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full"
+                                onChange={(e) => (setCurrency(e.target.value))} >
+                                {currencies.map((currency, idx) => (
+                                  <option key={idx} value={currency}>
+                                    {currency}
+                                  </option>
+                                ))}
+                              </select>
+                            </div> */}
+                        </div>
+                        </div>
+
                         <div className="w-full">
                           {item?.package?.map((venue, index) => (<div key={index}
-                            className="flex flex-wrap gap-4 mb-3 p-2">
-                            <label className="text-white">
-                              <span className="text-green-500 capitalize">{venue.services_provider_name || venue?.name}  </span>
-                              Manage Price (Per Person)</label>
-                            <p className="text-white text-[15px]">
-                              Convert Currency Price:-
-                              <span className="flex mt-1"> 
-                              {currencySymbol[currency]}  {venue?.services_provider_price? venue?.services_provider_price*currencyprice :venue?.price_level*currencyprice }
-                              </span>
-                              </p>
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-2">
-                                <p className="text-white">  {currencySymbol[item?.CurrencyCode]}</p>
-                                <input
-                                  type="number"
-                                  className="px-3 py-2 rounded bg-gray-700 border border-white text-white w-full"
-                                  placeholder="Enter Price"
-                                  value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
-                                  onChange={(e) => handleInputChange(venue, e.target.value)}
-                                />
-                                <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-full p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
-                                  <FaEdit size={16} /> </button>
+                            className="border border-gray-700 p-6 rounded-xl flex-wrap  mb-3 p-2">
+
+                              <div className="flex justify-between">
+                                <h2 className="text-white text-2xl capitalize">
+                                  {venue.services_provider_name || venue?.name}
+                                </h2>
+                                <div className="flex items-center gap-4">
+                                  <div className="flex items-center flex">
+                                    <p className="text-white whitespace-nowrap pe-3">Price (USD) </p>
+                                    <input
+                                      type="number"
+                                      className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
+                                      placeholder="Enter Price"
+                                      value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
+                                      onChange={(e) => handleInputChange(venue, e.target.value)}
+                                    />
+                                    <button onClick={() => handlePriceChange(venue)} className={`text-white bg-gray-800 rounded-lg px-4 p-2 ${loading ? "opacity-50 pointer-events-none" : ""}`} disabled={loading} >
+                                      Update
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+
                           </div>
                           ))}
                         </div>
-                       
 
-                        {item?.status === "approved" ? (
-                        <div className="w-full mb-[10px] text-white font-semibold">
-                          Number of attendees:{" "}
-                          <span className="text-white text-[17px]  ">
-                            {item?.attendees}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className=" inline-flex items-center capitalize border font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]"> <span className="flex items-center gap-1">
-                          <span className="text-[16px]">Number of attendees:</span>
-                        </span>
-                          <input type="number" value={attend} onChange={(e) => (setAttend(e.target.value))} className="cursor-pointer text-white ml-2 bg-transparent outline-none  font-semibold text-left" />
+                        <ul className="bg-[#0006] p-6 rounded-xl">
+                          <li className="text-white mt-2">
+                            <strong>Raj Hotel</strong> : 12*300
+                          </li>
+                          <li className="text-white mt-2">
+                            <strong>Sodhani Sweets</strong> : 12*300
+                          </li>
+                          <li className="text-white mt-2">
+                            <strong>Total Price :</strong> :  787855
+                          </li>
+                        </ul>
+                        
+                      {item?.status === "pending" && (
+                        <div className="w-full mb-[10px] mt-[30px]">
+                          <div className="flex flex-wrap flex-row items-center">
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => handleActiveStatues(item?._id, "approved")}
+                                className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                onClick={() => handleActiveStatues(item?._id, "rejected")}
+                                className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                              >
+                                Reject
+                              </button>
+                            </div>
+
+                          </div>
                         </div>
                       )}
 
-                    <div className=" inline-flex items-center  mt-3  mb-3 capitalize  font-manrope text-white font-[600]  px-[15px] py-[5px] rounded-[60px]">
-                          <span className="text-[16px]">Select Currency :</span>
+                      <div className="w-full ">
+                        <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
+                          {/* Right Section: Payment Generator Button */}
+                          <div>
+                            {payment?.payment_status !== "success" ? (
+                              item?.status === "approved" &&
+                              item?.totalPrice !== 0 && (
+                                <button
+                                  onClick={() => handlepayment(item?._id)}
+                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                                >
+                                  Payment Generator
+                                </button>
+                              )
+                            ) : (
+                              <button
+                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                              >
+                                Payment successfully done.
+                              </button>
+
+                            )}
+
+                          </div>
                         </div>
-                        <select
-                          value={currency}
-                          className="px-3 py-2 rounded bg-gray-700 border border-white text-white "
-                          onChange={(e) => (setCurrency(e.target.value))}
-                        >
-                          {currencies.map((currency, idx) => (
-                            <option key={idx} value={currency}>
-                              {currency}
-                            </option>
-                          ))}
-                        </select>
-                    </div>
-
-                  {item?.status === "pending" && (
-                    <div className="w-full mb-[10px] mt-[30px]">
-                      <div className="flex flex-wrap  flex-row items-center justify-center gap-4">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleActiveStatues(item?._id, "approved")}
-                            className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => handleActiveStatues(item?._id, "rejected")}
-                            className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                          >
-                            Reject
-                          </button>
-                        </div>
-
                       </div>
-
-                    </div>
-                  )}
-
-
-                  <div className="w-full ">
-                    <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-                      {/* Right Section: Payment Generator Button */}
-                      <div>
-                        {payment?.payment_status !== "success" ? (
-                          item?.status === "approved" &&
-                          item?.totalPrice !== 0 && (
-                            <button
-                              onClick={() => handlepayment(item?._id)}
-                              className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                            >
-                              Payment Generator
-                            </button>
-                          )
-                        ) : (
-                          <button
-                            className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
-                          >
-                            Payment successfully done.
-                          </button>
-
-                        )}
-
-                      </div>
-                    </div>
-                  </div>
                 </div>
               )}
             </div>
