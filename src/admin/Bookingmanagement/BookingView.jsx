@@ -68,7 +68,7 @@ export default function BookingView() {
         setLoading(false);
       });
   };
-
+  console.log("item", item)
 
 
   const handlepayment = (Id) => {
@@ -79,10 +79,7 @@ export default function BookingView() {
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPayment({
-      _id: Id,
-      payment_genrator_link: true,
-      currency: item?.CurrencyCode,
-      totalPrice : totalPriceData
+      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalPriceData, payment_genrator_date: new Date()
     });
     response
       .then((res) => {
@@ -100,9 +97,6 @@ export default function BookingView() {
         setLoading(false);
       });
   };
-
-
-
 
   const fechtpaymentdata = async () => {
     setLoading(true);
@@ -145,7 +139,23 @@ export default function BookingView() {
     })) || []
   );
 
+  const handleInputChange = (venue, value) => {
+    setInputs((prevInputs) =>
+      prevInputs.map((input) =>
+        input.id === venue.place_id ? { ...input, price: value } : input
+      )
+    );
+  };
 
+  const handleBlur = (venue, value) => {
+    setTimeout(() => {
+      if (value === "" || parseFloat(value) < 2) {
+        handlePriceChange(venue, null); // Pass `null` to indicate removal
+      } else {
+        handlePriceChange(venue, parseFloat(value));
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  };
 
   const handlePriceChange = (venue, updatedPrice) => {
     const updatedInput = inputs?.find(input => input.id === venue.place_id);
@@ -201,6 +211,7 @@ export default function BookingView() {
       );
     }
   }, [item]);
+
   const fectcurrency = async () => {
     try {
       const main = new Listing();
@@ -213,7 +224,7 @@ export default function BookingView() {
 
   useEffect(() => {
     if (currency) {
-      fectcurrency(); // Trigger API call when currency changes
+      fectcurrency();
     }
   }, [currency]); //
 
@@ -297,11 +308,7 @@ export default function BookingView() {
                           }`}>
                           {item?.status}
                         </button>
-
                       </div>
-
-
-
                       <p className="w-full mb-[10px] text-gray-200 border-t border-gray-800 mt-4 pt-4 text-[17px] font-bold">
                         User Info :
                       </p>
@@ -326,14 +333,7 @@ export default function BookingView() {
                           {item?.userId?.phone_number}
                         </span>
                       </div>
-
-
-
-
-
                       <div>
-
-
                       </div>
                     </div>
 
@@ -356,13 +356,16 @@ export default function BookingView() {
 
                           {venue?.services_provider_price && (
                             <p className="text-white font-bold my-2 text-[20px]">
-                              ${venue.services_provider_price} per person
+                              <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />per person
                             </p>
                           )}
 
                           {venue?.price_level && (
                             <p className="text-white font-bold my-2 text-[20px]">
-                              ${venue?.price_level} per person
+                              <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
+                              s
+
+                              per person
                             </p>
                           )}
 
@@ -404,10 +407,53 @@ export default function BookingView() {
                       className="border border-gray-700 p-6 rounded-xl flex-wrap  mb-3 p-2">
 
                       <div className="flex justify-between">
-                        <h2 className="text-white text-2xl capitalize">
-                          {venue.services_provider_name || venue?.name}
-                        </h2>
+                        <div className="flex flex-col">
+                          <h2 className="text-white text-2xl capitalize">
+                            {venue.services_provider_name || venue?.name}
+                          </h2>
+                          <div className="flex flex-col">
+                            {venue?.services_provider_price && (
+                              <div className="flex flex-col items-start mb-4">
+                                <p className="text-white font-bold my-2 text-[20px] mr-4">
 
+                                  <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
+
+                                </p>
+                                <div className="flex flex-wrap">
+                                  {venue.package_categories?.map((category, index) => (
+                                    <span
+                                      key={index}
+                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
+                                    >
+                                      {category}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {venue?.price_level && (
+                              <div className="flex flex-col items-start mb-4">
+                                <p className="text-white font-bold my-2 text-[20px] mr-4">
+                                  <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
+                                  / per person
+                                </p>
+                                <div className="flex flex-wrap">
+                                  {venue?.types
+                                    ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
+                                    .map((category, index) => (
+                                      <span
+                                        key={index}
+                                        className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
+                                      >
+                                        {category}
+                                      </span>
+                                    ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                        </div>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center flex">
                             <p className="text-white whitespace-nowrap pe-3">Price (USD)</p>
@@ -416,24 +462,12 @@ export default function BookingView() {
                               className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
                               placeholder="Enter Price"
                               value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
-                              onChange={(e) => {
-                                const value = e.target.value; // Get the raw input value
-                                if (value === "" || parseFloat(value) < 2) {
-                                  // Handle empty input or invalid values
-                                  handlePriceChange(venue, null); // Pass `null` to indicate removal
-                                } else {
-                                  // Handle valid input (>= 2)
-                                  handlePriceChange(venue, parseFloat(value));
-                                }
-                              }}
+                              onChange={(e) => handleInputChange(venue, e.target.value)}
+                              onBlur={(e) => handleBlur(venue, e.target.value)}
                             />
                           </div>
                         </div>
-
-
-
                       </div>
-
                     </div>
                     ))}
                   </div>
@@ -483,25 +517,30 @@ export default function BookingView() {
                     <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                       {/* Right Section: Payment Generator Button */}
                       <div>
-                        {payment?.payment_status !== "success" ? (
-                          item?.status === "approved" &&
-                          item?.totalPrice !== 0 && (
-                            <button
-                              onClick={() => handlepayment(item?._id)}
-                              className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                            >
-                              Payment Generator
-                            </button>
-                          )
-                        ) : (
-                          <button
-                            className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
-                          >
-                            Payment successfully done.
-                          </button>
+                        {<>
 
-                        )}
+                          {item?.payment_genrator_link !== true && (
+                            payment?.payment_status !== "success" ? (
+                              item?.status === "approved" &&
+                              item?.totalPrice !== 0 && (
+                                <button
+                                  onClick={() => handlepayment(item?._id)}
+                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                                >
+                                  Genrator Payment Link
+                                </button>
+                              )
+                            ) : (
+                              <button
+                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                              >
+                                Payment successfully done.
+                              </button>
 
+                            )
+                          )}
+
+                        </>}
                       </div>
                     </div>
                   </div>

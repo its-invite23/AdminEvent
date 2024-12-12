@@ -37,13 +37,13 @@ const VenuePhotos = ({ venue }) => {
               <IoStar size={11} className="text-[#ffff00] mr-2" />
               {venue?.rating}
             </div>
-            <div className="absolute bottom-2 left-2 text-white text-[16px] flex flex-wrap">
+            <div className="absolute bottom-1 left-1 text-white text-[13px] flex flex-wrap">
               {venue?.types
                 ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
                 .map((category, index) => (
                   <span
                     key={index}
-                    className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
+                    className="bg-black capitalize text-white px-3 py-1 rounded-full mr-1 mb-1 inline-block"
                   >
                     {category}
                   </span>
@@ -69,11 +69,11 @@ const VenuePhotos = ({ venue }) => {
                 {venue.services_provider_categries}
               </div>
             )}
-            <div className="absolute bottom-2 left-2 text-white text-[16px] flex flex-wrap">
+            <div className="absolute bottom-1 left-1 text-white text-[13px] flex flex-wrap">
               {venue.package_categories?.map((category, index) => (
                 <span
                   key={index}
-                  className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2 inline-block"
+                  className="bg-black capitalize text-white px-2 py-1 rounded-full mr-2 mb-2 inline-block"
                 >
                   {category}
                 </span>
