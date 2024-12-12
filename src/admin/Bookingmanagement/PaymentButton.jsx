@@ -6,7 +6,8 @@ const PaymentButton = ({ item, handlepayment, payment }) => {
 
   // Check if 24 hours have passed since createdDate and payment status is not success
   useEffect(() => {
-    const createdDate = new Date(item?.createdDate);
+    const createdDate = new Date(item?.payment_genrator_date
+    );
     const currentTime = new Date();
     const hoursPassed = (currentTime - createdDate) / (1000 * 60 * 60); // Convert to hours
     if (hoursPassed >= 24 && payment?.payment_status !== "success") {

@@ -464,6 +464,7 @@ export default function BookingView() {
                               value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
                               onChange={(e) => handleInputChange(venue, e.target.value)}
                               onBlur={(e) => handleBlur(venue, e.target.value)}
+                              onFocus={()=>("Please click outside of the input to update the price.")}
                             />
                           </div>
                         </div>
