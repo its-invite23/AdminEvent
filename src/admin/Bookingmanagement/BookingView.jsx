@@ -6,10 +6,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
-import Loaction from "../compontents/Loaction";
 import VenuePhotos from "../compontents/VenuePhotos";
 import moment from "moment";
 import Valuedata from "../compontents/Valuedata";
+import Location from "../compontents/Location";
 export default function BookingView() {
 
   const [loading, setLoading] = useState(false);
@@ -281,7 +281,7 @@ export default function BookingView() {
                       <div className="w-full mb-[10px] text-white font-semibold">
                         Booking Date :{" "}
                         <span className=" text-[17px] ">
-                          {moment(item?.bookingDate).format("D MMM YYYY")}
+                          {moment(item?.bookingDate, "DD-MM-YYYY").format("DD MMMM YYYY")}
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
@@ -350,14 +350,14 @@ export default function BookingView() {
 
                           {venue?.services_provider_price && (
                             <p className="text-white font-bold my-2 text-[20px]">
-                              <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />per person
+                              <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />Per Person
                             </p>
                           )}
 
                           {venue?.price_level && (
                             <p className="text-white font-bold my-2 text-[20px]">
-                              <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
-                                 
+                              <Valuedata currency={currency} amount={venue.price_level * currencyprice} /> Per Person
+
                             </p>
                           )}
 
@@ -365,7 +365,7 @@ export default function BookingView() {
                             <ul>
                               <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
                               <li className="text-white flex"><strong className="pe-2">Email :</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
-                              <Loaction venue={venue} />
+                              <Location venue={venue} />
                             </ul>
                           )}
 
@@ -373,7 +373,7 @@ export default function BookingView() {
                             <ul>
                               <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.placeDetails?.international_phone_number && (<Link to={`tel:${venue?.placeDetails?.international_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue?.placeDetails?.international_phone_number} </Link>)}</li>
                               <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue.placeDetails.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
-                              <Loaction venue={venue} />
+                              <Location venue={venue} />
                             </ul>
                           )}
                           <p className="truncate-two-lines text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
@@ -406,7 +406,7 @@ export default function BookingView() {
                             {venue?.services_provider_price && (
                               <div className="flex flex-col items-start mb-4">
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
-                                <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
+                                  <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
                                 </p>
                                 <div className="flex flex-wrap">
                                   {venue.package_categories?.map((category, index) => (
@@ -420,10 +420,9 @@ export default function BookingView() {
                                 </div>
                               </div>
                             )}
-                            {venue?.price_level && (
                               <div className="flex flex-col items-start mb-4">
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
-                                  <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
+                                  <Valuedata currency={currency} amount={ isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2)  * currencyprice} /> Per Person
                                 </p>
                                 <div className="flex flex-wrap">
                                   {venue?.types
@@ -438,7 +437,6 @@ export default function BookingView() {
                                     ))}
                                 </div>
                               </div>
-                            )}
                           </div>
 
                         </div>
@@ -463,15 +461,19 @@ export default function BookingView() {
 
                   <ul className="bg-[#0006] p-6 rounded-xl">
                     {item?.package?.map((venue, index) => {
-                      const price = venue?.price_level ? parseFloat(venue?.price_level).toFixed(2) : parseFloat(venue?.services_provider_price).toFixed(2);
-                      const totalPrice = (price * currencyprice).toFixed(2);
+                      const price = venue?.price_level ? parseFloat(venue?.price_level) : parseFloat(venue?.services_provider_price);
+                      const validPrice = isNaN(price) ? 0 : price.toFixed(2);
+                      const totalPrice = (validPrice * currencyprice).toFixed(2);
+                      const validTotalPrice = isNaN(totalPrice) ? 0 : totalPrice;
+
                       return (
                         <li key={index} className="text-white mt-2">
                           <strong className="capitalize">{venue.services_provider_name || venue?.name}</strong> :
-                          <Valuedata amount={totalPrice} currency={currency} /> * {item?.attendees}
+                          <Valuedata amount={validTotalPrice} currency={currency} /> x {item?.attendees}
                         </li>
                       );
                     })}
+
 
 
                     <li className="text-white mt-2">

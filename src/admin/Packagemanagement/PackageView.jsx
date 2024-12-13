@@ -7,7 +7,7 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
 import VenuePhotos from "../compontents/VenuePhotos";
 import Valuedata from "../compontents/Valuedata";
-import Loaction from "../compontents/Loaction";
+import Location from "../compontents/Location";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -131,7 +131,7 @@ export default function PackageView() {
                       <ul>
                         <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
                         <li className="text-white flex"><strong className="pe-2">Email :</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
-                        <Loaction venue={venue} />
+                        <Location venue={venue} />
                       </ul>
                     )}
 

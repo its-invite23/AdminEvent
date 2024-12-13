@@ -1,11 +1,11 @@
 import React from "react";
 
-const Loaction = ({ venue }) => {
+const Location = ({ venue }) => {
     const location = venue.package_address ? venue.package_address : venue?.vicinity;
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
 
     return (
-        <li className="text-white flex"><strong className="pe-2">    Loation:</strong>
+        <li className="text-white flex"><strong className="pe-2">    Location:</strong>
             <a
                 href={googleMapsUrl}
                 target="_blank"
@@ -19,4 +19,4 @@ const Loaction = ({ venue }) => {
     );
 };
 
-export default Loaction;
+export default Location;
