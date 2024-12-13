@@ -327,6 +327,13 @@ export default function BookingView() {
                           {item?.userId?.phone_number}
                         </span>
                       </div>
+
+                      <div className="w-full mb-[10px] text-white font-semibold">
+                      User Selected Currency:
+                        <span className="text-white text-[17px]  gap-2">
+                          {item?.CurrencyCode}
+                        </span>
+                      </div>
                       <div>
                       </div>
                     </div>
