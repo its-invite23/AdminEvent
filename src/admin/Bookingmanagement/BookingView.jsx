@@ -283,19 +283,19 @@ export default function BookingView() {
                         </h2>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Booking Date :{" "}
+                        Booking Date:{" "}
                         <span className=" text-[17px] ">
                           {moment(item?.bookingDate, "DD-MM-YYYY").format("DD MMMM YYYY")}
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Location :{" "}
+                        Location:{" "}
                         <span className="text-white text-[17px]  ">
                           {item?.location}
                         </span>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Booking Status :
+                        Booking Status:
                         <button className={`px-3 py-1 ms-2 rounded-[30px] capitalize  ${item?.status === "pending"
                           ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                           : item?.status === "approved"
@@ -311,21 +311,21 @@ export default function BookingView() {
                         User Info :
                       </p>
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Name :
+                        Name:{" "}
                         <span className="text-white capitalize text-[17px]  ">
                           {item?.userId?.username}
                         </span>
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Email :
+                        Email:{" "}
                         <span className="text-white text-[17px]  ">
                           {item?.userId?.email}
                         </span>
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        Phone Number :
+                        Phone Number:{" "}
                         <span className="text-white text-[17px]  gap-2">
                           {item?.userId?.phone_code}
                           {item?.userId?.phone_number}
@@ -333,7 +333,7 @@ export default function BookingView() {
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                        User Selected Currency:
+                        User Selected Currency:{" "}
                         <span className="text-white text-[17px]  gap-2">
                           {item?.CurrencyCode}
                         </span>
@@ -374,16 +374,16 @@ export default function BookingView() {
 
                           {venue.services_provider_name && (
                             <ul>
-                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
-                              <li className="text-white flex"><strong className="pe-2">Email :</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Email:</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
                               <Location venue={venue} />
                             </ul>
                           )}
 
                           {venue.name && (
                             <ul>
-                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.placeDetails?.international_phone_number && (<Link to={`tel:${venue?.placeDetails?.international_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue?.placeDetails?.international_phone_number} </Link>)}</li>
-                              <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue.placeDetails.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue?.placeDetails?.international_phone_number && (<Link to={`tel:${venue?.placeDetails?.international_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue?.placeDetails?.international_phone_number} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue.placeDetails.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
                               <Location venue={venue} />
                             </ul>
                           )}
@@ -415,7 +415,7 @@ export default function BookingView() {
                           </h2>
                           <div className="flex flex-col">
                             {venue?.services_provider_price && (
-                              <div className="flex flex-col items-start mb-4">
+                              <div className="flex flex-col items-start">
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
                                   <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
                                 </p>
@@ -423,7 +423,7 @@ export default function BookingView() {
                                   {venue.package_categories?.map((category, index) => (
                                     <span
                                       key={index}
-                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
+                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mt-2"
                                     >
                                       {category}
                                     </span>
@@ -431,7 +431,7 @@ export default function BookingView() {
                                 </div>
                               </div>
                             )}
-                            <div className="flex flex-col items-start mb-4">
+                            <div className="flex flex-col items-start">
                               {venue.price_level && (
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
                                   <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
@@ -444,7 +444,7 @@ export default function BookingView() {
                                   .map((category, index) => (
                                     <span
                                       key={index}
-                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
+                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mt-2"
                                     >
                                       {category}
                                     </span>
@@ -482,7 +482,7 @@ export default function BookingView() {
 
                       return (
                         <li key={index} className="text-white mt-2">
-                          <strong className="capitalize">{venue.services_provider_name || venue?.name}</strong> :
+                          <strong className="capitalize">{venue.services_provider_name || venue?.name}</strong>:{" "}
                           <Valuedata amount={validTotalPrice} currency={currency} /> x {item?.attendees}
                         </li>
                       );
@@ -491,7 +491,7 @@ export default function BookingView() {
 
 
                     <li className="text-white mt-2">
-                      <strong>Total Price :</strong>
+                      <strong>Total Price:</strong>{" "}
                       <Valuedata amount={totalPriceData} currency={currency} />
                     </li>
                   </ul>
