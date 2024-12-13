@@ -428,9 +428,12 @@ export default function BookingView() {
                               </div>
                             )}
                             <div className="flex flex-col items-start mb-4">
+                            {venue.price_level && (
                               <p className="text-white font-bold my-2 text-[20px] mr-4">
                                 <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
                               </p>
+                            )}
+                              
                               <div className="flex flex-wrap">
                                 {venue?.types
                                   ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
