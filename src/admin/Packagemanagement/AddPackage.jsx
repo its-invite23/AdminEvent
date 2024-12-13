@@ -12,7 +12,6 @@ export default function AddPackage() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(""); // State to store the selected option
 
-
   const [formData, setFormData] = useState({
     package_name: "",
     package_people: "",
