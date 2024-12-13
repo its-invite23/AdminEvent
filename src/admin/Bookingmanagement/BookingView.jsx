@@ -50,7 +50,7 @@ export default function BookingView() {
       return;
     }
     const main = new Listing();
-    const response = main.BookingStatus({ _id: Id, status: status, attendees: attend, CurrencyCode: currency });
+    const response = main.BookingStatus({ _id: Id, status: status, attendees: attend, });
     response
       .then((res) => {
         fetchData(res?.data?.data?._id);
