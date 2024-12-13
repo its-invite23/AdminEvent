@@ -3,7 +3,7 @@ const API_URL = process.env.REACT_APP_URL || "http://localhost:5000";
 
 function getToken() {
   if (typeof window !== 'undefined') {
-    const data = localStorage.getItem('token');
+    const data = localStorage.getItem('AdminToken');
     return data;
   }
   return null;

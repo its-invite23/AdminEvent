@@ -12,7 +12,7 @@ export default function AdminLayout({ children }) {
   const fetchData = async (signal) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("AdminToken");
       if (!token) {
         throw new Error("No token found");
       }
@@ -26,7 +26,7 @@ export default function AdminLayout({ children }) {
     } catch (error) {
       console.error("Fetch error:", error);
       if (error.response?.status === 401 || error.message === "No token found") {
-        localStorage.removeItem("token");
+        localStorage.removeItem("AdminToken");
         toast.error("Session expired. Please log in again.");
         navigate("/");
       } 

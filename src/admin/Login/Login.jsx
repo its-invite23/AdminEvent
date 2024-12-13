@@ -37,7 +37,7 @@ export default function Login() {
       .then((res) => {
         if (res && res?.data && res?.data?.status) {
           toast.success(res.data.message);
-          localStorage && localStorage.setItem("token", res?.data?.token);
+          localStorage && localStorage.setItem("AdminToken", res?.data?.token);
           navigate("/access-admin");
           setLoading(false);
         } else {
