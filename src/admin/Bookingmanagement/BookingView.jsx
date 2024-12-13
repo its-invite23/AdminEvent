@@ -329,7 +329,7 @@ export default function BookingView() {
                       </div>
 
                       <div className="w-full mb-[10px] text-white font-semibold">
-                      User Selected Currency:
+                        User Selected Currency:
                         <span className="text-white text-[17px]  gap-2">
                           {item?.CurrencyCode}
                         </span>
@@ -427,23 +427,23 @@ export default function BookingView() {
                                 </div>
                               </div>
                             )}
-                              <div className="flex flex-col items-start mb-4">
-                                <p className="text-white font-bold my-2 text-[20px] mr-4">
-                                  <Valuedata currency={currency} amount={ isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2)  * currencyprice} /> Per Person
-                                </p>
-                                <div className="flex flex-wrap">
-                                  {venue?.types
-                                    ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
-                                    .map((category, index) => (
-                                      <span
-                                        key={index}
-                                        className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
-                                      >
-                                        {category}
-                                      </span>
-                                    ))}
-                                </div>
+                            <div className="flex flex-col items-start mb-4">
+                              <p className="text-white font-bold my-2 text-[20px] mr-4">
+                                <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
+                              </p>
+                              <div className="flex flex-wrap">
+                                {venue?.types
+                                  ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
+                                  .map((category, index) => (
+                                    <span
+                                      key={index}
+                                      className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mb-2"
+                                    >
+                                      {category}
+                                    </span>
+                                  ))}
                               </div>
+                            </div>
                           </div>
 
                         </div>
