@@ -8,7 +8,6 @@ export default function AdminLayout({ children }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState([]);
-
   const fetchData = async (signal) => {
     setLoading(true);
     try {
