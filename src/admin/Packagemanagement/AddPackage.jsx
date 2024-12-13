@@ -10,6 +10,10 @@ import ServicepackageImage from './ServicepackageImage';
 export default function AddPackage() {
   const { Id } = useParams();
   const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState(""); // State to store the selected option
+
+  console.log("selectedOption", selectedOption)
+
   const [formData, setFormData] = useState({
     package_name: "",
     package_people: "",
@@ -23,6 +27,20 @@ export default function AddPackage() {
     image_filed: "",
   });
 
+  console.log("formData", formData)
+  const handleOptionChange = (e) => {
+    const value = e.target.value;
+    setSelectedOption(value); // Update the selected option
+
+    // Update services_provider_categries for all services
+    setFormData((prevState) => ({
+      ...prevState,
+      package_services: prevState.package_services.map(service => ({
+        ...service,
+        services_provider_categries: value,
+      })),
+    }));
+  };
   const removePackage = (index) => {
     setFormData((prevState) => {
       const updatedServices = [...prevState.package_services];
@@ -62,7 +80,7 @@ export default function AddPackage() {
           services_provider_name: "",
           package_address: "",
           services_image_filed: "",
-          services_provider_categries: "",
+          services_provider_categries: selectedOption || "",
           package_descrption: "",
           services_provider_price: "",
           services_provider_rating: '',
@@ -106,8 +124,14 @@ export default function AddPackage() {
           service_provider_phone: serviceData.services_provider_phone || "",
           package_categories: serviceData.package_categories || [],
           package_address: serviceData.package_address || "",
+          service_provider_price: serviceData.services_provider_price || "",
+          service_provider_rating: serviceData.services_provider_rating || '',
+          service_provider_image: serviceData.services_provider_image || "",
           package_descrption: serviceData.package_descrption || "",
+          image_filed: serviceData.services_image_filed || "",
+          services_provider_categries :serviceData.services_provider_categries  || "",
         });
+        setSelectedOption(serviceData.services_provider_categries  || "")
         setLoading(false);
       }
     } catch (error) {
@@ -211,19 +235,6 @@ export default function AddPackage() {
                 required
               />
             </div>
-            {/* <div className="mb-4">
-              <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Experience</label>
-              <input
-                type="text"
-                onChange={handleChange}
-                name="package_subtitle"
-                value={formData.package_subtitle}
-                className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                placeholder="Enter package Experience"
-                required
-              />
-            </div> */}
-
             <div className="mb-4">
               <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Description</label>
               <input
@@ -238,30 +249,6 @@ export default function AddPackage() {
             </div>
             {/* Row for Minimum, Maximum Price and People */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              {/* <div>
-                <label className="block w-full font-manrope font-[400] text-white text-[14px] md:text-[16px] xl:text-[18px] mb-[10px]">Package Minimum Price</label>
-                <input
-                  type="number"
-                  onChange={handleChange}
-                  name="package_price_min"
-                  value={formData.package_price_min}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                  placeholder="Enter minimum price"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package Maximum Price</label>
-                <input
-                  type="number"
-                  onChange={handleChange}
-                  name="package_price_max"
-                  value={formData.package_price_max}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                  placeholder="Enter maximum price"
-                  required
-                />
-              </div> */}
               <div>
                 <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Package People</label>
                 <input
@@ -274,12 +261,12 @@ export default function AddPackage() {
                   required
                 />
               </div>
-            <PackageImage setFormData={setFormData} formData={formData} />
+              <PackageImage setFormData={setFormData} formData={formData} />
             </div>
             {formData.package_services?.map((packageData, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold text-lg text-white">Services {index + 1}</h3>
+                  <h3 className="font-bold text-lg text-white">Services Provider {index + 1}</h3>
 
                   <button
                     type="submit"
@@ -341,19 +328,7 @@ export default function AddPackage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categories</label>
-                    <input
-                      type="text"
-                      onChange={(e) => handleServiceChange(e, index)}
-                      name="services_provider_categries"
-                      value={packageData.services_provider_categries}
-                      className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder=""
-                      required
-                    />
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]"> Prices (Estimated Budget) </label>
                     <input
@@ -378,9 +353,10 @@ export default function AddPackage() {
                       required
                     />
                   </div>
-
-
                 </div>
+
+
+
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Address</label>
                   <input
@@ -407,7 +383,69 @@ export default function AddPackage() {
                     required
                   />
                 </div>
+                <div className="mb-4">
+                  <div className="bg-[#1B1B1B] p-4 rounded-lg text-white w-full">
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categories</label>
+                    <div className="flex flex-row gap-4 w-full">
+                      {/* Radio Button for Venue */}
+                      <label className="flex items-center gap-2 text-[18px] w-full">
+                        <input
+                          type="radio"
+                          name="services_provider_categries"
+                          value="Venue"
+                          checked={selectedOption === "Venue"}
+                          onChange={handleOptionChange}
+                          className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
+                        />
+                        <span className="w-full text-white text-[22px]">Venue</span>
+                      </label>
 
+                      {/* Radio Button for Categories */}
+                      <label className="flex items-center gap-2 w-full">
+                        <input
+                          type="radio"
+                          name="services_provider_categries"
+                          value="Categories"
+                          checked={selectedOption === "Categories"}
+                          onChange={handleOptionChange}
+                          className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
+                        />
+                        <span className="w-full text-white text-[22px]">Categories</span>
+                      </label>
+
+                      {/* Radio Button for Activity */}
+                      <label className="flex items-center gap-2 w-full">
+                        <input
+                          type="radio"
+                          name="services_provider_categries"
+                          value="Activity"
+                          checked={selectedOption === "Activity"}
+                          onChange={handleOptionChange}
+                          className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
+                        />
+                        <span className="w-full  text-[22px] text-white">Activity</span>
+                      </label>
+
+                      {/* Radio Button for Other */}
+                      <label className="flex items-center gap-2 w-full">
+                        <input
+                          type="radio"
+                          name="services_provider_categries"
+                          value="Other"
+                          checked={selectedOption === "Other"}
+                          onChange={handleOptionChange}
+                          className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
+                        />
+                        <span className="w-full text-[22px]  text-white">Other</span>
+                      </label>
+                    </div>
+
+                    {/* Display the Selected Option */}
+                    <p className="mt-4 text-[18px] ">
+                      Selected Option: <span className="font-bold">{selectedOption || "None"}</span>
+                    </p>
+                  </div>
+                </div>
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Categories (comma-separated)</label>
                   <input

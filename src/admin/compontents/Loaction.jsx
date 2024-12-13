@@ -1,5 +1,4 @@
 import React from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Loaction = ({ venue }) => {
     const location = venue.package_address ? venue.package_address : venue?.vicinity;

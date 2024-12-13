@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import ViewImage from "../../asstes/event.png";
-import { IoStar } from "react-icons/io5";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaDollarSign, FaMapMarkerAlt } from "react-icons/fa";
+import VenuePhotos from "../compontents/VenuePhotos";
+import Valuedata from "../compontents/Valuedata";
+import Loaction from "../compontents/Loaction";
 
 export default function PackageView() {
   const { Id } = useParams();
@@ -74,10 +75,11 @@ export default function PackageView() {
 
               <div class="w-[100%] md:w-[55%] lg:w-[55%] pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
                 <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
-                  <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
-                    Package Name: {item.package_name}
-                  </span>
-                  <button
+                  <h2 className="w-full text-2xl font-bold text-white">
+                    {item.package_name}
+                  </h2>
+                </div>
+                {/* <button
                     className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] ${item?.package_status === "pending"
                       ? "border-[#B8A955] bg-[#B8A9551A] text-[#B8A955]"
                       : item?.package_status === "active"
@@ -88,16 +90,9 @@ export default function PackageView() {
                       }`}
                   >
                     {item?.package_status}
-                  </button>
-                </div>
+                  </button> */}
                 <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
-                  <span className="min-w-[110px] inline-flex  capitalize border font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
-                    Package Subtitle: {item.package_subtitle}
-                  </span>
-
-                </div>
-                <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
-                  <span className=" inline-flex  capitalize  font-[manrope] text-white font-[600] text-[16px] flex items-center px-[15px] py-[6px] rounded-[60px]">
+                  <span className=" inline-flex  capitalize  font-[manrope] text-white font-[600] text-[16px] flex items-center  rounded-[60px]">
                     {item.package_description}
                   </span>
 
@@ -105,11 +100,7 @@ export default function PackageView() {
                 <div className="w-full flex flex-wrap justify-start flex-row  items-center gap-[10px]">
 
                   <span className="inline-block bg-gray-200 rounded-full px-3 py-[9px] text-sm font-semibold text-gray-700">
-                    Person: {item.package_people}
-                  </span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-[9px] text-sm font-semibold text-gray-700">
-                    Total Price: ${item.totalprice}-
-                    {item?.package_price_min}
+                    Number Of Attendees: {item.package_people}
                   </span>
                 </div>
               </div>
@@ -118,73 +109,35 @@ export default function PackageView() {
             <h3 className="text-[20px] md:text-[25px] lg:text-[30px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
               Services Provider Details
             </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
               {item?.package_services?.map((venue, index) => (
                 <div
-                  className="bg-[#1B1B1B] shadow-lg rounded-lg overflow-hidden flex flex-col border border-[#9999]"
-                  key={index}
-                >
-                  <div className="relative">
-                    <img
-                      src={venue?.services_provider_image ? venue?.services_provider_image : ViewImage
-                      }
-                      alt={venue.name}
-                      className="h-64 w-full object-cover rounded-t-lg"
-                    />
-                  </div>
-                  <div className=" px-[10px] md:px-[20px] py-[20px]">
-                    {/* Provider Name */}
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-xl font-semibold capitalize text-white">
-                        {venue.services_provider_name}
-                      </h2>
-                      <p className="text-white text-sm">
-                        {venue.services_provider_phone}
+                  className="bg-[#1B1B1B] shadow-lg rounded-xl overflow-hidden flex flex-col border border-gray-700"
+                  key={index} >
+                  <VenuePhotos venue={venue} />
+                  <div className="p-6">
+                    <h2 className="text-xl font-semibold capitalize text-white">
+                      {venue.services_provider_name || venue?.name}
+                    </h2>
+
+                    {venue?.services_provider_price && (
+                      <p className="text-white font-bold my-2 text-[20px]">
+                        <Valuedata currency={"USD"} amount={venue.services_provider_price} />
                       </p>
-                    </div>
+                    )}
 
 
-                    {/* Rating and Price */}
-                    <div className="flex items-center  justify-between mb-[15px] mt-[15px]">
-                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
-                        <IoStar size={12} className="text-[#ffff00] " />
-                        {venue.services_provider_rating}
-                      </div>
-                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs">
-                      <FaDollarSign size={18} className="inline" />
-                        {venue.services_provider_price}
-                      </div>
-                      
-                      <div className="flex items-center gap-2 h-9 text-white bg-[#000] rounded-full px-4 py-1 text-xs leading-tight">
-                        {venue.services_provider_categries}
-                      </div>
+                    {venue.services_provider_name && (
+                      <ul>
+                        <li className="text-white flex"><strong className="pe-2">Phone :</strong> {venue?.services_provider_phone && (<Link to={`tel:${venue.services_provider_phone}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_phone} </Link>)}</li>
+                        <li className="text-white flex"><strong className="pe-2">Email :</strong> {venue?.services_provider_email && (<Link to={`mailto:${venue.services_provider_email}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.services_provider_email} </Link>)}</li>
+                        <Loaction venue={venue} />
+                      </ul>
+                    )}
 
-                    </div>
-
-                    {/* Package Categories */}
-                    <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                      {venue.package_categories?.map((category, index) => (
-                        <span
-                          key={index}
-                          className="bg-black text-white px-4 py-1 rounded-full  mr-2 mb-2 inline-block"
-                        >
-                          {category}
-                        </span>
-                      ))}
+                    <p className="text-[#fff] truncate-two-lines text-[16px] mt-2 whitespace-normal overflow-hidden">
+                      {venue?.package_descrption}{" "}
                     </p>
-
-                    <p className="text-[#fff] text-[16px] flex gap-3 mt-2 whitespace-normal overflow-hidden">
-                      <span className="text-[#4CAF50]"><FaMapMarkerAlt size={24} /></span>{" "}
-                      {venue.package_address
-                        ? venue.package_address
-                        : venue?.vicinity}
-                    </p>
-                    {/* Description */}
-                    <p className="text-[#fff] text-[14px] mt-2 whitespace-normal overflow-hidden ">
-                      {venue.package_descrption}
-                    </p>
-
                   </div>
                 </div>
               ))}

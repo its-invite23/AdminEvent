@@ -6,10 +6,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
-import { TbCurrencyDirham } from "react-icons/tb";
-import Loaction from "./Loaction";
-import VenuePhotos from "./VenuePhotos";
+import Loaction from "../compontents/Loaction";
+import VenuePhotos from "../compontents/VenuePhotos";
 import moment from "moment";
 import Valuedata from "../compontents/Valuedata";
 export default function BookingView() {
@@ -79,7 +77,7 @@ export default function BookingView() {
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPayment({
-      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalPriceData, payment_genrator_date: new Date()
+      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalprice * item?.attendees, payment_genrator_date: new Date()
     });
     response
       .then((res) => {
@@ -124,11 +122,7 @@ export default function BookingView() {
       totalprice = total + (venue?.services_provider_price
         ? parseFloat(venue.services_provider_price
         ) : 0);
-
     }
-
-
-
     return totalprice;
   }, 0);
 
@@ -363,9 +357,7 @@ export default function BookingView() {
                           {venue?.price_level && (
                             <p className="text-white font-bold my-2 text-[20px]">
                               <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
-                              s
-
-                              per person
+                                 
                             </p>
                           )}
 
@@ -384,7 +376,7 @@ export default function BookingView() {
                               <Loaction venue={venue} />
                             </ul>
                           )}
-                          <p className="text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
+                          <p className="truncate-two-lines text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
                             {venue?.package_descrption || venue?.placeDetails?.editorial_summary?.overview}{" "}
                           </p>
                         </div>
@@ -404,8 +396,7 @@ export default function BookingView() {
 
                   <div className="w-full">
                     {item?.package?.map((venue, index) => (<div key={index}
-                      className="border border-gray-700 p-6 rounded-xl flex-wrap  mb-3 p-2">
-
+                      className="border border-gray-700 p-4  rounded-xl flex-wrap  mb-3">
                       <div className="flex justify-between">
                         <div className="flex flex-col">
                           <h2 className="text-white text-2xl capitalize">
@@ -415,9 +406,7 @@ export default function BookingView() {
                             {venue?.services_provider_price && (
                               <div className="flex flex-col items-start mb-4">
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
-
-                                  <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
-
+                                <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />/ per person
                                 </p>
                                 <div className="flex flex-wrap">
                                   {venue.package_categories?.map((category, index) => (
@@ -435,7 +424,6 @@ export default function BookingView() {
                               <div className="flex flex-col items-start mb-4">
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
                                   <Valuedata currency={currency} amount={venue.price_level * currencyprice} />
-                                  / per person
                                 </p>
                                 <div className="flex flex-wrap">
                                   {venue?.types
@@ -456,7 +444,7 @@ export default function BookingView() {
                         </div>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center flex">
-                            <p className="text-white whitespace-nowrap pe-3">Price (USD)</p>
+                            <p className="text-white whitespace-nowrap pe-3">Price (USD) (Per Person) </p>
                             <input
                               type="number"
                               className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
@@ -464,7 +452,7 @@ export default function BookingView() {
                               value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
                               onChange={(e) => handleInputChange(venue, e.target.value)}
                               onBlur={(e) => handleBlur(venue, e.target.value)}
-                              onFocus={()=>("Please click outside of the input to update the price.")}
+                              onFocus={() => ("Please click outside of the input to update the price.")}
                             />
                           </div>
                         </div>

@@ -15,10 +15,8 @@ export default function AdminLayout({ children }) {
       if (!token) {
         throw new Error("No token found");
       }
-
       const main = new Listing();
       const response = await main.profileVerify({ signal });
-
       if (response.data) {
         setContent(response.data.data);
       }
@@ -28,7 +26,7 @@ export default function AdminLayout({ children }) {
         localStorage.removeItem("AdminToken");
         toast.error("Session expired. Please log in again.");
         navigate("/");
-      } 
+      }
     } finally {
       setLoading(false);
     }
