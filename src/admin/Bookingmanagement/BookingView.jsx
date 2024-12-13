@@ -10,6 +10,7 @@ import VenuePhotos from "../compontents/VenuePhotos";
 import moment from "moment";
 import Valuedata from "../compontents/Valuedata";
 import Location from "../compontents/Location";
+import PaymentButton from "./PaymentButton";
 export default function BookingView() {
 
   const [loading, setLoading] = useState(false);
@@ -19,6 +20,7 @@ export default function BookingView() {
   const [price, setPrice] = useState(""); // Price input
   const [item, setItem] = useState("");
   const [payment, setpayment] = useState("")
+  const [loadingbutton, setLoadingButton] = useState(false)
   const { Id } = useParams();
   const currencies = ["USD", "AED", "GBP", "EUR"];
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ export default function BookingView() {
       toast.error("Please Enter Price");
       return;
     }
+    setLoadingButton(true)
     const main = new Listing();
     const response = main.BookingStatus({ _id: Id, status: status, attendees: attend, });
     response
@@ -59,14 +62,15 @@ export default function BookingView() {
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
+        setLoadingButton(false)
+
       })
       .catch((error) => {
         console.log("error", error?.response?.data?.message);
         toast.error(error?.response?.data?.message || "An error occurred.");
-        setLoading(false);
+        setLoadingButton(false);
       });
   };
-  console.log("item", item)
 
 
   const handlepayment = (Id) => {
@@ -428,12 +432,12 @@ export default function BookingView() {
                               </div>
                             )}
                             <div className="flex flex-col items-start mb-4">
-                            {venue.price_level && (
-                              <p className="text-white font-bold my-2 text-[20px] mr-4">
-                                <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
-                              </p>
-                            )}
-                              
+                              {venue.price_level && (
+                                <p className="text-white font-bold my-2 text-[20px] mr-4">
+                                  <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
+                                </p>
+                              )}
+
                               <div className="flex flex-wrap">
                                 {venue?.types
                                   ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
@@ -528,7 +532,7 @@ export default function BookingView() {
                                   onClick={() => handlepayment(item?._id)}
                                   className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
                                 >
-                                  Genrator Payment Link
+                                  Generate Payment Link
                                 </button>
                               )
                             ) : (
@@ -541,6 +545,7 @@ export default function BookingView() {
                             )
                           )}
 
+                          <PaymentButton item={item} handlepayment={handlepayment} payment={payment} />
                         </>}
                       </div>
                     </div>

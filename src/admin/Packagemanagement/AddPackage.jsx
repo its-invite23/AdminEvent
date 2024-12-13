@@ -12,7 +12,6 @@ export default function AddPackage() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(""); // State to store the selected option
 
-  console.log("selectedOption", selectedOption)
 
   const [formData, setFormData] = useState({
     package_name: "",
@@ -27,7 +26,6 @@ export default function AddPackage() {
     image_filed: "",
   });
 
-  console.log("formData", formData)
   const handleOptionChange = (e) => {
     const value = e.target.value;
     setSelectedOption(value); // Update the selected option
