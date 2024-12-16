@@ -269,7 +269,7 @@ export default function BookingView() {
                   <div className="flex flex-wrap lg-flex-nowrap gap-[20px]">
 
 
-                    <div className="w-[100%]  pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
+                    <div className="w-[100%]  ml-[10px]">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                         <h2 className="w-full text-2xl font-bold text-white">
                           {item.package_name}
