@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
-import ViewImage from "../../asstes/event.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../compontents/LoadingSpinner";
 import Header from "../compontents/Header";
@@ -16,8 +15,8 @@ export default function BookingView() {
   const [loading, setLoading] = useState(false);
   const [attend, setAttend] = useState("")
   const [currencyprice, setCurrencyPrice] = useState("");
-  const [currency, setCurrency] = useState("USD"); // Default currency
-  const [price, setPrice] = useState(""); // Price input
+  const [currency, setCurrency] = useState("USD"); 
+  const [price, setPrice] = useState("");
   const [item, setItem] = useState("");
   const [payment, setpayment] = useState("")
   const [loadingbutton, setLoadingButton] = useState(false)
@@ -105,6 +104,7 @@ export default function BookingView() {
     try {
       const main = new Listing();
       const response = await main.paymentgetid(Id);
+      console.log("response", response)
       setpayment(response?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -136,6 +136,7 @@ export default function BookingView() {
       price: venue.services_provider_price * currencyprice || venue.price_level * currencyprice || ""
     })) || []
   );
+
 
   const handleInputChange = (venue, value) => {
     setInputs((prevInputs) =>
@@ -266,17 +267,9 @@ export default function BookingView() {
               ) : (
                 <div className="mb-4 w-full">
                   <div className="flex flex-wrap lg-flex-nowrap gap-[20px]">
-                    <div className="w-[100%] md:w-[40%] lg:w-[40%]">
-                      <div>
-                        <img
-                          className="w-full object-cover max-h-[400px] rounded-[10px]"
-                          src={ViewImage}
-                          alt="Sunset in the mountains"
-                        />
-                      </div>
-                    </div>
 
-                    <div className="w-[100%] md:w-[55%] lg:w-[55%] pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
+
+                    <div className="w-[100%]  pl-[0px] md:pl-[10px] lg:pl-[80px] xl:pl-[100px]">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                         <h2 className="w-full text-2xl font-bold text-white">
                           {item.package_name}
@@ -460,11 +453,10 @@ export default function BookingView() {
                             <input
                               type="number"
                               className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
-                              placeholder="Enter Price"
-                              value={inputs?.find(input => input.id === venue.place_id)?.price || ""}
+                              placeholder="Enter Price Per Person"
+                              value={inputs?.find(input => input.id === venue.place_id)?.price}
                               onChange={(e) => handleInputChange(venue, e.target.value)}
                               onBlur={(e) => handleBlur(venue, e.target.value)}
-                              onFocus={() => ("Please click outside of the input to update the price.")}
                             />
                           </div>
                         </div>
@@ -522,31 +514,36 @@ export default function BookingView() {
                     <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                       {/* Right Section: Payment Generator Button */}
                       <div>
-                        {<>
+                        <>
+                          {payment?.payment_status === "success" ? (
+                            <p className="text-green-600 font-bold text-[16px] md:text-[18px] py-[13px] px-[10px] md:px-[10px] rounded">
+                              Payment Successful!
+                            </p>
 
-                          {item?.payment_genrator_link !== true && (
-                            payment?.payment_status !== "success" ? (
-                              item?.status === "approved" &&
-                              item?.totalPrice !== 0 && (
-                                <button
-                                  onClick={() => handlepayment(item?._id)}
-                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                                >
-                                  Generate Payment Link
-                                </button>
-                              )
-                            ) : (
+                          ) : (
+                            item?.status === "approved" &&
+                            (item?.payment_genrator_link === false ? (
                               <button
-                                className={`min-w-[110px] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50]`}
+                                onClick={() => handlepayment(item?._id)}
+                                className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
                               >
-                                Payment successfully done.
+                                Generate Payment Link
                               </button>
-
-                            )
+                            ) : (
+                              <>
+                                <p className=" text-green-600 font-bold text-[16px] md:text-[18px] py-[13px] px-[10px] md:px-[10px] rounded">
+                                  Payment Link Generated Successfully!
+                                </p></>
+                            ))
                           )}
+                          {
+
+
+
+                          }
 
                           <PaymentButton item={item} handlepayment={handlepayment} payment={payment} />
-                        </>}
+                        </>
                       </div>
                     </div>
                   </div>
