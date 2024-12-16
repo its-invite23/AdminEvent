@@ -122,7 +122,7 @@ export default function PackageView() {
 
                     {venue?.services_provider_price && (
                       <p className="text-white font-bold my-2 text-[20px]">
-                        <Valuedata currency={"USD"} amount={venue.services_provider_price} />
+                        <Valuedata currency={"USD"} amount={venue.services_provider_price} /> Per Person
                       </p>
                     )}
 

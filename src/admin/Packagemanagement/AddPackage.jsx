@@ -327,14 +327,14 @@ export default function AddPackage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]"> Prices (Estimated Budget) </label>
+                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]"> Prices (Per Person) </label>
                     <input
                       type="text"
                       onChange={(e) => handleServiceChange(e, index)}
                       name="services_provider_price"
                       value={packageData.services_provider_price}
                       className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none"
-                      placeholder=" (Estimated Budget)"
+                      placeholder="Per Person"
                       required
                     />
                   </div>
