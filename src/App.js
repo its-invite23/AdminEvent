@@ -5,12 +5,12 @@ import AdminLogin from "./admin/Login/Login.jsx"
 import Dashboard from "./admin/Dashboard/Index.jsx"
 import PaymentList from "./admin/PaymentList/PaymentList.jsx"
 import UserList from "./admin/UserList/userList.jsx"
-import NotFoundPage from './admin/compontents/NotFoundPage.js';
+import NotFoundPage from './admin/compontents/NotFoundPage.jsx';
 import BookingList from './admin/Bookingmanagement/BookingList.jsx';
 import PackageList from './admin/Packagemanagement/PackageList.jsx';
 import AddPackage from './admin/Packagemanagement/AddPackage.jsx';
-import ContactList from "./admin/ContactList/ContactList.js";
-import Enquiry from "./admin/Enquiry/Enquiry.js";
+import ContactList from "./admin/ContactList/ContactList.jsx";
+import Enquiry from "./admin/Enquiry/Enquiry.jsx";
 import BookingView from './admin/Bookingmanagement/BookingView.jsx';
 import PackageView from './admin/Packagemanagement/PackageView.jsx';
 

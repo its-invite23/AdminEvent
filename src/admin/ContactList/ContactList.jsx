@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "../compontents/Header";
-import Listing from "../../Api/Listing";
-import LoadingSpinner from "../compontents/LoadingSpinner";
+import Header from "../compontents/Header.jsx";
+import Listing from "../../Api/Listing.jsx";
+import LoadingSpinner from "../compontents/LoadingSpinner.jsx";
 import ReplyMessage from "../compontents/ReplyMessage.jsx";
 
-import NoDataPage from "../compontents/NoDataPage";
+import NoDataPage from "../compontents/NoDataPage.jsx";
 import ViewMessage from "../compontents/ViewMessage.jsx";
 
 export default function ContactList() {

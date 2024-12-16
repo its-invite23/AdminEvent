@@ -104,7 +104,6 @@ export default function BookingView() {
     try {
       const main = new Listing();
       const response = await main.paymentgetid(Id);
-      console.log("response", response)
       setpayment(response?.data?.data);
       setLoading(false);
     } catch (error) {
@@ -387,6 +386,8 @@ export default function BookingView() {
                       </div>
                     ))}
                   </div>
+
+                  {/* <Card item={item} currency={currency} currencyprice={currencyprice}/> */}
 
                   <div className="w-full pt-8 pb-2">
 
