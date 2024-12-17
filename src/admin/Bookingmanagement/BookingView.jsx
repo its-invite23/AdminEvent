@@ -80,7 +80,7 @@ export default function BookingView() {
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPayment({
-      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalprice * item?.attendees, payment_genrator_date: new Date()
+      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalprice * item?.attendees, AdminCurrencyCode:currency, payment_genrator_date: new Date()
     });
     response
       .then((res) => {
@@ -524,12 +524,29 @@ export default function BookingView() {
                           ) : (
                             item?.status === "approved" &&
                             (item?.payment_genrator_link === false ? (
-                              <button
-                                onClick={() => handlepayment(item?._id)}
-                                className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
-                              >
-                                Generate Payment Link
-                              </button>
+
+                              <div className="flex flex-wrap items-center space-x-4">
+                                <div className="ps-6">
+                                  <select
+                                    defaultValue={currency}
+                                    className="bg-gray-700 border border border-gray-700 p-3 rounded-xl text-white w-full"
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                  >
+                                    {currencies.map((currency, idx) => (
+                                      <option key={idx} value={currency}>
+                                        {currency}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                                <button
+                                  onClick={() => handlepayment(item?._id)}
+                                  className="bg-[#ff0062] hover:bg-[#4400c3] text-white font-bold text-[12px] md:text-[14px] py-[13px] px-[10px] md:px-[10px] rounded"
+                                >
+                                  Generate Payment Link
+                                </button>
+                              </div>
+
                             ) : (
                               <>
                                 <p className=" text-green-600 font-bold text-[16px] md:text-[18px] py-[13px] px-[10px] md:px-[10px] rounded">
