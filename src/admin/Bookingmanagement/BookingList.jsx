@@ -15,7 +15,7 @@ export default function BookingList() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(15);
+  const [limit, setLimit] = useState(25);
   const [hasMore, setHasMore] = useState(true);
 
   const currencySymbol = {
@@ -226,18 +226,20 @@ export default function BookingList() {
           )}
         </div>
       </div>
-      {
-        listing?.length > 0 && !loading && hasMore && (
-          <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
-            <button
-              onClick={loadMore}
-              className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
-              {loadingButton ? "Loading..." : "Load More"}
+      <div className="mt-[10px] mb-[10px] lg:mt-[10px] lg:mb-[20px] flex justify-center items-center">
+        {
+          listing?.length > 0 && !loading && hasMore && (
+            <div className="mt-[10px] mb-[10px] lg:mt-[10px] lg:mb-[20px] flex justify-center items-center">
+              <button
+                onClick={loadMore}
+                className="px-[20px] py-[15px] lg:px-[20px] lg:py-[15px] bg-[#B8A955] text-white font-manrope font-[700] text-[15px] rounded-md hover:bg-[#938539] transition duration-300">
+                {loadingButton ? "Loading..." : "Load More"}
 
-            </button>
-          </div>
-        )
-      }
+              </button>
+            </div>
+          )
+        }
+      </div>
     </div>
   );
 }

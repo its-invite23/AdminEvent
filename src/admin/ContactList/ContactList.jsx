@@ -140,23 +140,21 @@ export default function ContactList() {
                       <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                             <ViewMessage text={item.reply_message} />
                       </td>
-
                     </tr>
                   ))
                 )}
-                { }
               </tbody>
             </table>
           )}
         </div>
       </div>
-      <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+      <div className="mt-[10px] mb-[10px] lg:mt-[10px] lg:mb-[20px] flex justify-center items-center">
         {
           listing?.length > 0 && !loading && hasMore && (
-            <div className="mt-[40px] mb-[50px] lg:mt-[60px] lg:mb-[100px] flex justify-center items-center">
+            <div className="mt-[10px] mb-[10px] lg:mt-[10px] lg:mb-[20px] flex justify-center items-center">
               <button
                 onClick={loadMore}
-                className="px-[40px] py-[15px] lg:px-[50px] lg:py-[18px] bg-[#B8A955] text-white font-manrope font-[700] text-[18px] rounded-[3px] hover:bg-[#938539] transition duration-300">
+                className="px-[20px] py-[15px] lg:px-[20px] lg:py-[15px] bg-[#B8A955] text-white font-manrope font-[700] text-[15px] rounded-md hover:bg-[#938539] transition duration-300">
                 {loadingButton ? "Loading..." : "Load More"}
 
               </button>
