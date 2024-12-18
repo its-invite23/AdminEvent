@@ -28,6 +28,10 @@ export default function ReplyMessage({ item, ContactUsGet }) {
   };
 
   const handleSubmit = (e) => {
+    if (!formData.reply_message) {
+      toast.error("Please Enter Message");
+      return;
+    }
     e.preventDefault();
     setLoading(true);
     const main = new Listing();
@@ -81,6 +85,7 @@ export default function ReplyMessage({ item, ContactUsGet }) {
                   name="reply_message"
                   value={formData.reply_message}
                   onChange={handleChange}
+                  required
                   className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message" required />
               </div>
               <div className="flex justify-end">
