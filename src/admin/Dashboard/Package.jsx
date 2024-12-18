@@ -21,10 +21,8 @@
                         md:w-[40px] md:h-[40px] lg:w-[45px] lg:h-[45px] xl:w-[60px] xl:h-[60px] bg-[#302F2F]">
                                     {item?.package_image ? (
                                         <img src={item?.package_image} alt="package" />
-
                                     ) : (
                                         <MdCake className="text-[#EB3465] text-[25px]" />
-
                                     )}
                                 </div>
                                 <div className="flex flex-col w-[80%]">
