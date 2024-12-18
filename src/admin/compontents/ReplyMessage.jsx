@@ -28,11 +28,11 @@ export default function ReplyMessage({ item, ContactUsGet }) {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (!formData.reply_message) {
-      toast.error("Please Enter Message");
+      toast.error("Please enter the required field");
       return;
     }
-    e.preventDefault();
     setLoading(true);
     const main = new Listing();
     const response = main.contactreply(formData);
@@ -80,12 +80,12 @@ export default function ReplyMessage({ item, ContactUsGet }) {
               <div className="mb-4">
                 <label className="block w-full text-left font-manrope font-[400] text-white text-[18px] mb-[10px]">Reply Message</label>
                 <textarea type="text"
+                  required
                   rows={5}
                   cols={5}
                   name="reply_message"
                   value={formData.reply_message}
                   onChange={handleChange}
-                  required
                   className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message"  />
               </div>
               <div className="flex justify-end">
