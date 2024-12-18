@@ -86,7 +86,7 @@ export default function ReplyMessage({ item, ContactUsGet }) {
                   value={formData.reply_message}
                   onChange={handleChange}
                   required
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message" required />
+                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message"  />
               </div>
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>
