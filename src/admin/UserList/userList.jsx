@@ -14,10 +14,9 @@ export default function UserList() {
   const [limit, setLimit] = useState(15);
   const [hasMore, setHasMore] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
-
   const users = async (pg, signal) => {
     try {
-      if (pg == 1) {
+      if (pg === 1) {
         setLoading(true);
       }
       setLoadingButton(true);

@@ -27,7 +27,7 @@ export default function PaymentList() {
 
   const EnquiryList = async (pg, signal) => {
     try {
-      if (pg == 1) {
+      if (pg === 1) {
         setLoading(true);
       }
       setLoadingButton(true);
@@ -127,34 +127,34 @@ export default function PaymentList() {
                   <tr>
 
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Transaction Date</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Payment Id & Method</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Name</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Client Name</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px]">Amount</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px]">Transaction Date</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Payment Id & Method</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Package Name</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px]">Client Name</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px]">Amount</th>
                   </tr>
                 </thead>
 
                 {listing?.map((item, index) => (
                   <tr>
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">{index + 1}</td>
-                    <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center  ">
+                    <td className=" font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left  ">
                       {moment(item?.created_at).format('MMMM Do, YYYY')}
                     </td>
 
-                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                       <div className="mb-1 ">
                         {item?.payment_id || "N/A"}
                       </div>
                       <span
-                        className="capitalize min-w-[110px] m-auto font-[manrope] text-white font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                        className="capitalize min-w-[110px] m-auto font-[manrope] text-white font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[15px] py-[6px] rounded-[60px]"
                       >
                         {item?.payment_type}
                       </span>
                     </td>
 
-                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                         <Link
                           to={`/access-admin/booking/${item?.booking_id?._id}`}
@@ -165,9 +165,9 @@ export default function PaymentList() {
                     </td>
 
 
-                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-center capitalize  ">{item?.userId?.username}</td>
+                    <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left capitalize  ">{item?.userId?.username}</td>
 
-                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-center px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                       <div className="mb-1">
                       <span className="">
@@ -176,7 +176,7 @@ export default function PaymentList() {
                       {item?.amount}
                       </div>
                       <span
-                        className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-center ${item?.payment_status === "pending"
+                        className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left ${item?.payment_status === "pending"
                           ? "  text-[#B8A955]"
                           : item?.payment_status === "success"
                             ? " text-[#4CAF50]"

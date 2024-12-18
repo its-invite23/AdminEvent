@@ -197,9 +197,7 @@ export default function BookingList() {
                           <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
                             {item?.attendees}
                           </td>
-
-
-                          <td className="    whitespace-normal font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
+                          <td className="whitespace-normal font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
                             <span className="address">
 
                               {item?.location}
@@ -207,9 +205,6 @@ export default function BookingList() {
                           </td>
 
                           <td className=" font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left   ">
-                            {/* <button className='text-left '>
-                            <BsThreeDots size={24} />
-                          </button> */}
                             <div className="p-4">
                               <Link to={`/access-admin/booking/${item?._id}`} className="">
                                 <MdOutlineRemoveRedEye size={24} />

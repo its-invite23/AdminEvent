@@ -17,7 +17,7 @@ export default function Enquiry() {
 
   const EnquiryList = async (pg, signal) => {
     try {
-      if (pg == 1) {
+      if (pg === 1) {
         setLoading(true);
       }
       setLoadingButton(true);
@@ -61,12 +61,12 @@ export default function Enquiry() {
 
   return (
     <div className="w-full max-w-[100%]">
-      <Header title={"All Inquiries"} />
+      <Header title={"Recent Inquiries"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
         <div className="flex flex-col">
           <div className="flex items-center justify-between mb-[20px]">
             <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">
-              Recent Inquiries
+            Recent  Inquiries
             </h2>
           </div>
         </div>

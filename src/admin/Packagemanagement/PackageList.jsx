@@ -97,11 +97,11 @@ export default function PackageList() {
               <thead className="mb-[15px]">
                 <tr>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">S. No.</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Created At</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Package Name</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Attendees</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Status</th>
-                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-center p-[10px] mb-[10px]">Actions</th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Created At</th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Package Name</th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Attendees</th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Status</th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,11 +114,10 @@ export default function PackageList() {
                     listing.map((item, index) => (
                       <tr key={index}>
                         <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{index + 1}</td>
-                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
-
-                        <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_name}</td>
-                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">{item?.package_people}</td>
-                        <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-center">
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{moment(item?.created_at).format('DD-MMM-YYYY')}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px]px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{item?.package_name}</td>
+                        <td className="font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">{item?.package_people}</td>
+                        <td className="capitalize font-manrope font-[600] text-white text-[16px] px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
                           <button
                             onClick={() => handleActiveStatues(item?._id, item?.package_status, item?.package_availability)} // Updated to use arrow function
                             className={`capitalize min-w-[110px] m-auto border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px] 
