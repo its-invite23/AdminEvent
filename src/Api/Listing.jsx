@@ -21,10 +21,6 @@ class Listing extends Component {
     return Api.post("/user/delete", data);
   }
 
-  async userfilter(data) {
-    return Api.post("/user/user-filter", data);
-  }
-
   async userupdatedstatus(data) {
     return Api.post("/user/updated_status", data);
   }
