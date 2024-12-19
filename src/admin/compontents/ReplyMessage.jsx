@@ -63,7 +63,7 @@ export default function ReplyMessage({ item, ContactUsGet }) {
         onClick={toggleModal}
       >
       {item?.reply_message ? (
-        <span className= "text-green-600 text-[18px] text-left font-bold cursor-not-allowed"> Done</span>
+        <span className= "text-green-600 text-[18px] text-left font-bold cursor-not-allowed"> Replied</span>
       ) : (
           <FaRegMessage />
       ) }
