@@ -28,8 +28,8 @@ class Listing extends Component {
   async userupdatedstatus(data) {
     return Api.post("/user/updated_status", data);
   }
-  async profile(page, limit) {
-    return Api.get(`/user/profile?page=${page}&limit=${limit}`);
+  async profile(page, limit ,name) {
+    return Api.get(`/user/profile?page=${page}&limit=${limit}&search=${name}`);
   }
 
   async profileVerify() {

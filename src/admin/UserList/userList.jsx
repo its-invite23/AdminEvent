@@ -14,35 +14,37 @@ export default function UserList() {
   const [limit, setLimit] = useState(15);
   const [hasMore, setHasMore] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
-  const users = async (pg, signal) => {
+  const [Id, setId] = useState("")
+
+  const users = async (pg = 1, signal) => {
     try {
-      if (pg === 1) {
-        setLoading(true);
-      }
+      setLoading(pg === 1); // Show loading spinner for the first page
       setLoadingButton(true);
+
       const main = new Listing();
-      const response = await main.profile(page, limit, { signal });
-      if (response?.data?.data?.users) {
+      const response = await main.profile(pg, limit, Id || "", signal);
+
+      if (response?.data?.data?.userData) {
         setLisitng((prevData) => {
-          if (page === 1) {
-            return response.data.data.users;
+          if (pg === 1) {
+            return response.data.data.userData; // Replace data for new search
           } else {
-            return [...prevData, ...response.data.data.users];
+            return [...prevData, ...response.data.data.userData]; // Append data for pagination
           }
         });
         setHasMore(response.data.data.nextPage !== null);
-        setLoading(false);
-        setLoadingButton(false);
+      } else {
+        console.warn("Unexpected response format:", response);
+        toast.error("Unexpected error occurred.");
       }
     } catch (error) {
-      console.error("Error fetching package data:", error);
+      console.error("Error fetching bookings:", error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.message || "Failed to fetch data.");
     } finally {
       setLoading(false);
       setLoadingButton(false);
-
     }
   };
-
 
   useEffect(() => {
     const controller = new AbortController();
@@ -56,7 +58,13 @@ export default function UserList() {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
+  useEffect(() => {
+    if (Id && Id.length >= 3) {
+      handleSubmit();
+    } else if (!Id || Id?.length === 0) {
+      users(page);
+    }
+  }, [Id]);
 
   const handleActiveStatues = (Id, status) => {
     setLoading(true);
@@ -100,37 +108,18 @@ export default function UserList() {
     });
 
   };
-  useEffect(() => {
-    if (formData.username && formData.username.length >= 3) {
-      handleSubmit();
-    } else if (!formData.username || formData.username.length === 0) {
-      users(page);
+
+  const handleChanges = (e) => {
+    setId(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    setPage(1);
+    try {
+      await users(1);
+    } catch (error) {
+      console.error("Error during search:", error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.message || "Failed to fetch data.");
     }
-  }, [formData.username]);
-
-
-  const handleSubmit = (e) => {
-    setLoading(true);
-    const main = new Listing();
-    const response = main.userfilter(formData);
-    response.then((res) => {
-      if (res && res?.data && res?.data?.status) {
-        toast.success(res.data.message);
-        setLisitng(res?.data?.users)
-        setLoading(false);
-        toggleModal();
-      } else {
-        toast.error(res.data.message);
-        setLoading(false);
-      }
-      setLoading(false);
-    })
-      .catch((error) => {
-        console.log("error", error?.response?.data?.message);
-        toast.error(error?.response?.data?.message);
-        // console.log("error", error);
-        setLoading(false);
-      });
   };
   return (
     <div className="w-full max-w-[100%]">
@@ -143,17 +132,17 @@ export default function UserList() {
           </h2>
           <div className="relative w-full max-w-[370px]">
             <IoMdSearch
-              onClick={handleSubmit}
+                  onClick={handleSubmit}
               size={24}
               className="absolute top-[10px] right-[10px] text-white cursor-pointer"
             />
-            <input
+             <input
               type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
+              onChange={handleChanges}
+              name="Id"
+              value={Id}
               className="w-full bg-[#1B1B1B] border border-[#37474F] p-[10px] pl-[20px] pr-[20px] rounded-[50px] text-white text-[15px] hover:outline-none focus:outline-none"
-              placeholder="Search By User Name"
+              placeholder="Search by client or package name"
             />
           </div>
         </div>
