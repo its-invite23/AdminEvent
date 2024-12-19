@@ -132,11 +132,11 @@ export default function UserList() {
           </h2>
           <div className="relative w-full max-w-[370px]">
             <IoMdSearch
-                  onClick={handleSubmit}
+              onClick={handleSubmit}
               size={24}
               className="absolute top-[10px] right-[10px] text-white cursor-pointer"
             />
-             <input
+            <input
               type="text"
               onChange={handleChanges}
               name="Id"
