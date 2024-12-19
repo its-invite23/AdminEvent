@@ -87,28 +87,7 @@ export default function UserList() {
       });
   };
 
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
-
-  const [formData, setFormData] = useState({
-    username: "",
-    user_status: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-  };
-
+ 
   const handleChanges = (e) => {
     setId(e.target.value);
   };
@@ -125,7 +104,6 @@ export default function UserList() {
     <div className="w-full max-w-[100%]">
       <Header title={"All Users"} />
       <div className="w-full  bg-[#1B1B1B] p-[10px] md:p-[25px] rounded-[10px] md:rounded-[20px] mt-[15px]">
-        {/* <Filter setLisitng={setLisitng} /> */}
         <div className="flex flex-wrap justify-between items-center">
           <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
             All Users

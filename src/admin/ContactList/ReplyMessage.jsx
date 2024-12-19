@@ -5,20 +5,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FaRegMessage } from "react-icons/fa6";
 
 export default function ReplyMessage({ item, ContactUsGet }) {
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
-
   const [formData, setFormData] = useState({
     _id: item?._id,
     reply_message: "",
   });
   const [loading, setLoading] = useState(false);
-
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -62,11 +57,11 @@ export default function ReplyMessage({ item, ContactUsGet }) {
           }`}
         onClick={toggleModal}
       >
-      {item?.reply_message ? (
-        <span className= "text-green-600 text-[18px] text-left font-bold cursor-not-allowed"> Replied</span>
-      ) : (
+        {item?.reply_message ? (
+          <span className="text-green-600 text-[18px] text-left font-bold cursor-not-allowed"> Replied</span>
+        ) : (
           <FaRegMessage />
-      ) }
+        )}
       </button>
 
       {isOpen && (
@@ -86,7 +81,7 @@ export default function ReplyMessage({ item, ContactUsGet }) {
                   name="reply_message"
                   value={formData.reply_message}
                   onChange={handleChange}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message"  />
+                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message" />
               </div>
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>

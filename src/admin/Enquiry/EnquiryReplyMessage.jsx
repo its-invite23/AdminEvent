@@ -41,9 +41,6 @@ export default function EnquiryReplyMessage({ item, enquire_status, EnquiryList 
         setLoading(false);
         toggleModal();
         EnquiryList();
-      } else {
-        toast.error(res.data.message);
-        setLoading(false);
       }
       setLoading(false);
     })
@@ -75,13 +72,13 @@ export default function EnquiryReplyMessage({ item, enquire_status, EnquiryList 
             <form>
               <div className="mb-4">
                 <textarea type="text"
-                required
+                  required
                   rows={5}
                   cols={5}
                   name="reply_message"
                   value={formData.reply_message}
                   onChange={handleChange}
-                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message"  />
+                  className="bg-[#1B1B1B] border border-[#ffffff14] w-full px-[15px] py-[15px] rounded-lg text-base text-white hover:outline-none focus:outline-none" placeholder="Enter Reply Message" />
               </div>
               <div className="flex justify-end">
                 <button type="button" onClick={toggleModal} className="text-white mr-2 px-4 py-2 border border-gray-300 rounded-md">Cancel</button>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { IoCloseSharp } from "react-icons/io5";
-import { AiOutlineMessage } from "react-icons/ai";
 
 export default function ViewMessage({ text }) {
     const [isOpen, setIsOpen] = useState(false);
