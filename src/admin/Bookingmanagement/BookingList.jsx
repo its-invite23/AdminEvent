@@ -163,7 +163,7 @@ export default function BookingList() {
                                 to={`/access-admin/booking/${item?._id}`}
                                 className="text-white hover:text-pink-500"
                               >
-                                {item?.package_name}
+                                {item?.package_name?.replace("_" ,  " ")}
                               </Link>
                             </div>
                             <span

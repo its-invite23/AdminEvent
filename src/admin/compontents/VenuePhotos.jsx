@@ -45,7 +45,7 @@ const VenuePhotos = ({ venue }) => {
                     key={index}
                     className="bg-black capitalize text-white px-3 py-1 rounded-full mr-1 mb-1 inline-block"
                   >
-                    {category}
+                       {category?.replace("_", " ")}
                   </span>
                 ))}
             </div>
@@ -75,7 +75,7 @@ const VenuePhotos = ({ venue }) => {
                   key={index}
                   className="bg-black capitalize text-white px-2 py-1 rounded-full mr-2 mb-2 inline-block"
                 >
-                  {category}
+                  {category?.replace("_", " ")}
                 </span>
               ))}
             </div>

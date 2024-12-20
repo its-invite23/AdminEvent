@@ -271,7 +271,7 @@ export default function BookingView() {
                     <div className="w-[100%]  ">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                         <h2 className="w-full text-2xl font-bold text-white">
-                          {item.package_name}
+                        {item?.package_name?.replace("_" ,  " ")}
                         </h2>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
@@ -440,7 +440,7 @@ export default function BookingView() {
                                       key={index}
                                       className="bg-black capitalize text-white px-4 py-1 rounded-full mr-2 mt-2"
                                     >
-                                      {category}
+                                      {category?.replace("_", " ")}
                                     </span>
                                   ))}
                               </div>
