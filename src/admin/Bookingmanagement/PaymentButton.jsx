@@ -18,7 +18,7 @@ const PaymentButton = ({ item, handlepayment, payment }) => {
 
   return (
     <div>
-      {payment?.payment_status != "success" && (
+      {payment?.payment_status !== "success" && (
 
         canGeneratePayment && (
           <button
