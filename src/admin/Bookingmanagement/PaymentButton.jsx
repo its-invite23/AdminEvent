@@ -19,7 +19,6 @@ const PaymentButton = ({ item, handlepayment, payment }) => {
   return (
     <div>
       {payment?.payment_status !== "success" && (
-
         canGeneratePayment && (
           <button
             onClick={() => handlepayment(item?._id)}
