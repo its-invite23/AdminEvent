@@ -16,7 +16,7 @@ export default function BookingView() {
   const [attend, setAttend] = useState("")
   const [currencyprice, setCurrencyPrice] = useState("");
   const [currency, setCurrency] = useState("USD");
-  console.log("currency",currency)
+  console.log("currency", currency)
   const [price, setPrice] = useState("");
   const [item, setItem] = useState("");
   const [payment, setpayment] = useState("")
@@ -227,7 +227,15 @@ export default function BookingView() {
     }
   }, [currency]); //
 
-  const totalPriceData = totalprice * item?.attendees * currencyprice
+  const totalPriceData = totalprice * item?.attendees * currencyprice;
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + '...';
+  };
+
   return (
     <>
       {loading ? (
@@ -404,6 +412,10 @@ export default function BookingView() {
                           <h2 className="text-white text-2xl capitalize">
                             {venue.services_provider_name || venue?.name}
                           </h2>
+                          {/* <h2 className="text-white text-2xl capitalize">
+                            {truncateText(venue.services_provider_name || venue?.name, 20)}
+                          </h2> */}
+
                           <div className="flex flex-col">
                             {venue?.services_provider_price && (
                               <div className="flex flex-col items-start">
@@ -507,12 +519,10 @@ export default function BookingView() {
                             Reject
                           </button>
                         </div>
-
                       </div>
                     </div>
                   )}
-
-                  <div className="w-full ">
+                  <div className="w-full">
                     <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                       <div>
                         <>
