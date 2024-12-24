@@ -16,6 +16,7 @@ export default function BookingView() {
   const [attend, setAttend] = useState("")
   const [currencyprice, setCurrencyPrice] = useState("");
   const [currency, setCurrency] = useState("USD");
+  console.log("currency",currency)
   const [price, setPrice] = useState("");
   const [item, setItem] = useState("");
   const [payment, setpayment] = useState("")
@@ -80,7 +81,7 @@ export default function BookingView() {
     setLoading(true);
     const main = new Listing();
     const response = main.BookingPayment({
-      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalprice * item?.attendees, AdminCurrencyCode:currency, payment_genrator_date: new Date()
+      _id: Id, payment_genrator_link: true, currency: item?.CurrencyCode, totalPrice: totalprice * item?.attendees, AdminCurrencyCode: currency, payment_genrator_date: new Date()
     });
     response
       .then((res) => {
@@ -271,7 +272,7 @@ export default function BookingView() {
                     <div className="w-[100%]  ">
                       <div className="w-full mb-[20px] inline-flex flex-wrap justify-start gap-[10px]">
                         <h2 className="w-full text-2xl font-bold text-white">
-                        {item?.package_name?.replace("_" ,  " ")}
+                          {item?.package_name?.replace("_", " ")}
                         </h2>
                       </div>
                       <div className="w-full mb-[10px] text-white font-semibold">
@@ -380,17 +381,13 @@ export default function BookingView() {
                             </ul>
                           )}
                           <p className="truncate-two-lines text-[#fff] text-[16px] mt-2 whitespace-normal overflow-hidden">
-                            {venue?.package_descrption || venue?.placeDetails?.editorial_summary?.overview}{" "}
+                            {venue?.package_descrption}{" "}
                           </p>
                         </div>
                       </div>
                     ))}
                   </div>
-
-                  {/* <Card item={item} currency={currency} currencyprice={currencyprice}/> */}
-
                   <div className="w-full pt-8 pb-2">
-
                     <div className="flex max-w-[600px]">
                       <div className="w-full">
                         <label className="text-gray-300 mb-2 block">Choose No. of attendees</label>
@@ -450,7 +447,10 @@ export default function BookingView() {
                         </div>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center flex">
-                            <p className="text-white whitespace-nowrap pe-3">Price (USD) (Per Person) </p>
+                            <p className="text-white whitespace-nowrap pe-3">Price (
+                              {/* <Valuedata currency={currency} /> */}
+                              {currency}
+                              ) (Per Person) </p>
                             <input
                               type="number"
                               className="px-3 py-2 bg-gray-700 border border-gray-700 rounded-xl text-white w-full me-3"
@@ -461,6 +461,7 @@ export default function BookingView() {
                             />
                           </div>
                         </div>
+
                       </div>
                     </div>
                     ))}
@@ -513,7 +514,6 @@ export default function BookingView() {
 
                   <div className="w-full ">
                     <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
-                      {/* Right Section: Payment Generator Button */}
                       <div>
                         <>
                           {payment?.payment_status === "success" ? (
