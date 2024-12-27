@@ -100,6 +100,13 @@ class Listing extends Component {
     return Api.post(`/booking/booking-payment` , data);
   }
 
+  async Bookingupdate(data) {
+    return Api.post(`/booking/update-booking` , data);
+  }
+
+  async BookingDelete(Id , Place_id) {
+    return Api.get(`/booking/delete-booking/${Id}/${Place_id}`);
+  }
   async PaymentGet(page ,limit ,name) {
     return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}&search=${name}` );
   }
@@ -115,6 +122,10 @@ class Listing extends Component {
   async SearchData(data) {
     return Api.post(`/common/search` ,data );
   }
+
+  async searchPlaces(data) { 
+    const queryString = new URLSearchParams(data).toString(); 
+    return Api.get(`/place/get-place?${queryString}`); }
   render() {
     return (
       <div>

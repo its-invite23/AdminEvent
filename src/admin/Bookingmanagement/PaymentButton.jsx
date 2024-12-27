@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 const PaymentButton = ({ item, handlepayment, payment }) => {
-  console.log("payment", payment)
   const [canGeneratePayment, setCanGeneratePayment] = useState(false);
 
   useEffect(() => {

@@ -10,13 +10,13 @@ import moment from "moment";
 import Valuedata from "../compontents/Valuedata";
 import Location from "../compontents/Location";
 import PaymentButton from "./PaymentButton";
+import SearchPlaces from "./Searchplaces";
 export default function BookingView() {
 
   const [loading, setLoading] = useState(false);
   const [attend, setAttend] = useState("")
   const [currencyprice, setCurrencyPrice] = useState("");
   const [currency, setCurrency] = useState("USD");
-  console.log("currency", currency)
   const [price, setPrice] = useState("");
   const [item, setItem] = useState("");
   const [payment, setpayment] = useState("")
@@ -31,7 +31,6 @@ export default function BookingView() {
       setItem(response?.data?.data);
       setPrice(response?.data?.data?.totalPrice)
       setAttend(response?.data?.data?.attendees)
-      // setCurrency(response?.data?.data?.CurrencyCode)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -59,6 +58,7 @@ export default function BookingView() {
         fetchData(res?.data?.data?._id);
         if (res && res?.data) {
           toast.success(res.data.message);
+          setResults([]);
         } else {
           toast.error(res.data?.message || "Something went wrong.");
         }
@@ -71,7 +71,6 @@ export default function BookingView() {
         setLoadingButton(false);
       });
   };
-
 
   const handlepayment = (Id) => {
     if (!Id) {
@@ -235,6 +234,7 @@ export default function BookingView() {
     }
     return text.slice(0, maxLength) + '...';
   };
+  const [results, setResults] = useState([]);
 
   return (
     <>
@@ -345,21 +345,25 @@ export default function BookingView() {
 
 
                   </div>
+                  {item?.status === "pending" && (
+                    <SearchPlaces results={results} setResults={setResults} Id={Id} fetchData={fetchData} item={item} />
+                  )}
 
-                  <h3 className="sm:text-[20px] lg:text-[23px] font-semibold text-white mb-3 mt-[20px] lg:mt-[40px]">
-                    Choosed Services Providers
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+                  <div className="flex flex-wrap justify-between items-center">
+                    <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
+                      Existing Services Providers
+                    </h2>
+                  </div>
+                  <div className="mt-2 mb-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                     {item?.package?.map((venue, index) => (
                       <div
                         className="bg-[#1B1B1B] shadow-lg rounded-xl overflow-hidden flex flex-col border border-gray-700"
                         key={index} >
-                        <VenuePhotos venue={venue} />
+                        <VenuePhotos venue={venue} Id={Id} fetchData={fetchData} item={item} />
                         <div className="p-6">
                           <h2 className="text-xl font-semibold capitalize text-white">
                             {venue.services_provider_name || venue?.name}
                           </h2>
-
                           {venue?.services_provider_price && (
                             <p className="text-white font-bold my-2 text-[20px]">
                               <Valuedata currency={currency} amount={venue.services_provider_price * currencyprice} />Per Person
@@ -502,26 +506,34 @@ export default function BookingView() {
                     </li>
                   </ul>
 
-                  {item?.status === "pending" && (
-                    <div className="w-full mb-[10px] mt-[30px]">
-                      <div className="flex flex-wrap flex-row items-center">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleActiveStatues(item?._id, "approved")}
-                            className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => handleActiveStatues(item?._id, "rejected")}
-                            className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
-                          >
-                            Reject
-                          </button>
+                  {loadingbutton ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <>
+                      {item?.status === "pending" && (
+
+                        <div className="w-full mb-[10px] mt-[30px]">
+                          <div className="flex flex-wrap flex-row items-center">
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => handleActiveStatues(item?._id, "approved")}
+                                className="min-w-[110px] border-[#4CAF50] bg-[#4CAF501A] text-[#4CAF50] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                onClick={() => handleActiveStatues(item?._id, "rejected")}
+                                className="min-w-[110px] border-[#EB3465] bg-[#EB34651A] text-[#EB3465] capitalize border font-[manrope] font-[600] text-[16px] text-center px-[15px] py-[6px] rounded-[60px]"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      )}
+                    </>
                   )}
+
                   <div className="w-full">
                     <div className="flex flex-wrap items-center justify-start py-4 gap-[5px] md:gap-[10px]">
                       <div>
@@ -564,12 +576,6 @@ export default function BookingView() {
                                 </p></>
                             ))
                           )}
-                          {
-
-
-
-                          }
-
                           <PaymentButton item={item} handlepayment={handlepayment} payment={payment} />
                         </>
                       </div>

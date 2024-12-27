@@ -1,8 +1,8 @@
 import React from "react";
 
 const Location = ({ venue }) => {
-    const location = venue.package_address ? venue.package_address : venue?.vicinity;
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+    const location = venue.package_address ? venue.package_address : venue?.formatted_address ? venue?.formatted_address : venue?.vicinity;
+    const googleMapsUrl = ``;
 
     return (
         <li className="text-white flex"><strong className="pe-2">    Location:</strong>

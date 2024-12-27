@@ -2,8 +2,9 @@ import React from "react";
 import ViewImage from "../../asstes/event.png";
 import { IoStar } from "react-icons/io5";
 // Ensure correct path to default image
+import DeleteVenue from "../Bookingmanagement/DeleteVenue";
 
-const VenuePhotos = ({ venue }) => {
+const VenuePhotos = ({ venue, Id, fetchData, item }) => {
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const getPhotoUrls = (photos) => {
     if (Array.isArray(photos) && photos.length > 0) {
@@ -12,31 +13,39 @@ const VenuePhotos = ({ venue }) => {
           if (photo?.photo_reference) {
             return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${apikey}`;
           }
-          return null; // Skip invalid entries
+          return null;
         })
-        .filter(Boolean); // Filter out null or undefined
+        .filter(Boolean); 
     }
-    return []; // Return an empty array if photos is invalid or empty
+    return []; 
   };
 
-  const photos = venue?.placeDetails?.photos || [];
+  const photos = venue?.photos ? venue?.placeDetails?.photos : venue?.photos || [];
   const photoUrls = getPhotoUrls(photos);
 
 
   return (
     <div className="relative">
-      {photoUrls.length > 0 ? (
+      {item?.package_data === "google"   ? (
         <>
           <div className="relative">
             <img
-              src={photoUrls[0]}
+              src={photoUrls[0] ? photoUrls[0] : ViewImage}
               alt={venue.name || "Venue Photo"}
               className="h-[250px] w-full object-cover"
             />
-            <div className="absolute top-2 right-2 bg-[#000] rounded-full px-4 py-1 text-xs flex items-center h-9 text-white">
-              <IoStar size={11} className="text-[#ffff00] mr-2" />
-              {venue?.rating}
-            </div>
+            {item?.package_data === "google" && (
+              <DeleteVenue Id={Id} venue={venue} fetchData={fetchData} item={item?.payment_genrator_link} />
+            )}
+            {/* <div className="absolute top-2 right-2 bg-red-600 hover:bg-red-500 rounded-full px-4 py-1 text-xs flex items-center h-9 text-white">
+              <MdDelete size={24} />
+            </div> */}
+            {venue.rating && (
+              <div className="absolute capitalize top-2 left-2 bg-[#000] rounded-full px-4 py-1 text-xs flex items-center h-9 text-white">
+                <IoStar size={11} className="text-[#ffff00] mr-2" />
+                {venue?.rating}
+              </div>
+            )}
             <div className="absolute bottom-1 left-1 text-white text-[13px] flex flex-wrap">
               {venue?.types
                 ?.filter((category) => category !== "point_of_interest") // Exclude point_of_interest
@@ -45,7 +54,7 @@ const VenuePhotos = ({ venue }) => {
                     key={index}
                     className="bg-black capitalize text-white px-3 py-1 rounded-full mr-1 mb-1 inline-block"
                   >
-                       {category?.replace("_", " ")}
+                    {category?.replace("_", " ")}
                   </span>
                 ))}
             </div>
@@ -53,7 +62,6 @@ const VenuePhotos = ({ venue }) => {
         </>
       ) : (
         <>
-
           <div className="relative">
             <img
               src={venue?.services_provider_image || ViewImage}
@@ -62,7 +70,7 @@ const VenuePhotos = ({ venue }) => {
             />
             <div className="absolute top-2 right-2 bg-[#000] rounded-full px-4 py-1 text-xs flex items-center h-9 text-white">
               <IoStar size={11} className="text-[#ffff00] mr-2" />
-              {venue.services_provider_rating || venue?.rating}
+              {venue.services_provider_rating}
             </div>
             {venue.services_provider_categries && (
               <div className="absolute capitalize top-2 left-2 bg-[#000] rounded-full px-4 py-1 text-xs flex items-center h-9 text-white">

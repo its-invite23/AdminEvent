@@ -188,7 +188,8 @@ export default function BookingList() {
                             >
                               {item?.totalPrice && (
                                 <span className="text-left">
-                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice}
+                       
+                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice?.toFixed(2)}
                                 </span>
                               )}
                             </span>
