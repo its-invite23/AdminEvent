@@ -90,6 +90,13 @@ export default function BookingList() {
     }
   };
 
+  const truncateText = (text,) => {
+    if (text.length <= 15) {
+      return text;
+    }
+    return text.slice(0, 15) + '...';
+  };
+
   return (
     <div className="w-full max-w-[100%]">
       <Header title={"All Booking"} />
@@ -163,7 +170,11 @@ export default function BookingList() {
                                 to={`/access-admin/booking/${item?._id}`}
                                 className="text-white hover:text-pink-500"
                               >
-                                {item?.package_name?.replace("_", " ")}
+                                {
+                                  truncateText(
+                                    item?.package_name?.replace("_", " ")
+                                  )
+                                }
                               </Link>
                             </div>
                             <span

@@ -228,8 +228,15 @@ export default function BookingView() {
 
   const totalPriceData = totalprice * item?.attendees * currencyprice;
 
-  // 
+
   const [results, setResults] = useState([]);
+
+  const truncateText = (text,) => {
+    if (text.length <= 25) {
+      return text;
+    }
+    return text.slice(0, 25) + '...';
+  };
 
   return (
     <>
@@ -408,12 +415,12 @@ export default function BookingView() {
                       className="border border-gray-700 p-4  rounded-xl flex-wrap  mb-3">
                       <div className="flex justify-between">
                         <div className="flex flex-col">
-                          <h2 className="text-white text-2xl capitalize">
-                            {venue.services_provider_name || venue?.name}
-                          </h2>
                           {/* <h2 className="text-white text-2xl capitalize">
-                            {truncateText(venue.services_provider_name || venue?.name, 20)}
+                            {venue.services_provider_name || venue?.name}
                           </h2> */}
+                          <h2 className="text-white text-2xl capitalize">
+                            {truncateText(venue.services_provider_name || venue?.name, 20)}
+                          </h2>
 
                           <div className="flex flex-col">
                             {venue?.services_provider_price && (
