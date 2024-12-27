@@ -172,7 +172,7 @@ export default function BookingList() {
                               >
                                 {
                                   truncateText(
-                                    item?.package_name?.replace("_", " ")
+                                    item?.package_name?.replaceAll("_", " ")
                                   )
                                 }
                               </Link>
