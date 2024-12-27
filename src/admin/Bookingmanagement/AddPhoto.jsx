@@ -84,7 +84,7 @@ const AddPhoto = ({ venue, Id, fetchData }) => {
                         key={index}
                         className="bg-black capitalize text-white px-3 py-1 rounded-full mr-1 mb-1 inline-block"
                       >
-                        {category?.replace("_", " ")}
+                        {category?.replaceAll("_", " ")}
                       </span>
                     ))}
                 </div>

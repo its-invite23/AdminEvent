@@ -54,7 +54,7 @@ const VenuePhotos = ({ venue, Id, fetchData, item }) => {
                     key={index}
                     className="bg-black capitalize text-white px-3 py-1 rounded-full mr-1 mb-1 inline-block"
                   >
-                    {category?.replace("_", " ")}
+                    {category?.replaceAll("_", " ")}
                   </span>
                 ))}
             </div>
@@ -83,7 +83,7 @@ const VenuePhotos = ({ venue, Id, fetchData, item }) => {
                   key={index}
                   className="bg-black capitalize text-white px-2 py-1 rounded-full mr-2 mb-2 inline-block"
                 >
-                  {category?.replace("_", " ")}
+                  {category?.replaceAll("_", " ")}
                 </span>
               ))}
             </div>
