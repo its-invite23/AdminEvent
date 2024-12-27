@@ -407,7 +407,7 @@ export default function AddPackage() {
                           onChange={handleOptionChange}
                           className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
                         />
-                        <span className="w-full text-white text-[22px]">Categories</span>
+                        <span className="w-full text-white text-[22px]">Catering</span>
                       </label>
 
                       {/* Radio Button for Activity */}
