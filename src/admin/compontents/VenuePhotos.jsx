@@ -15,9 +15,9 @@ const VenuePhotos = ({ venue, Id, fetchData, item }) => {
           }
           return null;
         })
-        .filter(Boolean); 
+        .filter(Boolean);
     }
-    return []; 
+    return [];
   };
 
   const photos = venue?.photos ? venue?.placeDetails?.photos : venue?.photos || [];
@@ -26,7 +26,7 @@ const VenuePhotos = ({ venue, Id, fetchData, item }) => {
 
   return (
     <div className="relative">
-      {item?.package_data === "google"   ? (
+      {item?.package_data === "google" ? (
         <>
           <div className="relative">
             <img

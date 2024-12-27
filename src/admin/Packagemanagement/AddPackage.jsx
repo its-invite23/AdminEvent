@@ -126,9 +126,9 @@ export default function AddPackage() {
           service_provider_image: serviceData.services_provider_image || "",
           package_descrption: serviceData.package_descrption || "",
           image_filed: serviceData.services_image_filed || "",
-          services_provider_categries :serviceData.services_provider_categries  || "",
+          services_provider_categries: serviceData.services_provider_categries || "",
         });
-        setSelectedOption(serviceData.services_provider_categries  || "")
+        setSelectedOption(serviceData.services_provider_categries || "")
         setLoading(false);
       }
     } catch (error) {

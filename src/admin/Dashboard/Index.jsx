@@ -31,7 +31,7 @@ export default function Index() {
   useEffect(() => {
     DashboardData();
   }, []);
-  
+
   return (
     <div className='w-full max-w-[100%]'>
       <Header title={"Dashboard"} />
@@ -41,7 +41,7 @@ export default function Index() {
         ) : (
           <div className='w-full'>
             <div className='w-full flex flex-wrap md:flex-nowrap gap-[15px] mb-[20px]'>
-              < Link  to="/access-admin/user" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              < Link to="/access-admin/user" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaUsers className='text-[#EB3465] text-[30px]' />
                 </div>
@@ -51,7 +51,7 @@ export default function Index() {
                 </div>
               </Link>
 
-              <Link  to="/access-admin/booking" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              <Link to="/access-admin/booking" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaListAlt className='text-[#EB3465] text-[30px]' />
                 </div>
@@ -61,7 +61,7 @@ export default function Index() {
                 </div>
               </Link>
 
-              <Link  to="/access-admin/enquiry" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
+              <Link to="/access-admin/enquiry" className='flex items-center gap-[5px] xl:gap-[8px] lg:gap-[10px] xl:gap-[15px] bg-[#1B1B1B] rounded-[10px] md:rounded-[10px] lg:rounded-[20px] p-[10px] md:p-[10px] lg:p-[25px] w-full md:w-4/12'>
                 <div className='flex items-center justify-center bg-[#302F2F] w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[80px] lg:h-[80px] rounded-[8px]'>
                   <FaUsers className='text-[#EB3465] text-[30px]' />
                 </div>

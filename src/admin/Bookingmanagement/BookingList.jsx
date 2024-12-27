@@ -163,7 +163,7 @@ export default function BookingList() {
                                 to={`/access-admin/booking/${item?._id}`}
                                 className="text-white hover:text-pink-500"
                               >
-                                {item?.package_name?.replace("_" ,  " ")}
+                                {item?.package_name?.replace("_", " ")}
                               </Link>
                             </div>
                             <span
@@ -188,7 +188,7 @@ export default function BookingList() {
                             >
                               {item?.totalPrice && (
                                 <span className="text-left">
-                       
+
                                   {currencySymbol[item?.CurrencyCode]} {item?.totalPrice?.toFixed(2)}
                                 </span>
                               )}

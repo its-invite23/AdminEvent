@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Listing from "../../Api/Listing";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
@@ -41,7 +41,7 @@ export default function ServicepackageImage({ index, setFormData, showimage, fet
     setLoading(true);
     const main = new Listing();
     try {
-      const res = await main.ImageDelete({ fileName: showimage?.services_provider_image, fileId: showimage?.services_image_filed }); 
+      const res = await main.ImageDelete({ fileName: showimage?.services_provider_image, fileId: showimage?.services_image_filed });
       if (res?.data) {
         fetchData(showimage?.id)
         toast.success(res.data.message);

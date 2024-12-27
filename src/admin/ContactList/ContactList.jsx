@@ -67,7 +67,7 @@ export default function ContactList() {
         <div className="flex flex-col">
           <div className="flex items-center justify-between mb-[20px]">
             <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">
-              Contact Us 
+              Contact Us
             </h2>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function ContactList() {
                     Message
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
-                     Status
+                    Status
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
                     Actions
@@ -124,7 +124,7 @@ export default function ContactList() {
                       </td>
 
                       <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                            <ViewMessage text={item.message} />
+                        <ViewMessage text={item.message} />
                       </td>
 
                       <td className={`capitalize	 font-manrope font-[600] text-[16px] text-left px-[10px] py-[16px] border-b   border-[#ffffff1a] ${item?.contact_status === 'pending' ? 'text-yellow-500' :
@@ -138,7 +138,7 @@ export default function ContactList() {
                         <ReplyMessage item={item} ContactUsGet={ContactUsGet} />
                       </td>
                       <td className="font-manrope whitespace-pre-wrap    font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
-                            <ViewMessage text={item.reply_message} />
+                        <ViewMessage text={item.reply_message} />
                       </td>
                     </tr>
                   ))

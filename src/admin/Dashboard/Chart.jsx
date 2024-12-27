@@ -5,7 +5,7 @@ import Listing from '../../Api/Listing';
 function Chart() {
   const [data, setData] = useState([]);
 
-  
+
   const Chart = () => {
     const main = new Listing();
     main.chartGet()

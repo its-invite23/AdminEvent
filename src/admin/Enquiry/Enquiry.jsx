@@ -66,7 +66,7 @@ export default function Enquiry() {
         <div className="flex flex-col">
           <div className="flex items-center justify-between mb-[20px]">
             <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[0]">
-            Recent  Inquiries
+              Recent  Inquiries
             </h2>
           </div>
         </div>

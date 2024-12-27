@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { MdDelete } from 'react-icons/md'
 import Listing from '../../Api/Listing';
 
-export default function DeleteVenue({ Id, venue, fetchData ,item }) {
+export default function DeleteVenue({ Id, venue, fetchData, item }) {
     const place_id = venue?.place_id
     const handleDeleteClick = () => {
         const main = new Listing();
@@ -24,7 +24,7 @@ export default function DeleteVenue({ Id, venue, fetchData ,item }) {
 
     };
     return (
-    
-        <div onClick={item  === true ? null : handleDeleteClick} className={`absolute top-2 right-2 rounded-full px-4 py-1 text-xs flex items-center h-9 text-white ${ item ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-500 cursor-pointer' }`} > <MdDelete size={24} /> </div>
+
+        <div onClick={item === true ? null : handleDeleteClick} className={`absolute top-2 right-2 rounded-full px-4 py-1 text-xs flex items-center h-9 text-white ${item ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-500 cursor-pointer'}`} > <MdDelete size={24} /> </div>
     )
 }

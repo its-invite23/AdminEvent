@@ -228,12 +228,7 @@ export default function BookingView() {
 
   const totalPriceData = totalprice * item?.attendees * currencyprice;
 
-  const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    return text.slice(0, maxLength) + '...';
-  };
+  // 
   const [results, setResults] = useState([]);
 
   return (

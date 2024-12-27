@@ -25,7 +25,7 @@ export default function PaymentList() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
 
-  const EnquiryList = async (pg, signal) => {
+  const PaymentListData = async (pg, signal) => {
     try {
       if (pg === 1) {
         setLoading(true);
@@ -59,7 +59,7 @@ export default function PaymentList() {
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
-    EnquiryList(page, signal);
+    PaymentListData(page, signal);
     return () => controller.abort();
   }, [page, limit]);
 
@@ -72,19 +72,18 @@ export default function PaymentList() {
     setId(e.target.value);
   };
 
-  
+
   useEffect(() => {
     if (Id && Id.length >= 3) {
-      handleSubmit(); 
+      handleSubmit();
     } else if (!Id || Id?.length === 0) {
-      EnquiryList(page); 
+      PaymentListData(page);
     }
   }, [Id]);
 
-
   const handleSubmit = async (e) => {
     try {
-      await EnquiryList(page); // Call fetch function for the first page
+      await PaymentListData(page); // Call fetch function for the first page
     } catch (error) {
       console.error("Error during search:", error?.response?.data?.message || error.message);
       toast.error(error?.response?.data?.message || "Failed to fetch data.");
@@ -156,24 +155,24 @@ export default function PaymentList() {
 
                     <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
-                        <Link
-                          to={`/access-admin/booking/${item?.booking_id?._id}`}
-                          className="text-white hover:text-pink-500"
-                        >
-                          {item?.booking_id?.package_name}
-                        </Link>
+                      <Link
+                        to={`/access-admin/booking/${item?.booking_id?._id}`}
+                        className="text-white hover:text-pink-500"
+                      >
+                        {item?.booking_id?.package_name}
+                      </Link>
                     </td>
 
 
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left capitalize  ">{item?.userId?.username}</td>
 
-                      <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
+                    <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                       <div className="mb-1">
-                      <span className="">
-                        {currencySymbol[item?.currency]}
-                      </span>
-                      {item?.amount}
+                        <span className="">
+                          {currencySymbol[item?.currency]}
+                        </span>
+                        {item?.amount}
                       </div>
                       <span
                         className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left ${item?.payment_status === "pending"

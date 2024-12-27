@@ -6,13 +6,13 @@ class Listing extends Component {
     return Api.get("/common/dashboard");
   }
   async ImageUpload(data) {
-    return Api.post("/cloud/upload" , data);
+    return Api.post("/cloud/upload", data);
   }
-  
+
   async ImageDelete(data) {
-    return Api.post("/package/delete" , data);
+    return Api.post("/package/delete", data);
   }
-  
+
   async login(data) {
     return Api.post("/user/admin/login", data);
   }
@@ -24,7 +24,7 @@ class Listing extends Component {
   async userupdatedstatus(data) {
     return Api.post("/user/updated_status", data);
   }
-  async profile(page, limit ,name) {
+  async profile(page, limit, name) {
     return Api.get(`/user/profile?page=${page}&limit=${limit}&search=${name}`);
   }
 
@@ -61,7 +61,7 @@ class Listing extends Component {
   async packageStatus(data) {
     return Api.post(`/package/package-update-status`, data);
   }
-  async contactGet(page,limit) {
+  async contactGet(page, limit) {
     return Api.get(`/contact/contact-get?page=${page}&limit=${limit}`);
   }
 
@@ -70,7 +70,7 @@ class Listing extends Component {
   }
 
 
-  async BookingGet(page ,limit ,name) {
+  async BookingGet(page, limit, name) {
     return Api.get(`/booking/booking-get?page=${page}&limit=${limit}&search=${name}`);
   }
   // const [isOpen, setIsOpen] = useState(false);
@@ -86,46 +86,47 @@ class Listing extends Component {
     return Api.get(`/booking/payment/${id}`);
   }
   async BookingStatus(data) {
-    return Api.post(`/booking/booking-status` , data);
+    return Api.post(`/booking/booking-status`, data);
   }
   async BookingPriceUpdate(data) {
-    return Api.post(`/booking/update-price` , data);
+    return Api.post(`/booking/update-price`, data);
   }
 
-  
+
   async CurrencyChange(currency) {
-    return Api.get(`/currency/get-rate/${currency}` );
+    return Api.get(`/currency/get-rate/${currency}`);
   }
   async BookingPayment(data) {
-    return Api.post(`/booking/booking-payment` , data);
+    return Api.post(`/booking/booking-payment`, data);
   }
 
   async Bookingupdate(data) {
-    return Api.post(`/booking/update-booking` , data);
+    return Api.post(`/booking/update-booking`, data);
   }
 
-  async BookingDelete(Id , Place_id) {
+  async BookingDelete(Id, Place_id) {
     return Api.get(`/booking/delete-booking/${Id}/${Place_id}`);
   }
-  async PaymentGet(page ,limit ,name) {
-    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}&search=${name}` );
+  async PaymentGet(page, limit, name) {
+    return Api.get(`/stripe/payment-get?page=${page}&limit=${limit}&search=${name}`);
   }
 
   async PackageContactGet(id) {
-    return Api.get(`/place/get-place-details/${id}` );
+    return Api.get(`/place/get-place-details/${id}`);
   }
 
   async chartGet() {
-    return Api.get(`/common/graph` );
+    return Api.get(`/common/graph`);
   }
 
   async SearchData(data) {
-    return Api.post(`/common/search` ,data );
+    return Api.post(`/common/search`, data);
   }
 
-  async searchPlaces(data) { 
-    const queryString = new URLSearchParams(data).toString(); 
-    return Api.get(`/place/get-place?${queryString}`); }
+  async searchPlaces(data) {
+    const queryString = new URLSearchParams(data).toString();
+    return Api.get(`/place/get-place?${queryString}`);
+  }
   render() {
     return (
       <div>
