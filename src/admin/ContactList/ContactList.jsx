@@ -3,9 +3,9 @@ import Header from "../compontents/Header.jsx";
 import Listing from "../../Api/Listing.jsx";
 import LoadingSpinner from "../compontents/LoadingSpinner.jsx";
 import ReplyMessage from "./ReplyMessage.jsx";
-
 import NoDataPage from "../compontents/NoDataPage.jsx";
 import ViewMessage from "../compontents/ViewMessage.jsx";
+import moment from "moment";
 
 export default function ContactList() {
   const [listing, setLisitng] = useState([]);
@@ -82,6 +82,9 @@ export default function ContactList() {
                     S. No.
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
+                    Date
+                  </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">
                     Name & Phone Number
                   </th>
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px] mb-[10px]">
@@ -111,6 +114,8 @@ export default function ContactList() {
                       <td className="font-manrope font-[600] text-white text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a] text-left">
                         {index + 1}
                       </td>
+                      <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
+                        {moment(item?.created_at).format('MMMM Do, YYYY')}                          </td>
                       <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                         {/* Username */}
                         <div className="mb-2 ">

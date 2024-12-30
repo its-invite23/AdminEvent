@@ -9,8 +9,10 @@ import { TbCurrencyDirham } from "react-icons/tb";
 import { IoMdSearch } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import toast from 'react-hot-toast';
+import moment from "moment";
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")
@@ -131,6 +133,9 @@ export default function BookingList() {
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px]">
                     S. No.
                   </th>
+                  <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px]">
+                   Date
+                  </th>
 
                   <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left  p-[10px] mb-[10px] ">
                     Event Type
@@ -162,6 +167,10 @@ export default function BookingList() {
                           <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
                             {index + 1}
                           </td>
+
+                          <td className="font-manrope font-[600] text-white text-[16px] text-left  px-[10px] py-[16px]  border-b border-[#ffffff1a]   ">
+                            {moment(item?.created_at).format('MMMM Do, YYYY')}                          </td>
+
 
                           <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a]">
                             {/* Username */}

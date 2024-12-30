@@ -443,7 +443,7 @@ export default function BookingView() {
                             <div className="flex flex-col items-start">
                               {venue.price_level && (
                                 <p className="text-white font-bold my-2 text-[20px] mr-4">
-                                  <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue.price_level.toFixed(2) * currencyprice} /> Per Person
+                                  <Valuedata currency={currency} amount={isNaN(venue.price_level) ? 0 : venue?.price_level?.toFixed(2) * currencyprice} /> Per Person
                                 </p>
                               )}
 
@@ -488,8 +488,8 @@ export default function BookingView() {
                   <ul className="bg-[#0006] p-6 rounded-xl">
                     {item?.package?.map((venue, index) => {
                       const price = venue?.price_level ? parseFloat(venue?.price_level) : parseFloat(venue?.services_provider_price);
-                      const validPrice = isNaN(price) ? 0 : price.toFixed(2);
-                      const totalPrice = (validPrice * currencyprice).toFixed(2);
+                      const validPrice = isNaN(price) ? 0 : price?.toFixed(2);
+                      const totalPrice = (validPrice * currencyprice)?.toFixed(2);
                       const validTotalPrice = isNaN(totalPrice) ? 0 : totalPrice;
 
                       return (
