@@ -439,7 +439,7 @@ export default function AddPackage() {
 
                     {/* Display the Selected Option */}
                     <p className="mt-4 text-[18px] ">
-                      Selected Option: <span className="font-bold">{selectedOption || "None"}</span>
+                      Selected Option: <span className="font-bold">{selectedOption === "Categories" ?  "Catering": selectedOption  || "None"}</span>
                     </p>
                   </div>
                 </div>
