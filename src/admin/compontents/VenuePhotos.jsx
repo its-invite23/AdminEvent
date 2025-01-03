@@ -5,6 +5,7 @@ import { IoStar } from "react-icons/io5";
 import DeleteVenue from "../Bookingmanagement/DeleteVenue";
 
 const VenuePhotos = ({ venue, Id, fetchData, item }) => {
+  console.log("venue", venue)
   const apikey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const getPhotoUrls = (photos) => {
     if (Array.isArray(photos) && photos.length > 0) {
@@ -20,7 +21,7 @@ const VenuePhotos = ({ venue, Id, fetchData, item }) => {
     return [];
   };
 
-  const photos = venue?.photos ? venue?.placeDetails?.photos : venue?.photos || [];
+  const photos = venue?.placeDetails?.photos ? venue?.placeDetails?.photos : venue?.photos;
   const photoUrls = getPhotoUrls(photos);
 
 

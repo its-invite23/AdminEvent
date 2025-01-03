@@ -30,7 +30,7 @@ export default function BookingView() {
     try {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
-      console.log("response", response?.data?.data?.formData)
+      console.log("response", response)
       setformdata(response?.data?.data?.formData && (JSON.parse(response?.data?.data?.formData)))
       setItem(response?.data?.data);
       setPrice(response?.data?.data?.totalPrice)
@@ -48,6 +48,10 @@ export default function BookingView() {
   const handleActiveStatues = (Id, status) => {
     if (!Id || !status) {
       toast.error("Invalid ID or status. Please check your input.");
+      return;
+    }
+    if (item?.package?.length === 0) {
+      toast.error("Please Add Package");
       return;
     }
     if (!price) {
@@ -248,7 +252,7 @@ export default function BookingView() {
       <p className="text-[#EB3465] text-[13px] md:text-[16px] lg:text-[18px]">
         {label}
       </p>
-      <p className="text-white text-[13px] md:text-[18px] lg:text-[20px] break-words">
+      <p className="text-white text-[13px] md:text-[16px] lg:text-[18px] break-words">
         {value}
       </p>
     </div>
@@ -369,16 +373,16 @@ export default function BookingView() {
 
 
                   </div>
-                  {/* {formdata?.length !== 0 && (
+                  {formdata?.length !== 0 && (
                     <div className=" p-1 mt-4 mb-4 ">
                       <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">User Filled Form Data</h2>
 
                       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] md:gap-[15px] lg:gap-[20px]">
                         <RecapDetail
-                          label="📅 Date:"
+                          label="📅 Date & Time:"
                           value={
                             formdata?.day && formdata?.month && formdata?.year
-                              ? `${formdata.day}-${formdata.month}-${formdata.year}`
+                              ? `${formdata.day}-${formdata.month}-${formdata.year},  ${formdata?.time}`
                               : "N/A"
                           }
                         />
@@ -394,13 +398,17 @@ export default function BookingView() {
                           label="👥 Number of Attendees:"
                           value={formdata?.people || "N/A"}
                         />
-                      </div>
-
-                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] md:gap-[15px] lg:gap-[20px] mt-[5px] lg:mt-[10px]">
                         <RecapDetail
                           label="🍔 Food:"
                           value={
                             formdata?.food_eat?.join(", ") ||
+                            "N/A"
+                          }
+                        />
+                        <RecapDetail
+                          label=" Place:"
+                          value={
+                            formdata?.place ||
                             "N/A"
                           }
                         />
@@ -413,29 +421,61 @@ export default function BookingView() {
                           value={formdata?.activity?.join(", ") || "N/A"}
                         />
                         <RecapDetail
+                          label="👤 Fist Name:"
+                          value={formdata?.firstname || "N/A"}
+                        />
+                        <RecapDetail
+                          label="👤 Last Name:"
+                          value={formdata?.lastname || "N/A"}
+                        />
+                        <RecapDetail
+                          label="📞 Phone:"
+                          value={
+                            formdata?.phone_code && formdata?.number
+                              ? `${formdata.phone_code} ${formdata.number}`
+                              : "N/A"
+                          }
+                        />
+
+                        <RecapDetail
                           label="✉️ Email:"
                           value={formdata?.email || "N/A"}
                         />
-                      </div>
 
-                      <div className="gap-[10px] md:gap-[15px] lg:gap-[20px] mt-[10px]">
+                        <RecapDetail
+                          label="🏠 Private Place:"
+                          value={formdata?.Privatize_place || "N/A"}
+                        />
+                        <RecapDetail
+                          label="🎯 Private Activity:"
+                          value={formdata?.Privatize_activity || "N/A"}
+                        />
                         <RecapDetail
                           label="⌛ Description:"
                           value={formdata?.details || "N/A"}
                         />
                       </div>
+
+                      <div className="gap-[10px] md:gap-[15px] lg:gap-[20px] mt-[10px]">
+              <RecapDetail
+                label="⌛Event description:"
+                value={formdata?.summary || "N/A"}
+              />
+            </div>
                     </div>
-                  )} */}
+                  )}
 
                   {item?.status === "pending" && (
                     <SearchPlaces results={results} setResults={setResults} Id={Id} fetchData={fetchData} item={item} />
                   )}
+                  {item?.package?.length !== 0 && (
 
-                  <div className="flex flex-wrap justify-between items-center">
-                    <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
-                      Existing Services Providers
-                    </h2>
-                  </div>
+                    <div className="flex flex-wrap justify-between items-center">
+                      <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">
+                        Existing Services Providers
+                      </h2>
+                    </div>
+                  )}
                   <div className="mt-2 mb-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                     {item?.package?.map((venue, index) => (
                       <div
