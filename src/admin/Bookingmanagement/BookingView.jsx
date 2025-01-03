@@ -24,10 +24,14 @@ export default function BookingView() {
   const { Id } = useParams();
   const currencies = ["USD", "AED", "GBP", "EUR"];
   const navigate = useNavigate();
+  const [formdata, setformdata] = useState([])
+  console.log("formdata", formdata)
   const fetchData = async () => {
     try {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
+      console.log("response", response?.data?.data?.formData)
+      setformdata(response?.data?.data?.formData && (JSON.parse(response?.data?.data?.formData)))
       setItem(response?.data?.data);
       setPrice(response?.data?.data?.totalPrice)
       setAttend(response?.data?.data?.attendees)
@@ -238,6 +242,24 @@ export default function BookingView() {
     return text.slice(0, 25) + '...';
   };
 
+
+  const RecapDetail = ({ label, value }) => (
+    <div className="rounded-lg">
+      <p className="text-[#EB3465] text-[13px] md:text-[16px] lg:text-[18px]">
+        {label}
+      </p>
+      <p className="text-white text-[13px] md:text-[18px] lg:text-[20px] break-words">
+        {value}
+      </p>
+    </div>
+  );
+
+  const priceText = {
+    1: "Budget-friendly place",
+    2: "Mid-range place with good value",
+    3: "Higher-end place",
+    4: "Luxury and premium option",
+  };
   return (
     <>
       {loading ? (
@@ -347,6 +369,64 @@ export default function BookingView() {
 
 
                   </div>
+                  {formdata?.length !== 0 && (
+                    <div className=" p-1 mt-4 mb-4 ">
+                      <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">Get Started Flow</h2>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] md:gap-[15px] lg:gap-[20px]">
+                        <RecapDetail
+                          label="📅 Date:"
+                          value={
+                            formdata?.day && formdata?.month && formdata?.year
+                              ? `${formdata.day}-${formdata.month}-${formdata.year}`
+                              : "N/A"
+                          }
+                        />
+                        <RecapDetail
+                          label="🗺️ Location:"
+                          value={formdata?.area || "N/A"}
+                        />
+                        <RecapDetail
+                          label="🥳 Event Type:"
+                          value={formdata?.event_type?.replaceAll("_", " ") || "N/A"}
+                        />
+                        <RecapDetail
+                          label="👥 Number of Attendees:"
+                          value={formdata?.people || "N/A"}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] md:gap-[15px] lg:gap-[20px] mt-[5px] lg:mt-[10px]">
+                        <RecapDetail
+                          label="🍔 Food:"
+                          value={
+                            formdata?.food_eat?.join(", ") ||
+                            "N/A"
+                          }
+                        />
+                        <RecapDetail
+                          label="💵 Budget:"
+                          value={priceText[formdata?.budget] || "N/A"}
+                        />
+                        <RecapDetail
+                          label="🎳 Activity:"
+                          value={formdata?.activity?.join(", ") || "N/A"}
+                        />
+                        <RecapDetail
+                          label="✉️ Email:"
+                          value={formdata?.email || "N/A"}
+                        />
+                      </div>
+
+                      <div className="gap-[10px] md:gap-[15px] lg:gap-[20px] mt-[10px]">
+                        <RecapDetail
+                          label="⌛ Description:"
+                          value={formdata?.details || "N/A"}
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   {item?.status === "pending" && (
                     <SearchPlaces results={results} setResults={setResults} Id={Id} fetchData={fetchData} item={item} />
                   )}
@@ -390,7 +470,7 @@ export default function BookingView() {
                           {venue.name && (
                             <ul>
                               <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue?.placeDetails?.international_phone_number && (<Link to={`tel:${venue?.placeDetails?.international_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue?.placeDetails?.international_phone_number} </Link>)}</li>
-                              <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue.placeDetails.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
+                              <li className="text-white flex"><strong className="pe-2">Phone:</strong> {venue.placeDetails?.formatted_phone_number && (<Link to={`tel:${venue.placeDetails.formatted_phone_number}`} className="flex items-center text-white hover:text-[#4CAF50]" >  {venue.placeDetails.formatted_phone_number} </Link>)}</li>
                               <Location venue={venue} />
                             </ul>
                           )}
