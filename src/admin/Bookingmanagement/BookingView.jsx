@@ -369,9 +369,9 @@ export default function BookingView() {
 
 
                   </div>
-                  {formdata?.length !== 0 && (
+                  {/* {formdata?.length !== 0 && (
                     <div className=" p-1 mt-4 mb-4 ">
-                      <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">Get Started Flow</h2>
+                      <h2 className="font-manrope font-[600] text-white text-[18px] md:text-[24px] mb-[15px]">User Filled Form Data</h2>
 
                       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-[10px] md:gap-[15px] lg:gap-[20px]">
                         <RecapDetail
@@ -425,7 +425,7 @@ export default function BookingView() {
                         />
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {item?.status === "pending" && (
                     <SearchPlaces results={results} setResults={setResults} Id={Id} fetchData={fetchData} item={item} />
