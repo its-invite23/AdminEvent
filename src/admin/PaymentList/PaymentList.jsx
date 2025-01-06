@@ -9,6 +9,7 @@ import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 import { TbCurrencyDirham } from "react-icons/tb";
 import { IoMdSearch } from "react-icons/io";
 import toast from "react-hot-toast";
+import Valuedata from "../compontents/Valuedata";
 
 export default function PaymentList() {
   const currencySymbol = {
@@ -18,6 +19,7 @@ export default function PaymentList() {
     GBP: <FaPoundSign size={18} className="inline" />,
   };
   const [listing, setLisitng] = useState([]);
+  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(15);
@@ -169,10 +171,9 @@ export default function PaymentList() {
                     <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                       <div className="mb-1">
-                        <span className="">
-                          {currencySymbol[item?.currency]}
-                        </span>
-                        {item?.amount}
+
+<Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
+
                       </div>
                       <span
                         className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left ${item?.payment_status === "pending"

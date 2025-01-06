@@ -11,7 +11,7 @@ export const formatMultiPrice = (amount, currency) => {
 
 const Valuedata = ({ amount, currency }) => {
   const formattedAmount = formatMultiPrice(amount, currency);
-  return <span className=''>{formattedAmount}</span>;
+  return <span className=''> {formattedAmount}</span>;
 };
 
 export default Valuedata;

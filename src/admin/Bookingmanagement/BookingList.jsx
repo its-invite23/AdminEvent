@@ -10,6 +10,7 @@ import { IoMdSearch } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import toast from 'react-hot-toast';
 import moment from "moment";
+import Valuedata from "../compontents/Valuedata";
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
   console.log("listing",listing)
@@ -208,8 +209,7 @@ export default function BookingList() {
                             >
                               {item?.totalPrice && (
                                 <span className="text-left">
-
-                                  {currencySymbol[item?.CurrencyCode]} {item?.totalPrice?.toFixed(2)}
+<Valuedata amount={item?.totalPrice?.toFixed(2)} currency={item?.CurrencyCode} />
                                 </span>
                               )}
                             </span>
