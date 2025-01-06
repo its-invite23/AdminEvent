@@ -20,7 +20,7 @@ function Package({ packages }) {
                             <div className="flex gap-[10px] items-center justify-center rounded-[5px] w-[38px] min-w-[38px] h-[38px] 
                         md:w-[40px] md:h-[40px] lg:w-[45px] lg:h-[45px] xl:w-[60px] xl:h-[60px] bg-[#302F2F]">
                                 {item?.package_image ? (
-                                    <img src={item?.package_image} alt="package" />
+                                    <img className="w-[100%] max-h-[50px] min-h-[50px] object-cover" src={item?.package_image} alt="package" />
                                 ) : (
                                     <MdCake className="text-[#EB3465] text-[25px]" />
                                 )}
