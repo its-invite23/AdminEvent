@@ -85,7 +85,7 @@ export default function Enquiry() {
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left p-[10px] mb-[10px]">Name & Phone Number</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Email</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">No. of attendees</th>
-                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Event Name & Type</th>
+                    <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Event Location & Type</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Enquiry Status</th>
                     <th className="border-b border-[#ffffff59] font-manrope text-[14px] text-[#ffffff59] uppercase text-left   p-[10px]">Message</th>
 
