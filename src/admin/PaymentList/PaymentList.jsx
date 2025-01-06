@@ -19,7 +19,7 @@ export default function PaymentList() {
     GBP: <FaPoundSign size={18} className="inline" />,
   };
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
+  console.log("listing", listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(15);
@@ -161,7 +161,7 @@ export default function PaymentList() {
                         to={`/access-admin/booking/${item?.booking_id?._id}`}
                         className="text-white hover:text-pink-500"
                       >
-                        {item?.booking_id?.package_name}
+                        {item?.booking_id?.package_name?.replaceAll("_", " ")}
                       </Link>
                     </td>
 
@@ -172,7 +172,7 @@ export default function PaymentList() {
                       {/* Username */}
                       <div className="mb-1">
 
-<Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
+                        <Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
 
                       </div>
                       <span
