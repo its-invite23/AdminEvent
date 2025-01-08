@@ -160,7 +160,7 @@ export default function PaymentList() {
                         to={`/access-admin/booking/${item?.booking_id?._id}`}
                         className="text-white hover:text-pink-500"
                       >
-                        {item?.booking_id?.package_name}
+                        {item?.booking_id?.package_name?.replaceAll("_", " ")}
                       </Link>
                     </td>
 
