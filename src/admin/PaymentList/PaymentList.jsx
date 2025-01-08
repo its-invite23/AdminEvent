@@ -163,16 +163,11 @@ export default function PaymentList() {
                         {item?.booking_id?.package_name?.replaceAll("_", " ")}
                       </Link>
                     </td>
-
-
                     <td className="font-manrope font-[600] text-white text-[16px]  px-[10px] py-[16px]  border-b border-[#ffffff1a] text-left capitalize  ">{item?.userId?.username}</td>
-
                     <td className="capitalize font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left px-[10px] py-[16px] border-b border-[#ffffff1a]">
                       {/* Username */}
                       <div className="mb-1">
-
                         <Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
-
                       </div>
                       <span
                         className={`capitalize min-w-[110px] m-auto font-[manrope] font-[600] text-[12px] lg:text-[14px] xl:text-[16px] text-left ${item?.payment_status === "pending"
