@@ -13,7 +13,6 @@ import moment from "moment";
 import Valuedata from "../compontents/Valuedata";
 export default function BookingList() {
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const [Id, setId] = useState("")

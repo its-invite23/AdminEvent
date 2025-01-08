@@ -19,7 +19,6 @@ export default function PaymentList() {
     GBP: <FaPoundSign size={18} className="inline" />,
   };
   const [listing, setLisitng] = useState([]);
-  console.log("listing",listing)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(15);
@@ -172,7 +171,7 @@ export default function PaymentList() {
                       {/* Username */}
                       <div className="mb-1">
 
-<Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
+                        <Valuedata amount={item?.amount?.toFixed(2)} currency={item?.currency} />
 
                       </div>
                       <span

@@ -25,12 +25,10 @@ export default function BookingView() {
   const currencies = ["USD", "AED", "GBP", "EUR"];
   const navigate = useNavigate();
   const [formdata, setformdata] = useState([])
-  console.log("formdata", formdata)
   const fetchData = async () => {
     try {
       const main = new Listing();
       const response = await main.BookingGetID(Id);
-      console.log("response", response)
       setformdata(response?.data?.data?.formData && (JSON.parse(response?.data?.data?.formData)))
       setItem(response?.data?.data);
       setPrice(response?.data?.data?.totalPrice)
