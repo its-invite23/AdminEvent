@@ -45,14 +45,12 @@ export default function PaymentList() {
         setHasMore(response.data.data.nextPage !== null);
         setLoadingButton(false);
         setLoading(false);
-
       }
     } catch (error) {
       console.error("Error fetching package data:", error);
     } finally {
       setLoading(false);
       setLoadingButton(false);
-
     }
   };
 
