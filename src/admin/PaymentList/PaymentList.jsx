@@ -5,19 +5,11 @@ import LoadingSpinner from "../compontents/LoadingSpinner";
 import moment from "moment";
 import NoDataPage from "../compontents/NoDataPage"
 import { Link } from "react-router-dom";
-import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
-import { TbCurrencyDirham } from "react-icons/tb";
 import { IoMdSearch } from "react-icons/io";
 import toast from "react-hot-toast";
 import Valuedata from "../compontents/Valuedata";
 
 export default function PaymentList() {
-  const currencySymbol = {
-    USD: <FaDollarSign size={18} className="inline" />,
-    EUR: <FaEuroSign size={18} className="inline" />,
-    AED: <TbCurrencyDirham size={18} className="inline" />,
-    GBP: <FaPoundSign size={18} className="inline" />,
-  };
   const [listing, setLisitng] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -182,12 +174,9 @@ export default function PaymentList() {
                     </td>
                   </tr>
                 ))}
-
               </table>
             ))
-
           }
-
         </div>
       </div>
       <div className="mt-[10px] mb-[10px] lg:mt-[10px] lg:mb-[20px] flex justify-center items-center">

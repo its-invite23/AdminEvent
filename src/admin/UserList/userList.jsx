@@ -148,9 +148,6 @@ export default function UserList() {
                     <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Country
                     </th>
-                    <th className="border-b border-[#ffffff59] font-manrope  text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
-                      city
-                    </th>
                     <th className=" w-[380px] min-w-[380px]  border-b border-[#ffffff59] font-manrope text-[12px] lg:text-[14px] text-[#ffffff59] uppercase text-left  p-[10px]">
                       Address
                     </th>
@@ -197,9 +194,6 @@ export default function UserList() {
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         {item?.country
                         }
-                      </td>
-                      <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
-                        {item?.city}
                       </td>
                       <td className="font-manrope font-[600] text-white text-[12px] lg:text-[14px] xl:text-[16px] text-left  px-[10px] py-[16px] border-b border-[#ffffff1a] ">
                         <div className="felx  justify-center  whitespace-normal break-words">
