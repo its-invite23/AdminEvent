@@ -30,12 +30,6 @@ const Searchplaces = ({ results, setResults, Id, fetchData, item }) => {
     (venue) => !item?.package?.some((pkg) => pkg?.place_id === venue?.place_id)
   );
 
-  //   useEffect(() => {
-  //     // Trigger search if query length is 1 or 3 or more
-  //     if ((query && query.length >= 3) || query?.length === 1) {
-  //       handleSearch();
-  //     }
-  //   }, [query]);
 
   return (
     <>
