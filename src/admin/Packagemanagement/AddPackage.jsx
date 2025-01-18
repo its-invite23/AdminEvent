@@ -10,7 +10,6 @@ import ServicepackageImage from './ServicepackageImage';
 export default function AddPackage() {
   const { Id } = useParams();
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState(""); // State to store the selected option
 
   const [formData, setFormData] = useState({
     package_name: "",
@@ -25,19 +24,18 @@ export default function AddPackage() {
     image_filed: "",
   });
 
-  const handleOptionChange = (e) => {
+  const handleOptionChange = (e, index) => {
     const value = e.target.value;
-    setSelectedOption(value); // Update the selected option
-
-    // Update services_provider_categries for all services
     setFormData((prevState) => ({
       ...prevState,
-      package_services: prevState.package_services.map(service => ({
-        ...service,
-        services_provider_categries: value,
-      })),
+      package_services: prevState.package_services.map((service, i) =>
+        i === index
+          ? { ...service, services_provider_categries: value } // Update the specific service provider
+          : service // Keep others unchanged
+      ),
     }));
   };
+
   const removePackage = (index) => {
     setFormData((prevState) => {
       const updatedServices = [...prevState.package_services];
@@ -77,7 +75,7 @@ export default function AddPackage() {
           services_provider_name: "",
           package_address: "",
           services_image_filed: "",
-          services_provider_categries: selectedOption || "",
+          services_provider_categries: "",
           package_descrption: "",
           services_provider_price: "",
           services_provider_rating: '',
@@ -128,7 +126,6 @@ export default function AddPackage() {
           image_filed: serviceData.services_image_filed || "",
           services_provider_categries: serviceData.services_provider_categries || "",
         });
-        setSelectedOption(serviceData.services_provider_categries || "")
         setLoading(false);
       }
     } catch (error) {
@@ -380,69 +377,66 @@ export default function AddPackage() {
                     required
                   />
                 </div>
-                <div className="mb-4">
-                  <div className="bg-[#1B1B1B] p-4 rounded-lg text-white w-full">
-                    <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services Provider Categories</label>
-                    <div className="flex flex-row gap-4 w-full">
-                      {/* Radio Button for Venue */}
-                      <label className="flex items-center gap-2 text-[18px] w-full">
-                        <input
-                          type="radio"
-                          name="services_provider_categries"
-                          value="Venue"
-                          checked={selectedOption === "Venue"}
-                          onChange={handleOptionChange}
-                          className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
-                        />
-                        <span className="w-full text-white text-[22px]">Venue</span>
-                      </label>
 
-                      {/* Radio Button for Categories */}
-                      <label className="flex items-center gap-2 w-full">
-                        <input
-                          type="radio"
-                          name="services_provider_categries"
-                          value="Categories"
-                          checked={selectedOption === "Categories"}
-                          onChange={handleOptionChange}
-                          className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
-                        />
-                        <span className="w-full text-white text-[22px]">Catering</span>
-                      </label>
+                <div className="flex flex-row gap-4 w-full">
+                  {/* Radio Button for Venue */}
+                  <label className="flex items-center gap-2 text-[18px] w-full">
+                    <input
+                      type="radio"
+                      name={`services_provider_categries_${index}`} // Unique name
+                      value="Venue"
+                      checked={packageData.services_provider_categries === "Venue"}
+                      onChange={(e) => handleOptionChange(e, index)} // Pass index
+                      className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
+                    />
+                    <span className="w-full text-white text-[22px]">Venue</span>
+                  </label>
 
-                      {/* Radio Button for Activity */}
-                      <label className="flex items-center gap-2 w-full">
-                        <input
-                          type="radio"
-                          name="services_provider_categries"
-                          value="Activity"
-                          checked={selectedOption === "Activity"}
-                          onChange={handleOptionChange}
-                          className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
-                        />
-                        <span className="w-full  text-[22px] text-white">Activity</span>
-                      </label>
+                  {/* Radio Button for Categories */}
+                  <label className="flex items-center gap-2 w-full">
+                    <input
+                      type="radio"
+                      name={`services_provider_categries_${index}`} // Unique name
+                      value="Catering"
+                      checked={packageData.services_provider_categries === "Catering"}
+                      onChange={(e) => handleOptionChange(e, index)} // Pass index
+                      className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
+                    />
+                    <span className="w-full text-white text-[22px]">Catering</span>
+                  </label>
 
-                      {/* Radio Button for Other */}
-                      <label className="flex items-center gap-2 w-full">
-                        <input
-                          type="radio"
-                          name="services_provider_categries"
-                          value="Other"
-                          checked={selectedOption === "Other"}
-                          onChange={handleOptionChange}
-                          className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
-                        />
-                        <span className="w-full text-[22px]  text-white">Other</span>
-                      </label>
-                    </div>
+                  {/* Radio Button for Activity */}
+                  <label className="flex items-center gap-2 w-full">
+                    <input
+                      type="radio"
+                      name={`services_provider_categries_${index}`} // Unique name
+                      value="Activity"
+                      checked={packageData.services_provider_categries === "Activity"}
+                      onChange={(e) => handleOptionChange(e, index)} // Pass index
+                      className="bg-[#1B1B1B] border-[#ffffff14] text-[22px] text-white hover:outline-none focus:outline-none"
+                    />
+                    <span className="w-full text-[22px] text-white">Activity</span>
+                  </label>
 
-                    {/* Display the Selected Option */}
-                    <p className="mt-4 text-[18px] ">
-                      Selected Option: <span className="font-bold">{selectedOption === "Categories" ?  "Catering": selectedOption  || "None"}</span>
-                    </p>
-                  </div>
+                  {/* Radio Button for Other */}
+                  <label className="flex items-center gap-2 w-full">
+                    <input
+                      type="radio"
+                      name={`services_provider_categries_${index}`} // Unique name
+                      value="Other"
+                      checked={packageData.services_provider_categries === "Other"}
+                      onChange={(e) => handleOptionChange(e, index)} // Pass index
+                      className="bg-[#1B1B1B] text-[22px] border-[#ffffff14] text-white hover:outline-none focus:outline-none"
+                    />
+                    <span className="w-full text-[22px]  text-white">Other</span>
+                  </label>
                 </div>
+                <p className="mt-4 text-[18px] text-white mb-4">
+                  Selected Option: <span className="font-bold">{packageData.services_provider_categries || "None"}</span>
+                </p>
+
+
+
                 <div className="mb-4">
                   <label className="block w-full font-manrope font-[400] text-[14px] md:text-[16px] xl:text-[18px] text-white mb-[10px]">Services  Categories (comma-separated)</label>
                   <input
